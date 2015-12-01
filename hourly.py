@@ -6,6 +6,9 @@ from framework import weather
 # It fetches the forecast from weather underground,
 # then displays it in a table-based format.
 #
+# It also redirects back to the home page after 2 minutes,
+# in case someone left it on this screen by accident.
+#
 # If you are looking for how to change it to your own location,
 # You can find that option in weather.py
 #
