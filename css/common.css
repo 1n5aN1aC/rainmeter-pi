@@ -1,0 +1,43 @@
+/*******************************************************************
+This file is for CSS used on many different pages
+Make sure we only put bits here that are universal
+and the same across all pages.
+*******************************************************************/
+
+body, html {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+a, a:hover, a:visited{
+	display: block;
+	color: #000000;
+	text-decoration: none;
+}
+
+html {
+	overflow: hidden;
+}
+
+.box {
+	position: absolute;
+	height: 120px;
+	width: 120px;
+	margin: 0;
+	padding: 0;
+	border: 1px solid #000000;
+}
+
+#logo {
+	zoom: 2;  //increase if you have very small images
+
+    display: block;
+    margin: auto;
+
+    height: auto;
+    max-height: 100%;
+
+    width: auto;
+    max-width: 100%;
+}

@@ -1,0 +1,51 @@
+/*******************************************************************
+This file is for CSS used on only the hour-by-hour forcast page.
+*******************************************************************/
+
+.scrollpanel {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 360px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	overflow: auto;
+}
+
+tr:nth-child(even) {
+    background-color: #D1D1EE;
+}
+
+img.small {
+	height: 40px;
+	width: 40px;
+}
+
+table {
+	width: 100%;
+}
+
+.rightbar {
+	position: fixed;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 118px;
+	border-left: 3px solid #009900;
+}
+
+.back {
+	position: absolute;
+	height: 80px;
+	width: 118px;
+	right: 0px;
+	bottom: 0px;
+}
+
+#logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto
+}

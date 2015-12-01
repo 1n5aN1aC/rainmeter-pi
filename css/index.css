@@ -1,0 +1,52 @@
+/***************************************************
+This file is for CSS used on only the home page.
+***************************************************/
+
+.main {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 240px;
+	width: 360px;
+}
+
+.rightbar {
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 120px;
+	border-left: 3px solid #009900;
+}
+
+.now {
+	bottom: 0;
+	height: 119px;
+	width: 100%;
+	border-bottom: 2px solid #000099;
+	text-align: center;
+}
+
+.topmiddle {
+	height: 119px;
+	width: 100%;
+}
+
+.forcastbutton {
+	bottom: 0;
+	height: 80px;
+	width: 100%;
+	border-top: 3px solid #009900;
+}
+
+.measure {
+	display: inline-block;
+	width: 32%;
+	border: 1px solid #000099;
+	overflow: hidden;
+}
+
+span.value {
+	font-family: 'Play', sans-serif;
+	font-size: 40px;
+}

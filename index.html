@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="refresh" content="43200">
+		<link href='https://fonts.googleapis.com/css?family=Play:700' rel='stylesheet' type='text/css'>
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="/css/common.css">
+		<link rel="stylesheet" type="text/css" href="/css/index.css">
+		<script src="/js/value_refresher.js"></script>
+	</head>
+	<body>
+		<div class='main'>
+			<div class="measure">Inside:</br><span class="value" id="IN_Temp">--</span>°F </br> <span class="value" id="IN_Humid">--</span>%</div>
+			<div class="measure">Outside:</br><span class="value" id="OUT_Temp">--</span>°F </br> <span class="value" id="OUT_Humid">--</span>% </div>
+			<div class="measure">Attic:</br><span class="value" id="ATTIC_Temp">--</span>°F </br> <span class="value" id="ATTIC_Humid">--</span>% </div>
+			</br>
+			Wind: <span class="value" id="OUT_Wind_Avg">--</span><sub>mph</sub> / <span class="value" id="OUT_Wind_Max">--</span><sub>mph</sub></br>
+			Rain: <span class="value" id="OUT_Rain_Today">--</span>in / 
+				 <span class="value" id="OUT_Rain_Last_24h">--</span>in / 
+				 <span class="value" id="OUT_Rain_Since_Reset">--</span>in</br>
+		</div>
+		<div class='rightbar'>
+			<div class="now">
+				feels like: <span id="NOW_Feel">--</span>°F </br>
+				<img id="NOW_URL" src="" />
+			</div>
+			<div class="topmiddle">
+				what to put here?
+			</div>
+			<a href="/forecast.py"><div class="forcastbutton">
+				<img id="logo" src="/img/wulogo.png" />
+			</div></a>
+		</div>
+	</body>
+</html>

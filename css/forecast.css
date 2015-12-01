@@ -1,0 +1,96 @@
+/**********************************************************
+This file is for CSS used on only the weekly forcast page.
+**********************************************************/
+
+.box {
+	position: absolute;
+	height: 120px;
+	width: 120px;
+	margin: 0;
+	padding: 0;
+	border: 1px solid #1A14EA;
+	text-align: center;
+}
+
+#box1 {
+	left: 0;
+	top: 0;
+}
+
+#box2 {
+	left: 120px;
+	top: 0;
+}
+
+#box3 {
+	left: 240px;
+	top: 0;
+}
+
+#box4 {
+	left: 360px;
+	top: 0;
+}
+
+#box5 {
+	left: 0;
+	top: 120px;
+}
+
+#box6 {
+	left: 120px;
+	top: 120px;
+}
+
+#box7 {
+	left: 240px;
+	top: 120px;
+}
+
+#box8 {
+	left: 360px;
+	top: 120px;
+}
+
+.bottombar {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 77px;
+	width: 100%;
+	border-top: 3px solid #009900;
+}
+
+.radar {
+	position: absolute;
+	height: 100%;
+	width: 37%;
+	left: 0px;
+	padding: 10px;
+	text-align: center;
+	font-size: 30px;
+}
+
+.hourly {
+	position: absolute;
+	height: 100%;
+	width: 37%;
+	left: 37%;
+	text-align: center;
+	font-size: 30px;
+	border-left: 3px solid #009900;
+}
+
+.back {
+	position: absolute;
+	height: 100%;
+	width: 118px;
+	right: 0px;
+	border-left: 3px solid #009900;
+}
+
+#logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto
+}
