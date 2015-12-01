@@ -1,5 +1,4 @@
 #!python
-import random, time
 from database import *
 
 #
@@ -12,15 +11,9 @@ from database import *
 rainTipAmount = "0.02"
 #####################################
 
-def simulateRain():
-	return random.randint(1, 240)
-
-# Connect to the Database
-db = getDB()
-cursor = db.cursor()
-
-# Keep faking it on a loop
-while 1:
+def update_sensor_rain(db):
+	cursor = db.cursor()
+	
 	query = "INSERT INTO `rain`(`quantity`) VALUES (%s)"
 	cursor.execute(query, [rainTipAmount] )
 	db.commit()
@@ -28,9 +21,3 @@ while 1:
 	query = "UPDATE `now` SET `OUT_Rain_Since_Reset` = `OUT_Rain_Since_Reset` + %s"
 	cursor.execute(query, [rainTipAmount] )
 	db.commit()
-	
-	#We sleep for a random amount of time to simulate rain for testing
-	time.sleep(simulateRain() )
-
-# Close DB when done.
-db.close()

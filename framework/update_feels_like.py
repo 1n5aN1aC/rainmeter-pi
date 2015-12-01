@@ -1,5 +1,5 @@
 #!python
-import random, time
+import random
 from database import *
 from weather import *
 
@@ -15,12 +15,9 @@ def readNow():
 	closeURL()
 	return parsed_json
 
-# Connect to the Database
-db = getDB()
-cursor = db.cursor()
-
-# Keep checking on a delayed loop
-while 1:
+def update_feels_like(db):
+	cursor = db.cursor()
+	
 	parsed_json = readNow()
 	
 	NOW_URL = parsed_json['current_observation']['icon_url']
@@ -29,7 +26,3 @@ while 1:
 	query = "UPDATE `now` SET `NOW_URL`=%s, `NOW_Feel`=%s"
 	cursor.execute(query, [NOW_URL, NOW_Feel] )
 	db.commit()
-	time.sleep(600)
-
-# Close DB when done.
-db.close()

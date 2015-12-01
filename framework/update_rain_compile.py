@@ -1,5 +1,5 @@
 #!python
-import urllib2, json, time
+import urllib2, json
 from database import *
 
 #
@@ -8,11 +8,10 @@ from database import *
 # If you want to know how the rain sub-system works, have a look at README-ADVANCED.txt
 #
 
-# Connect to the Database
-db = getDB()
-cursor = db.cursor()
-
-while 1:
+def update_rain_compile(db):
+	# Connect to the Database
+	cursor = db.cursor()
+	
 	# Get Last 24 Hours
 	cursor.execute("SELECT sum(`quantity`) FROM `rain` WHERE (`time` >= now() - interval 1 day)")
 	last24 = cursor.fetchone()
@@ -24,7 +23,3 @@ while 1:
 	query = "UPDATE `now` SET `OUT_Rain_Today`=%s, `OUT_Rain_Last_24h`=%s"
 	cursor.execute(query, [sinceMidnight[0], last24[0]] )
 	db.commit()
-	time.sleep(59)
-
-# Close DB when done.
-db.close()

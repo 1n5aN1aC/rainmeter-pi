@@ -1,7 +1,5 @@
 #!python
 import urllib2, json
-import cgitb
-cgitb.enable()
 
 #####################################
 key = "e8b292334779aa96"
