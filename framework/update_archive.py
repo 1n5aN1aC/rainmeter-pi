@@ -45,3 +45,6 @@ def update_archive(db):
 	query = "UPDATE `archive` SET `OUT_Rain_Minute` = ( SELECT sum(`quantity`) as RainResult FROM `rain` WHERE (`time` >= now() - interval 1 minute) ) ORDER BY `count` DESC LIMIT 1"
 	cursor.execute(query)
 	db.commit()
+
+def update_clean_old():
+	print "lol"

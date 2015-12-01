@@ -16,6 +16,7 @@ from framework import update_archive
 # Thread to compile rain into time averages
 # Thread to update current conditions
 # Thread to handle archiving
+# Thread that cleans out old rain entries
 #
 
 #We change this to False to kill all the threads 'gracefully'.
@@ -63,6 +64,14 @@ def thread_archive():
 		time.sleep(60)
 	db.close()
 
+# Thread that cleans out old rain entries
+def thread_clean():
+	db = database.getDB()
+	while run:
+		update_archive.update_clean_old(db)
+		time.sleep(1440)
+	db.close()
+
 # Signal handler to properly close all DB handles
 def signal_handler(signal, frame):
 	global run
@@ -82,6 +91,8 @@ threads.append(t)
 t = threading.Thread(target=thread_feels_like)
 threads.append(t)
 t = threading.Thread(target=thread_archive)
+threads.append(t)
+t = threading.Thread(target=thread_clean)
 threads.append(t)
 
 # Start the threads
