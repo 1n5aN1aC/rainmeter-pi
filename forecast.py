@@ -1,6 +1,15 @@
 #!python
 from framework import weather
 
+#
+# This File Handles displaying the weekly forcast.
+# It fetches the forecast from weather underground,
+# then displays it in a grid-based format.
+#
+# If you are looking for how to change it to your own location,
+# You can find that option in weather.py
+#
+
 # Print the Header
 print "Content-Type: text/html;charset=utf-8"
 print
@@ -16,10 +25,10 @@ print '''<!DOCTYPE HTML>
 	</head>
 	<body>'''
 
-#Get the Forecast
+# Get the week Forecast
 parsed_json = weather.fetchWeather('forecast10day')
 
-#Loop through the results, and print what is applicable
+# Loop through the results, and print what is applicable
 count = 0
 for day in parsed_json['forecast']['simpleforecast']['forecastday']:
 	count += 1

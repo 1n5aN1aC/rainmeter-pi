@@ -1,6 +1,19 @@
 #!python
 from framework import weather
 
+#
+# This File Handles displaying the hourly forcast.
+# It fetches the forecast from weather underground,
+# then displays it in a table-based format.
+#
+# If you are looking for how to change it to your own location,
+# You can find that option in weather.py
+#
+
+#####################################
+Max_Hours_To_Show = 24
+#####################################
+
 # Print the Header
 print "Content-Type: text/html;charset=utf-8"
 print
@@ -25,7 +38,7 @@ print '''<!DOCTYPE HTML>
 					<th>% Precip</th>
 				</tr>'''
 
-#Get the Forecast
+#Get the hourly Forecast
 parsed_json = weather.fetchWeather('hourly10day')
 
 #Loop through the results, and print what is applicable
@@ -41,7 +54,7 @@ for hour in parsed_json['hourly_forecast']:
 	print "<td>" + hour['pop'] + '% </td>'
 	print "</tr>"
 	
-	if count >= 24:
+	if count >= Max_Hours_To_Show:
 		break
 weather.closeURL()
 
