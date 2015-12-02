@@ -25,11 +25,16 @@ function update(data) {
 			theSpan.html(newVal)
 		}
 		//Wind-related ones need to be rounded to one decimal point.
-		else if (theSpan.attr('id') && theSpan.attr('id').includes("Wind")) {
-			newVal = Math.round(v * 10) / 10
-			theSpan.html(newVal)
-		}
+		//else if (theSpan.attr('id') && theSpan.attr('id').includes("Wind")) {
+		//	newVal = Math.round(v * 10) / 10
+		//	theSpan.html(newVal)
+		//}
 		//SYSTEM ones are jquery UI Progress bars.
+		else if (theSpan.attr('id') && theSpan.attr('id').includes("SYSTEM")) {
+			$( "#" + k ).progressbar({
+				value: v
+			});
+		}
 		else if (theSpan.attr('id') && theSpan.attr('id').includes("SYSTEM")) {
 			$( "#" + k ).progressbar({
 				value: v
@@ -37,7 +42,7 @@ function update(data) {
 		}
 		//Everything else gets rounded to the nearest whole number
 		else {
-			theSpan.html(Math.round(v))
+			theSpan.html(Math.round(v * 10) / 10)
 		}
 	});
 }

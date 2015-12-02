@@ -10,6 +10,17 @@ body, html {
 	border: 0px;
 }
 
+span.larger {
+	font-size: 28px;
+}
+
+img.larger {
+	margin-left: auto;
+	margin-right: auto;
+	height: 60px;
+	width: 60px;
+}
+
 a, a:hover, a:visited{
 	display: block;
 	color: #000000;

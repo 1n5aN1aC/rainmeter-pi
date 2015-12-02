@@ -4,12 +4,14 @@ This file is for CSS used on only the weekly forcast page.
 
 .box {
 	position: absolute;
-	height: 120px;
-	width: 120px;
+	height: 41%;
+	width: 20%;
 	margin: 0;
 	padding: 0;
 	border: 1px solid #1A14EA;
 	text-align: center;
+	font-size: 20px;
+	overflow: hidden;
 }
 
 #box1 {
@@ -18,45 +20,55 @@ This file is for CSS used on only the weekly forcast page.
 }
 
 #box2 {
-	left: 120px;
+	left: 20%;
 	top: 0;
 }
 
 #box3 {
-	left: 240px;
+	left: 40%;
 	top: 0;
 }
 
 #box4 {
-	left: 360px;
+	left: 60%;
 	top: 0;
 }
 
 #box5 {
-	left: 0;
-	top: 120px;
+	left: 80%;
+	top: 0;
 }
 
 #box6 {
-	left: 120px;
-	top: 120px;
+	left: 0;
+	top: 41%;
 }
 
 #box7 {
-	left: 240px;
-	top: 120px;
+	left: 20%;
+	top: 41%;
 }
 
 #box8 {
-	left: 360px;
-	top: 120px;
+	left: 40%;
+	top: 41%;
+}
+
+#box9 {
+	left: 60%;
+	top: 41%;
+}
+
+#box10 {
+	left: 80%;
+	top: 41%;
 }
 
 .bottombar {
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	height: 77px;
+	height: 17%;
 	width: 100%;
 	border-top: 3px solid #009900;
 }
@@ -84,7 +96,7 @@ This file is for CSS used on only the weekly forcast page.
 .back {
 	position: absolute;
 	height: 100%;
-	width: 118px;
+	width: 20%;
 	right: 0px;
 	border-left: 3px solid #009900;
 }
@@ -92,5 +104,5 @@ This file is for CSS used on only the weekly forcast page.
 #logo {
 	display: block;
 	margin-left: auto;
-	margin-right: auto
+	margin-right: auto;
 }

@@ -1,4 +1,5 @@
 #!python
+# -*- coding: UTF-8 -*-
 from framework import weather
 
 #
@@ -14,7 +15,7 @@ from framework import weather
 #
 
 #####################################
-Max_Hours_To_Show = 24
+Max_Hours_To_Show = 36
 #####################################
 
 # Print the Header
@@ -36,9 +37,11 @@ print '''<!DOCTYPE HTML>
 				<tr>
 					<th></th>
 					<th></th>
-					<th>Temp</th>
+					<th>Temp (°F)</th>
 					<th>% Hum</th>
-					<th>% Precip</th>
+					<th>Precip</th>
+					<th>dewpoint</th>
+					<th>wind</th>
 				</tr>'''
 
 #Get the hourly Forecast
@@ -52,9 +55,14 @@ for hour in parsed_json['hourly_forecast']:
 	print "<tr>"
 	print "<td>" + hour['FCTTIME']['weekday_name'] + "</br>" + hour['FCTTIME']['civil'] + "</td>"
 	print "<td><img class='small' src=" + hour['icon_url'] + " /></td>"
-	print "<td>" + hour['temp']['english'] + 'F </td>'
+	print "<td><span class='larger'>" + str(hour['temp']['english']) + u'° </span></td>'.encode('utf-8')
 	print "<td>" + hour['humidity'] + '% </td>'
-	print "<td>" + hour['pop'] + '% </td>'
+	if hour['pop'] > 0 and float(hour['qpf']['english']) > 0:
+		print "<td>" + str(hour['pop']) + "% (" + str(hour['qpf']['english']) + "in) </td>"
+	else:
+		print "<td>" + hour['pop'] + '% </td>'
+	print "<td>" + str(hour['dewpoint']['english']) + u'° </td>'.encode('utf-8')
+	print "<td>" + hour['wspd']['english'] + ' mph </td>'
 	print "</tr>"
 	
 	if count >= Max_Hours_To_Show:

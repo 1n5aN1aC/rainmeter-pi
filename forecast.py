@@ -1,4 +1,5 @@
 #!python
+# -*- coding: UTF-8 -*-
 from framework import weather
 
 #
@@ -37,14 +38,14 @@ for day in parsed_json['forecast']['simpleforecast']['forecastday']:
 	count += 1
 	
 	print "<div class='box' id='box" + str(count) + "'>"
-	print day['date']['weekday_short'] + "</br>"
-	print "<img src=" + day['icon_url'] + " /></br>"
-	print day['high']['fahrenheit'] + 'F / ' + day['low']['fahrenheit'] + 'F </br>'
-	if day['pop'] > 0:
+	print "<span class='larger'>" + day['date']['weekday_short'] + "</span></br>"
+	print "<img class='larger' src=" + day['icon_url'] + " /></br>"
+	print "<span class='larger'>" + str(day['high']['fahrenheit']) + u'° </span> ('.encode('utf-8') + str(day['low']['fahrenheit']) + u'°) </br>'.encode('utf-8')
+	if day['pop'] > 0 and float(day['qpf_allday'][u'in']) > 0:
 		print str(day['pop']) + "% (" + str(day['qpf_allday'][u'in']) + "in)"
 	print "</div>"
 	
-	if count >= 8:
+	if count >= 10:
 		break
 weather.closeURL()
 

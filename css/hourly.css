@@ -2,12 +2,16 @@
 This file is for CSS used on only the hour-by-hour forcast page.
 *******************************************************************/
 
+body {
+	font-size: 18px;
+}
+
 .scrollpanel {
 	position: absolute;
 	left: 0;
 	top: 0;
 	height: 100%;
-	width: 360px;
+	width: 85%;
 	margin: 0;
 	padding: 0;
 	text-align: center;
@@ -19,8 +23,8 @@ tr:nth-child(even) {
 }
 
 img.small {
-	height: 40px;
-	width: 40px;
+	height: 45px;
+	width: 45px;
 }
 
 table {
@@ -32,16 +36,17 @@ table {
 	right: 0;
 	top: 0;
 	height: 100%;
-	width: 118px;
+	width: 15%;
 	border-left: 3px solid #009900;
 }
 
 .back {
 	position: absolute;
 	height: 80px;
-	width: 118px;
+	width: 100%;
 	right: 0px;
 	bottom: 0px;
+	border-top: 3px solid #009900;
 }
 
 #logo {

@@ -7,7 +7,7 @@ This file is for CSS used on only the home page.
 	left: 0;
 	top: 0;
 	height: 240px;
-	width: 360px;
+	width: 85%;
 }
 
 .rightbar {
@@ -15,7 +15,7 @@ This file is for CSS used on only the home page.
 	right: 0;
 	top: 0;
 	height: 100%;
-	width: 120px;
+	width: 15%;
 	border-left: 3px solid #009900;
 }
 
@@ -25,6 +25,7 @@ This file is for CSS used on only the home page.
 	width: 100%;
 	border-bottom: 2px solid #000099;
 	text-align: center;
+	overflow: hidden;
 }
 
 .topmiddle {
@@ -48,6 +49,8 @@ This file is for CSS used on only the home page.
 }
 
 span.value {
+	position: relative;
+	top: -10px;
 	font-family: 'Play', sans-serif;
 	font-size: 40px;
 }
