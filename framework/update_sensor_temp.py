@@ -1,5 +1,5 @@
 #!python
-import collections
+import collections, logging
 from database import *
 import sensors
 
@@ -53,3 +53,4 @@ def update_sensor_temp(db):
 			sum(Wind_Q) / float(len(Wind_Q)), 
 			max(Wind_Q) ])
 	db.commit()
+	logging.getLogger("thread_sensors").info(" Updated Sensor Data.")

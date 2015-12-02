@@ -1,5 +1,6 @@
 #!python
-import threading, time, signal, sys, random
+import time, sys, signal, random
+import threading, logging
 from framework import database
 from framework import update_sensor_temp
 from framework import update_sensor_rain
@@ -19,9 +20,12 @@ from framework import update_archive
 # Thread that cleans out old rain entries
 #
 
-#We change this to False to kill all the threads 'gracefully'.
+# We change this to False to kill all the threads 'gracefully'.
 run = True
 threads = []
+
+# Enable logging
+logging.basicConfig(level=logging.INFO)
 
 
 # Thread to handle updating sensor readings

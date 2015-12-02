@@ -1,5 +1,5 @@
 #!python
-import urllib2, json
+import logging
 from database import *
 
 #
@@ -25,3 +25,4 @@ def update_rain_compile(db):
 	query = "UPDATE `now` SET `OUT_Rain_Today`=%s, `OUT_Rain_Last_24h`=%s"
 	cursor.execute(query, [sinceMidnight[0], last24[0]] )
 	db.commit()
+	logging.getLogger("thread_rainCompile").info(" Compiled Rain Data.")

@@ -1,5 +1,5 @@
 #!python
-import random
+import logging
 from database import *
 from weather import *
 
@@ -10,15 +10,11 @@ from weather import *
 #
 
 # Gets the Weather data from the internet.
-def readNow():
-	parsed_json = fetchWeather('conditions')
-	closeURL()
-	return parsed_json
-
 def update_feels_like(db):
 	cursor = db.cursor()
 	
-	parsed_json = readNow()
+	parsed_json = fetchWeather('conditions')
+	closeURL()
 	
 	NOW_URL = parsed_json['current_observation']['icon_url']
 	NOW_Feel = parsed_json['current_observation']['feelslike_f']
@@ -26,3 +22,4 @@ def update_feels_like(db):
 	query = "UPDATE `now` SET `NOW_URL`=%s, `NOW_Feel`=%s"
 	cursor.execute(query, [NOW_URL, NOW_Feel] )
 	db.commit()
+	logging.getLogger("thread_feelsLike").info(" Updated Feels Like Data.")

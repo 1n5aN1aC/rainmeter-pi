@@ -1,9 +1,9 @@
 #!python
-import json
+import json, logging
 from database import *
 
 #
-# This File Handles archiving the current weather data
+# This File Handles archiving tasks to move weather data
 # to a long-term table to keep FOREVER!
 # We run this once a minute so we can save minute-by-minute data.
 #
@@ -12,6 +12,7 @@ from database import *
 # A mediocre-sized SD Card.
 #
 
+# 
 def update_archive(db):
 	cursor = db.cursor()
 
@@ -45,6 +46,13 @@ def update_archive(db):
 	query = "UPDATE `archive` SET `OUT_Rain_Minute` = ( SELECT sum(`quantity`) as RainResult FROM `rain` WHERE (`time` >= now() - interval 1 minute) ) ORDER BY `count` DESC LIMIT 1"
 	cursor.execute(query)
 	db.commit()
+	logging.getLogger("thread_archive").info(" Sensors Archived.")
 
+# This deletes old rain data from the 'rain' table. This data is no longer needed,
+# as it has already been logged to the archive table, and is too old to be used for display.
 def update_clean_old(db):
-	print "lol"
+	cursor = db.cursor()
+	query = "DELETE FROM `rain` WHERE (`time` <= now() - interval 7 day)"
+	cursor.execute(query)
+	db.commit()
+	logging.getLogger("thread_clean").info(" Rain Table Cleaned.")
