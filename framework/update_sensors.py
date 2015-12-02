@@ -35,14 +35,15 @@ def read_all_sensors():
 	ATT_Humid_Q.append( sensors.read_humid_attic() )
 	Wind_Q.append( sensors.read_wind_outside() )
 
-def update_sensor_temp(db):
+# Updates all non-special sensors
+def update_sensors(db):
 	cursor = db.cursor()
 
 	#Read the sensors; store in dequeue
 	read_all_sensors()
 	
 	#commit the averages of the dequeues to the db
-	query = "UPDATE `now` SET `IN_Temp`=%s, `IN_Humid`=%s, `OUT_Temp`=%s, `OUT_Humid`=%s, `ATTIC_Temp`=%s, `ATTIC_Humid`=%s, `OUT_Wind_Avg`=%s, `OUT_Wind_Max`=%s"
+	query = "UPDATE `now` SET `IN_Temp`=%s, `IN_Humid`=%s, `OUT_Temp`=%s, `OUT_Humid`=%s, `ATTIC_Temp`=%s, `ATTIC_Humid`=%s, `OUT_Wind_Avg`=%s, `OUT_Wind_Max`=%s, `SYSTEM_CPU`=%s, `SYSTEM_RAM`=%s"
 	cursor.execute(query, [
 			sum(IN_Temp_Q) / float(len(IN_Temp_Q)), 
 			sum(IN_Humid_Q) / float(len(IN_Humid_Q)), 
@@ -51,6 +52,8 @@ def update_sensor_temp(db):
 			sum(ATT_Temp_Q) / float(len(ATT_Temp_Q)), 
 			sum(ATT_Humid_Q) / float(len(ATT_Humid_Q)), 
 			sum(Wind_Q) / float(len(Wind_Q)), 
-			max(Wind_Q) ])
+			max(Wind_Q),
+			sensors.read_cpu_usage(),
+			sensors.read_ram_usage() ])
 	db.commit()
 	logging.getLogger("thread_sensors").info(" Updated Sensor Data.")
