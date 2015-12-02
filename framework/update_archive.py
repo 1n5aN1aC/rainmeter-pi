@@ -46,5 +46,5 @@ def update_archive(db):
 	cursor.execute(query)
 	db.commit()
 
-def update_clean_old():
+def update_clean_old(db):
 	print "lol"
