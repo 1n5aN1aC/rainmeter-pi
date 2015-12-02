@@ -29,6 +29,12 @@ function update(data) {
 			newVal = Math.round(v * 10) / 10
 			theSpan.html(newVal)
 		}
+		//SYSTEM ones are jquery UI Progress bars.
+		else if (theSpan.attr('id') && theSpan.attr('id').includes("SYSTEM")) {
+			$( "#" + k ).progressbar({
+				value: v
+			});
+		}
 		//Everything else gets rounded to the nearest whole number
 		else {
 			theSpan.html(Math.round(v))
@@ -36,5 +42,14 @@ function update(data) {
 	});
 }
 
+function reset_rain() {
+	$.ajax({
+		url: "/framework/reset_rain.py",
+	});
+}
+
+
+//Update it now!
+getTheJSON()
 // Set up a permanent call to getTheJSON() every X seconds.
 window.setInterval(function(){  getTheJSON() }, 5000);

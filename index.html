@@ -3,8 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="refresh" content="43200">
+		<!-- <meta http-equiv="refresh" content="12"> -->
 		<link href='https://fonts.googleapis.com/css?family=Play:700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css">
+		<link rel="stylesheet" href="/js/jquery-ui-1.11.4/themes/eggplant/theme.css">
 		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="/css/common.css">
 		<link rel="stylesheet" type="text/css" href="/css/index.css">
@@ -18,8 +22,8 @@
 			</br>
 			Wind: <span class="value" id="OUT_Wind_Avg">--</span><sub>mph</sub> / <span class="value" id="OUT_Wind_Max">--</span><sub>mph</sub></br>
 			Rain: <span class="value" id="OUT_Rain_Today">--</span>in / 
-				 <span class="value" id="OUT_Rain_Last_24h">--</span>in / 
-				 <span class="value" id="OUT_Rain_Since_Reset">--</span>in</br>
+				<span class="value" id="OUT_Rain_Last_24h">--</span>in / 
+				<a class="inline-block" href="#" onclick="reset_rain()"><span class="value" id="OUT_Rain_Since_Reset">--</span>in</br></a>
 		</div>
 		<div class='rightbar'>
 			<div class="now">
@@ -27,7 +31,9 @@
 				<img id="NOW_URL" src="" />
 			</div>
 			<div class="topmiddle">
-				what to put here?
+				system:</br>
+				<div class="progressbar" class="progress" id="SYSTEM_CPU"><span class="ui-progressbar-text">%cpu</span></div>
+				<div class="progressbar"" id="SYSTEM_RAM"><span class="ui-progressbar-text">%ram</span></div>
 			</div>
 			<a href="/forecast.py"><div class="forcastbutton">
 				<img id="logo" src="/img/wulogo.png" />
