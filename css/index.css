@@ -30,6 +30,7 @@ This file is for CSS used on only the home page.
 .topmiddle {
 	height: 119px;
 	width: 100%;
+	text-align: center;
 }
 
 .forcastbutton {
@@ -49,4 +50,24 @@ This file is for CSS used on only the home page.
 span.value {
 	font-family: 'Play', sans-serif;
 	font-size: 40px;
+}
+
+a.inline-block {
+	display: inline-block;
+}
+
+.ui-progressbar {
+	height: 20px;
+}
+
+.ui-progressbar-value {
+	transition: width 0.8s;
+	-webkit-transition: width 0.8s;
+}
+
+span.ui-progressbar-text {
+	position: absolute;
+	font-size: 15px;
+	margin-left: 30%;
+	margin-top: 0px
 }

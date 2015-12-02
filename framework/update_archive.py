@@ -46,7 +46,7 @@ def update_archive(db):
 	query = "UPDATE `archive` SET `OUT_Rain_Minute` = ( SELECT sum(`quantity`) as RainResult FROM `rain` WHERE (`time` >= now() - interval 1 minute) ) ORDER BY `count` DESC LIMIT 1"
 	cursor.execute(query)
 	db.commit()
-	logging.getLogger("thread_archive").info(" Sensors Archived.")
+	logging.getLogger("thread_archive").info(" Sensor Data Archived.")
 
 # This deletes old rain data from the 'rain' table. This data is no longer needed,
 # as it has already been logged to the archive table, and is too old to be used for display.

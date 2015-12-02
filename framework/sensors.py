@@ -1,5 +1,6 @@
 #!python
-import random
+from __future__ import division
+import random, psutil
 
 #####################################
 
@@ -25,6 +26,12 @@ def read_humid_attic():
 
 def read_wind_outside():
 	return fakeWind()
+
+def read_cpu_usage():
+	return psutil.cpu_percent(interval=None)
+
+def read_ram_usage():
+	return (psutil.virtual_memory()[0] - psutil.virtual_memory()[1]) / psutil.virtual_memory()[0] * 100
 
 # For now, this makes up fake sensor data
 # This helps with testing the GUI Design

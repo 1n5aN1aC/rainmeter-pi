@@ -13,7 +13,7 @@ db = getDB()
 cursor = db.cursor()
 
 # Execute SELECT query
-query = "SELECT `ref`, `IN_Temp`, `IN_Humid`, `OUT_Temp`, `OUT_Humid`, `OUT_Wind_Avg`, `OUT_Wind_Max`, `OUT_Rain_Today`, `OUT_Rain_Last_24h`, `OUT_Rain_Since_Reset`, `ATTIC_Temp`, `ATTIC_Humid`, `NOW_URL`, `NOW_Feel` FROM `now` WHERE 1"
+query = "SELECT `ref`, `IN_Temp`, `IN_Humid`, `OUT_Temp`, `OUT_Humid`, `OUT_Wind_Avg`, `OUT_Wind_Max`, `OUT_Rain_Today`, `OUT_Rain_Last_24h`, `OUT_Rain_Since_Reset`, `ATTIC_Temp`, `ATTIC_Humid`, `NOW_URL`, `NOW_Feel`, `SYSTEM_CPU`, `SYSTEM_RAM` FROM `now` WHERE 1"
 cursor.execute(query)
 result = cursor.fetchone()
 db.close()
@@ -34,6 +34,8 @@ data["ATTIC_Temp"] = result[10]
 data["ATTIC_Humid"] = result[11]
 data["NOW_URL"] = result[12]
 data["NOW_Feel"] = result[13]
+data["SYSTEM_CPU"] = result[14]
+data["SYSTEM_RAM"] = result[15]
 
 # Print the Header
 print "Content-Type: text/html;charset=utf-8"
