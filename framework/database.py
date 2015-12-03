@@ -18,7 +18,7 @@ def getDB():
 		import sqlite3
 		
 		#Connect to db
-		conn = sqlite3.connect(Database_Name + 'db')
+		return sqlite3.connect(Database_Name)
 
 	else:
 		sys.exit(Database_Type + " is not a valid option!")

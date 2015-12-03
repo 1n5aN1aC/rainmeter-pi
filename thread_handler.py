@@ -23,7 +23,7 @@ from framework import settings
 
 # We change this to False to kill all the threads 'gracefully'.
 run = True
-if enable_deamon_logging:
+if settings.enable_deamon_logging:
 	logging.basicConfig(level=logging.INFO)
 
 # Thread to handle updating sensor readings
@@ -79,7 +79,7 @@ def signal_handler(signal, frame):
 	global run
 	print('Closing...')
 	run = False
-	time.sleep(how_long_to_wait_before_killing_deamons)
+	time.sleep(settings.how_long_to_wait_before_killing_deamons)
 	sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
