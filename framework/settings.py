@@ -56,6 +56,11 @@ Temp_Average_Length = 10
 Humid_Average_Length = 15
 Wind_Average_Length = 10
 
+# This defines how many consecutive readings of a sensor must fail
+# before the sensor actually displays an error.
+# Until that point, the sensor will continue to operate on old data.
+how_many_failed_readings_should_error = 10
+
 
 ###################################
 ######### Other Settings ##########

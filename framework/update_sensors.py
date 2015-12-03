@@ -12,13 +12,13 @@ import sensors
 #
 
 # Create the dequeues
-IN_Temp_Q = collections.deque(maxlen=Temp_Average_Length)
-IN_Humid_Q = collections.deque(maxlen=Humid_Average_Length)
-OUT_Temp_Q = collections.deque(maxlen=Temp_Average_Length)
-OUT_Humid_Q = collections.deque(maxlen=Humid_Average_Length)
-ATT_Temp_Q = collections.deque(maxlen=Temp_Average_Length)
-ATT_Humid_Q = collections.deque(maxlen=Humid_Average_Length)
-Wind_Q = collections.deque(maxlen=Wind_Average_Length)
+IN_Temp_Q = ["Q" = collections.deque(maxlen=Temp_Average_Length), "Fails" = 0]
+IN_Humid_Q = ["Q" = collections.deque(maxlen=Humid_Average_Length), "Fails" = 0]
+OUT_Temp_Q = ["Q" = collections.deque(maxlen=Temp_Average_Length), "Fails" = 0]
+OUT_Humid_Q = ["Q" = collections.deque(maxlen=Humid_Average_Length), "Fails" = 0]
+ATT_Temp_Q = ["Q" = collections.deque(maxlen=Temp_Average_Length), "Fails" = 0]
+ATT_Humid_Q = ["Q" = collections.deque(maxlen=Humid_Average_Length), "Fails" = 0]
+Wind_Q = ["Q" = collections.deque(maxlen=Wind_Average_Length), "Fails" = 0]
 
 # This reads and updates each sensor
 def read_all_sensors():
@@ -44,22 +44,27 @@ def update_sensors(db):
 	#commit the averages of the dequeues to the db
 	query = "UPDATE `now` SET `IN_Temp`=%s, `IN_Humid`=%s, `OUT_Temp`=%s, `OUT_Humid`=%s, `ATTIC_Temp`=%s, `ATTIC_Humid`=%s, `OUT_Wind_Avg`=%s, `OUT_Wind_Max`=%s, `SYSTEM_CPU`=%s, `SYSTEM_RAM`=%s"
 	cursor.execute(query, [
-			sum(IN_Temp_Q) / float(len(IN_Temp_Q)), 
-			sum(IN_Humid_Q) / float(len(IN_Humid_Q)), 
-			sum(OUT_Temp_Q) / float(len(OUT_Temp_Q)), 
-			sum(OUT_Humid_Q) / float(len(OUT_Humid_Q)), 
-			sum(ATT_Temp_Q) / float(len(ATT_Temp_Q)), 
-			sum(ATT_Humid_Q) / float(len(ATT_Humid_Q)), 
-			sum(Wind_Q) / float(len(Wind_Q)), 
-			max(Wind_Q),
+			sum(IN_Temp_Q)['Q'] / float(len(IN_Temp_Q)['Q'] ), 
+			sum(IN_Humid_Q)['Q'] / float(len(IN_Humid_Q)['Q'] ), 
+			sum(OUT_Temp_Q)['Q'] / float(len(OUT_Temp_Q)['Q'] ), 
+			sum(OUT_Humid_Q)['Q'] / float(len(OUT_Humid_Q)['Q'] ), 
+			sum(ATT_Temp_Q)['Q'] / float(len(ATT_Temp_Q)['Q'] ), 
+			sum(ATT_Humid_Q)['Q'] / float(len(ATT_Humid_Q)['Q'] ), 
+			sum(Wind_Q)['Q'] / float(len(Wind_Q)['Q']), 
+			max(Wind_Q)['Q'],
 			sensors.read_cpu_usage(),
 			sensors.read_ram_usage() ])
 	db.commit()
 	logging.getLogger("thread_sensors").info(" Updated Sensor Data.")
 
-def add_reading_to_dequeue(dequeue, reading) {
-	if reading is not None:
-		dequeue.append(reading)
+def add_reading_to_dequeue(dequeue, new_reading) {
+	if new_reading is not None:
+		dequeue['Q'].append(new_reading)
+		(dequeue)['Fails'] = 0
+	else if dequeue['Fails'] < failed_readings_before_error:
+		dequeue['Fails'] = dequeue['Fails'] + 1
+		logging.getLogger("thread_sensors").warning(" Failed to update Sensor." + )
 	else:
-		logging.getLogger("thread_sensors").warning(" Failed to update Sensor!" + )
+		dequeue['Q'].append(0)
+		logging.getLogger("thread_sensors").error(" Sensor has Failed!!" + )
 }
