@@ -26,13 +26,13 @@ def read_all_sensors():
 	temp_outside, humid_outside = sensors.read_outside_sensor()
 	temp_attic, humid_attic = sensors.read_attic_sensor()
 
-	IN_Temp_Q.append(temp_inside)
-	OUT_Temp_Q.append(temp_outside)
-	ATT_Temp_Q.append(temp_attic)
-	IN_Humid_Q.append(humid_inside)
-	OUT_Humid_Q.append(humid_outside)
-	ATT_Humid_Q.append(humid_attic)
-	Wind_Q.append( sensors.read_wind_outside() )
+	add_reading_to_dequeue(IN_Temp_Q, temp_inside)
+	add_reading_to_dequeue(OUT_Temp_Q, temp_outside)
+	add_reading_to_dequeue(ATT_Temp_Q, temp_attic)
+	add_reading_to_dequeue(IN_Humid_Q, humid_inside)
+	add_reading_to_dequeue(OUT_Humid_Q, humid_outside)
+	add_reading_to_dequeue(ATT_Humid_Q, humid_attic)
+	add_reading_to_dequeue(Wind_Q, sensors.read_wind_outside() )
 
 # Updates all non-special sensors
 def update_sensors(db):
@@ -56,3 +56,10 @@ def update_sensors(db):
 			sensors.read_ram_usage() ])
 	db.commit()
 	logging.getLogger("thread_sensors").info(" Updated Sensor Data.")
+
+def add_reading_to_dequeue(dequeue, reading) {
+	if reading is not None:
+		dequeue.append(reading)
+	else:
+		logging.getLogger("thread_sensors").warning(" Failed to update Sensor!" + )
+}
