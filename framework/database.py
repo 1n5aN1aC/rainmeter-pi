@@ -11,9 +11,14 @@ def getDB():
 		my_conv = {FIELD_TYPE.FLOAT: float, FIELD_TYPE.LONG: int}
 		
 		# Connect to db
-		return MySQLdb.connect(host = Database_Host, user = Database_User, passwd = Database_Password, db = database_Name, conv=my_conv)
-		return db.cursor()
-	else if Database_Type is "SQLlite":
-		print "lol"
+		return MySQLdb.connect(host = Database_Host, user = Database_User, passwd = Database_Password, db = Database_Name, conv=my_conv)
+
+	elif Database_Type is "SQLite":
+		#Import Libraries
+		import sqlite3
+		
+		#Connect to db
+		conn = sqlite3.connect(Database_Name + 'db')
+
 	else:
 		sys.exit(Database_Type + " is not a valid option!")
