@@ -1,6 +1,7 @@
 #!python
 import json, logging
 from database import *
+from settings import *
 
 #
 # This File Handles archiving tasks to move weather data
@@ -43,8 +44,8 @@ def update_archive(db):
 
 	# Now update the latest archive entry to the total rainfall over the last minute.
 	# Bit of a hack, but meh, it works.  :)
-	query = "UPDATE `archive` SET `OUT_Rain_Minute` = ( SELECT sum(`quantity`) as RainResult FROM `rain` WHERE (`time` >= now() - interval 1 minute) ) ORDER BY `count` DESC LIMIT 1"
-	cursor.execute(query)
+	query = "UPDATE `archive` SET `OUT_Rain_Minute` = ( SELECT sum(`quantity`) as RainResult FROM `rain` WHERE (`time` >= now() - interval %s seconds) ) ORDER BY `count` DESC LIMIT 1"
+	cursor.execute(query, [how_often_to_archive_data])
 	db.commit()
 	logging.getLogger("thread_archive").info(" Sensor Data Archived.")
 
@@ -52,7 +53,7 @@ def update_archive(db):
 # as it has already been logged to the archive table, and is too old to be used for display.
 def update_clean_old(db):
 	cursor = db.cursor()
-	query = "DELETE FROM `rain` WHERE (`time` <= now() - interval 7 day)"
-	cursor.execute(query)
+	query = "DELETE FROM `rain` WHERE (`time` <= now() - interval %s day)"
+	cursor.execute(query, [how_many_days_of_rain_data_to_keep])
 	db.commit()
 	logging.getLogger("thread_clean").info(" Rain Table Cleaned.")

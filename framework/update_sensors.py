@@ -1,6 +1,7 @@
 #!python
 import collections, logging
 from database import *
+from settings import *
 import sensors
 
 #
@@ -9,12 +10,6 @@ import sensors
 # This is used to provide a slight averaging to temperature and humidity sensors,
 # as well as handeling gusts and averaging for the wind sensor.
 #
-
-#####################################
-Temp_Average_Length = 10
-Humid_Average_Length = 15
-Wind_Average_Length = 10
-#####################################
 
 # Create the dequeues
 IN_Temp_Q = collections.deque(maxlen=Temp_Average_Length)
@@ -27,12 +22,16 @@ Wind_Q = collections.deque(maxlen=Wind_Average_Length)
 
 # This reads and updates each sensor
 def read_all_sensors():
-	IN_Temp_Q.append( sensors.read_temp_inside() )
-	OUT_Temp_Q.append( sensors.read_temp_outside() )
-	ATT_Temp_Q.append( sensors.read_temp_attic() )
-	IN_Humid_Q.append( sensors.read_humid_inside() )
-	OUT_Humid_Q.append( sensors.read_humid_outside() )
-	ATT_Humid_Q.append( sensors.read_humid_attic() )
+	temp_inside, humid_inside = sensors.read_inside_sensor()
+	temp_outside, humid_outside = sensors.read_outside_sensor()
+	temp_attic, humid_attic = sensors.read_attic_sensor()
+
+	IN_Temp_Q.append(temp_inside)
+	OUT_Temp_Q.append(temp_outside)
+	ATT_Temp_Q.append(temp_attic)
+	IN_Humid_Q.append(humid_inside)
+	OUT_Humid_Q.append(humid_outside)
+	ATT_Humid_Q.append(humid_attic)
 	Wind_Q.append( sensors.read_wind_outside() )
 
 # Updates all non-special sensors

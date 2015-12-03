@@ -1,10 +1,6 @@
 #!python
 import urllib2, json
-
-#####################################
-key = "e8b292334779aa96"
-zip = "97338"
-#####################################
+from settings import *
 
 #This becomes the global url handle
 f = "error"

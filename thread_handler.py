@@ -7,6 +7,7 @@ from framework import update_sensor_rain
 from framework import update_rain_compile
 from framework import update_feels_like
 from framework import update_archive
+from framework import settings
 
 #
 # This File handles launching and running all the deamon threads 
@@ -22,18 +23,15 @@ from framework import update_archive
 
 # We change this to False to kill all the threads 'gracefully'.
 run = True
-threads = []
-
-# Enable logging
-logging.basicConfig(level=logging.INFO)
-
+if enable_deamon_logging:
+	logging.basicConfig(level=logging.INFO)
 
 # Thread to handle updating sensor readings
 def thread_sensors():
 	db = database.getDB()
 	while run:
 		update_sensors.update_sensors(db)
-		time.sleep(5)
+		time.sleep(how_often_to_check_sensors)
 	db.close()
 
 # Thread to handle simulating rain events
@@ -49,7 +47,7 @@ def thread_rain_compile():
 	db = database.getDB()
 	while run:
 		update_rain_compile.update_rain_compile(db)
-		time.sleep(60)
+		time.sleep(how_often_to_compile_rain)
 	db.close()
 
 # Thread to update current conditions
@@ -57,7 +55,7 @@ def thread_feels_like():
 	db = database.getDB()
 	while run:
 		update_feels_like.update_feels_like(db)
-		time.sleep(600)
+		time.sleep(how_often_to_update_feels_like)
 	db.close()
 
 # Thread to handle archiving
@@ -65,7 +63,7 @@ def thread_archive():
 	db = database.getDB()
 	while run:
 		update_archive.update_archive(db)
-		time.sleep(60)
+		time.sleep(how_often_to_archive_data)
 	db.close()
 
 # Thread that cleans out old rain entries
@@ -73,7 +71,7 @@ def thread_clean():
 	db = database.getDB()
 	while run:
 		update_archive.update_clean_old(db)
-		time.sleep(3600)
+		time.sleep(how_often_to_clean_rain_db)
 	db.close()
 
 # Signal handler to properly close all DB handles
@@ -81,11 +79,12 @@ def signal_handler(signal, frame):
 	global run
 	print('Closing...')
 	run = False
-	time.sleep(5)
+	time.sleep(how_long_to_wait_before_killing_deamons)
 	sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
 
 # Create the threads
+threads = []
 t = threading.Thread(target=thread_sensors)
 threads.append(t)
 t = threading.Thread(target=thread_sensor_rain)

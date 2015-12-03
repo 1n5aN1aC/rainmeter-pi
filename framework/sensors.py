@@ -1,35 +1,36 @@
 #!python
 from __future__ import division
 import random, psutil
+#import Adafruit_DHT
 
-#####################################
+#
+# This file handles actually reading and returning any sensor data to the other modules
+# If you have any specific sensors that are different than my setup, this is where they
+# Should be added or changed.  If you use DHTxx sensors, this should be very easy.
+#
 
-#####################################
+# Read the DHTxx sensor located inside the house
+def read_inside_sensor():
+	return fakeSensor(), fakeSensor()
+	#humidity, temperature = Adafruit_DHT.read_retry(DHT_22, pin, retries=3, delay_seconds=1, platform=None)
 
-def read_temp_inside():
-	return fakeSensor()
+# Read the DHTxx sensor located Outside the house
+def read_outside_sensor():
+	return fakeSensor(), fakeSensor()
 
-def read_temp_outside():
-	return fakeSensor()
+# Read the DHTxx sensor located in the attic, or other auxiliary location.
+def read_attic_sensor():
+	return fakeSensor(), fakeSensor()
 
-def read_temp_attic():
-	return fakeSensor()
-
-def read_humid_inside():
-	return fakeSensor()
-
-def read_humid_outside():
-	return fakeSensor()
-
-def read_humid_attic():
-	return fakeSensor()
-
+# Read the current wind speed.
 def read_wind_outside():
 	return fakeWind()
 
+# Check CPU Usage
 def read_cpu_usage():
 	return psutil.cpu_percent(interval=None)
 
+# Check RAM Usage
 def read_ram_usage():
 	return (psutil.virtual_memory()[0] - psutil.virtual_memory()[1]) / psutil.virtual_memory()[0] * 100
 

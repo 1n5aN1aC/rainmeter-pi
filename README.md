@@ -16,6 +16,8 @@ TODO
 
 ## Setup Instructions
 
+### Physical
+
 TODO
 
 ### Installing Dependencies
@@ -34,3 +36,15 @@ Make sure you have all the python dependencies:
 Install the DHTXX Sensor library:
 
 TODO https://github.com/adafruit/Adafruit_Python_DHT
+
+### Copy the Files over
+
+TODO
+
+### Configure
+
+Open ```./framework/settings.py``` and fill out the required settings, such as your API key & ZIP code.
+
+Make any other changes you wish to make.
+
+Open ```./framework/sensors.py``` and make any changes needed to support your specific sensors.  This should be easy if using similar sensors t one sI used, or it may require more work, depending on the specific sensors you have.
