@@ -12,13 +12,13 @@ import sensors
 #
 
 # Create the dequeues
-IN_Temp_Q = ["Q" = collections.deque(maxlen=Temp_Average_Length), "Fails" = 0]
-IN_Humid_Q = ["Q" = collections.deque(maxlen=Humid_Average_Length), "Fails" = 0]
-OUT_Temp_Q = ["Q" = collections.deque(maxlen=Temp_Average_Length), "Fails" = 0]
-OUT_Humid_Q = ["Q" = collections.deque(maxlen=Humid_Average_Length), "Fails" = 0]
-ATT_Temp_Q = ["Q" = collections.deque(maxlen=Temp_Average_Length), "Fails" = 0]
-ATT_Humid_Q = ["Q" = collections.deque(maxlen=Humid_Average_Length), "Fails" = 0]
-Wind_Q = ["Q" = collections.deque(maxlen=Wind_Average_Length), "Fails" = 0]
+IN_Temp_Q = {"Q":collections.deque(maxlen=Temp_Average_Length), "Fails":0, "Name":'IN_Temp'}
+IN_Humid_Q = {"Q":collections.deque(maxlen=Humid_Average_Length), "Fails":0, "Name":'IN_Humid'}
+OUT_Temp_Q = {"Q":collections.deque(maxlen=Temp_Average_Length), "Fails":0, "Name":'OUT_Temp'}
+OUT_Humid_Q = {"Q":collections.deque(maxlen=Humid_Average_Length), "Fails":0, "Name":'OUT_Humid'}
+ATT_Temp_Q = {"Q":collections.deque(maxlen=Temp_Average_Length), "Fails":0, "Name":'ATT_Temp'}
+ATT_Humid_Q = {"Q":collections.deque(maxlen=Humid_Average_Length), "Fails":0, "Name":'ATT_Humid'}
+Wind_Q = {"Q":collections.deque(maxlen=Wind_Average_Length), "Fails":0, "Name":'Wind'}
 
 # This reads and updates each sensor
 def read_all_sensors():
@@ -57,14 +57,13 @@ def update_sensors(db):
 	db.commit()
 	logging.getLogger("thread_sensors").info(" Updated Sensor Data.")
 
-def add_reading_to_dequeue(dequeue, new_reading) {
+def add_reading_to_dequeue(dequeue, new_reading):
 	if new_reading is not None:
 		dequeue['Q'].append(new_reading)
 		(dequeue)['Fails'] = 0
-	else if dequeue['Fails'] < failed_readings_before_error:
+	elif dequeue['Fails'] < failed_readings_before_error:
 		dequeue['Fails'] = dequeue['Fails'] + 1
-		logging.getLogger("thread_sensors").warning(" Failed to update Sensor." + )
+		logging.getLogger("thread_sensors").warning(" Failed to update Sensor " + dequeue['Name'] + ".")
 	else:
 		dequeue['Q'].append(0)
-		logging.getLogger("thread_sensors").error(" Sensor has Failed!!" + )
-}
+		logging.getLogger("thread_sensors").error(" Sensor has Failed: " + dequeue['Name'] + "!!")
