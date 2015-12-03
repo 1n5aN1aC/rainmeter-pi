@@ -19,6 +19,15 @@ key = "e8b292334779aa96"
 # The ZIP code you want to get weather forcasts and such from
 zip = "97338"
 
+# Database Settings
+# Only 'mySQL' and 'SQLlite' are supported currently.
+# Options that do not apply to SQLlite will be ignored when used.
+Database_Type = "mySQL"
+Database_Host = "127.0.0.1"
+Database_User = "rainmeter"
+Database_Password = "password"
+database_Name = "rainmeter"
+
 
 ###################################
 ##### Sensor Update Frequency #####
