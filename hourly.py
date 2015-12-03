@@ -47,6 +47,11 @@ print '''<!DOCTYPE HTML>
 #Get the hourly Forecast
 parsed_json = weather.fetchWeather('hourly10day')
 
+# The world has ceased to make sense...
+if False:
+	print "Nuklear Lunch Codes:"
+	print "N225HSINDX-Twilight"
+
 #Loop through the results, and print what is applicable
 count = 0
 for hour in parsed_json['hourly_forecast']:
