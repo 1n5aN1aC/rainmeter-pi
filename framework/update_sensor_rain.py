@@ -15,11 +15,11 @@ rainTipAmount = "0.02"
 def update_sensor_rain(db):
 	cursor = db.cursor()
 	
-	query = "INSERT INTO `rain`(`quantity`) VALUES (%s)"
+	query = fixDBQuery("INSERT INTO `rain`(`quantity`) VALUES (%s)")
 	cursor.execute(query, [rainTipAmount] )
 	db.commit()
 	
-	query = "UPDATE `now` SET `OUT_Rain_Since_Reset` = `OUT_Rain_Since_Reset` + %s"
+	query = fixDBQuery("UPDATE `now` SET `OUT_Rain_Since_Reset` = `OUT_Rain_Since_Reset` + %s")
 	cursor.execute(query, [rainTipAmount] )
 	db.commit()
 	logging.getLogger("thread_rainSimulator").info(" Caused A Fake Rain Pulse.")

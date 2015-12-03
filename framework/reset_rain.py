@@ -10,7 +10,7 @@ db = getDB()
 cursor = db.cursor()
 
 # Execute UPDATE query
-query = "UPDATE `now` SET `OUT_Rain_Since_Reset`=%s WHERE 1"
+query = fixDBQuery("UPDATE `now` SET `OUT_Rain_Since_Reset`=%s WHERE 1")
 cursor.execute(query, [0])
 db.commit()
 db.close()

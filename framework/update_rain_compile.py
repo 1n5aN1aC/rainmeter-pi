@@ -13,16 +13,18 @@ def update_rain_compile(db):
 	cursor = db.cursor()
 	
 	# Get Last 24 Hours
-	cursor.execute("SELECT sum(`quantity`) FROM `rain` WHERE (`time` >= now() - interval 1 day)")
+	query = fixDBQuery("SELECT sum(`quantity`) FROM `rain` WHERE (`time` >= now() - interval 1 day)")
+	cursor.execute(query)
 	last24 = cursor.fetchone()
 
 	#Get Since midnight
-	cursor.execute("SELECT sum(`quantity`)FROM `rain` WHERE (`time` >= current_date)")
+	query = fixDBQuery("SELECT sum(`quantity`)FROM `rain` WHERE (`time` >= current_date)")
+	cursor.execute(query)
 	sinceMidnight = cursor.fetchone()
 	if not sinceMidnight:
 		sinceMidnight = 0
 
-	query = "UPDATE `now` SET `OUT_Rain_Today`=%s, `OUT_Rain_Last_24h`=%s"
+	query = fixDBQuery("UPDATE `now` SET `OUT_Rain_Today`=%s, `OUT_Rain_Last_24h`=%s")
 	cursor.execute(query, [sinceMidnight[0], last24[0]] )
 	db.commit()
 	logging.getLogger("thread_rainCompile").info(" Compiled Rain Data.")

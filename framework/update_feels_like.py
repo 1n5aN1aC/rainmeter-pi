@@ -19,7 +19,7 @@ def update_feels_like(db):
 	NOW_URL = parsed_json['current_observation']['icon_url']
 	NOW_Feel = parsed_json['current_observation']['feelslike_f']
 	
-	query = "UPDATE `now` SET `NOW_URL`=%s, `NOW_Feel`=%s"
+	query = fixDBQuery("UPDATE `now` SET `NOW_URL`=%s, `NOW_Feel`=%s")
 	cursor.execute(query, [NOW_URL, NOW_Feel] )
 	db.commit()
 	logging.getLogger("thread_feelsLike").info(" Updated Feels Like Data.")

@@ -21,10 +21,12 @@ from framework import settings
 # Thread that cleans out old rain entries
 #
 
-# We change this to False to kill all the threads 'gracefully'.
-run = True
 if settings.enable_deamon_logging:
 	logging.basicConfig(level=logging.INFO)
+# We change this to False to kill all the threads 'gracefully'.
+run = True
+# Makes sure the tables exist in the db
+populate_database_if_needed()
 
 # Thread to handle updating sensor readings
 def thread_sensors():

@@ -42,16 +42,16 @@ def update_sensors(db):
 	read_all_sensors()
 	
 	#commit the averages of the dequeues to the db
-	query = "UPDATE `now` SET `IN_Temp`=%s, `IN_Humid`=%s, `OUT_Temp`=%s, `OUT_Humid`=%s, `ATTIC_Temp`=%s, `ATTIC_Humid`=%s, `OUT_Wind_Avg`=%s, `OUT_Wind_Max`=%s, `SYSTEM_CPU`=%s, `SYSTEM_RAM`=%s"
+	query = fixDBQuery("UPDATE `now` SET `IN_Temp`=%s, `IN_Humid`=%s, `OUT_Temp`=%s, `OUT_Humid`=%s, `ATTIC_Temp`=%s, `ATTIC_Humid`=%s, `OUT_Wind_Avg`=%s, `OUT_Wind_Max`=%s, `SYSTEM_CPU`=%s, `SYSTEM_RAM`=%s")
 	cursor.execute(query, [
-			sum(IN_Temp_Q)['Q'] / float(len(IN_Temp_Q)['Q'] ), 
-			sum(IN_Humid_Q)['Q'] / float(len(IN_Humid_Q)['Q'] ), 
-			sum(OUT_Temp_Q)['Q'] / float(len(OUT_Temp_Q)['Q'] ), 
-			sum(OUT_Humid_Q)['Q'] / float(len(OUT_Humid_Q)['Q'] ), 
-			sum(ATT_Temp_Q)['Q'] / float(len(ATT_Temp_Q)['Q'] ), 
-			sum(ATT_Humid_Q)['Q'] / float(len(ATT_Humid_Q)['Q'] ), 
-			sum(Wind_Q)['Q'] / float(len(Wind_Q)['Q']), 
-			max(Wind_Q)['Q'],
+			sum(IN_Temp_Q['Q']) / float(len(IN_Temp_Q['Q'])),
+			sum(IN_Humid_Q['Q']) / float(len(IN_Humid_Q['Q'])),
+			sum(OUT_Temp_Q['Q']) / float(len(OUT_Temp_Q['Q'])),
+			sum(OUT_Humid_Q['Q']) / float(len(OUT_Humid_Q['Q'])),
+			sum(ATT_Temp_Q['Q']) / float(len(ATT_Temp_Q['Q'])),
+			sum(ATT_Humid_Q['Q']) / float(len(ATT_Humid_Q['Q'])),
+			sum(Wind_Q['Q']) / float(len(Wind_Q['Q'])),
+			max(Wind_Q['Q']),
 			sensors.read_cpu_usage(),
 			sensors.read_ram_usage() ])
 	db.commit()

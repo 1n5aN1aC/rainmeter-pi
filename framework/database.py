@@ -21,4 +21,17 @@ def getDB():
 		return sqlite3.connect(Database_Name)
 
 	else:
-		sys.exit(Database_Type + " is not a valid option!")
+		sys.exit(Database_Type + " is not a valid Database_Type option!")
+
+# Fixes the DB query to be compatable with any DB paramstyle
+def fixDBQuery(query):
+	if Database_Type is "mySQL":
+		return query
+	elif Database_Type is "SQLite":
+		return query.replace("%s", "?")
+	else:
+		sys.exit(Database_Type + " is not a valid Database_Type option!")
+
+# Inserts the required tables into a new database.
+def populate_database_if_needed():
+	print "lol"

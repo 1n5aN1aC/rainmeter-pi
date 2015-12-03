@@ -8,12 +8,15 @@ from database import *
 # That means this is called very often, and should be reletively effecient
 #
 
+# Makes sure the tables exist in the db
+populate_database_if_needed()
+
 # Connect to the Database
 db = getDB()
 cursor = db.cursor()
 
 # Execute SELECT query
-query = "SELECT `ref`, `IN_Temp`, `IN_Humid`, `OUT_Temp`, `OUT_Humid`, `OUT_Wind_Avg`, `OUT_Wind_Max`, `OUT_Rain_Today`, `OUT_Rain_Last_24h`, `OUT_Rain_Since_Reset`, `ATTIC_Temp`, `ATTIC_Humid`, `NOW_URL`, `NOW_Feel`, `SYSTEM_CPU`, `SYSTEM_RAM` FROM `now` WHERE 1"
+query = fixDBQuery("SELECT `ref`, `IN_Temp`, `IN_Humid`, `OUT_Temp`, `OUT_Humid`, `OUT_Wind_Avg`, `OUT_Wind_Max`, `OUT_Rain_Today`, `OUT_Rain_Last_24h`, `OUT_Rain_Since_Reset`, `ATTIC_Temp`, `ATTIC_Humid`, `NOW_URL`, `NOW_Feel`, `SYSTEM_CPU`, `SYSTEM_RAM` FROM `now` WHERE 1")
 cursor.execute(query)
 result = cursor.fetchone()
 db.close()

@@ -18,7 +18,7 @@ def update_archive(db):
 	cursor = db.cursor()
 
 	# Now get all the Current Data
-	query = "SELECT `ref`, `IN_Temp`, `IN_Humid`, `OUT_Temp`, `OUT_Humid`, `OUT_Wind_Avg`, `OUT_Wind_Max`, `OUT_Rain_Today`, `OUT_Rain_Last_24h`, `OUT_Rain_Since_Reset`, `ATTIC_Temp`, `ATTIC_Humid`, `NOW_URL`, `NOW_Feel` FROM `now` WHERE 1"
+	query = fixDBQuery("SELECT `ref`, `IN_Temp`, `IN_Humid`, `OUT_Temp`, `OUT_Humid`, `OUT_Wind_Avg`, `OUT_Wind_Max`, `OUT_Rain_Today`, `OUT_Rain_Last_24h`, `OUT_Rain_Since_Reset`, `ATTIC_Temp`, `ATTIC_Humid`, `NOW_URL`, `NOW_Feel` FROM `now` WHERE 1")
 	cursor.execute(query)
 	result = cursor.fetchone()
 
@@ -38,13 +38,13 @@ def update_archive(db):
 	data["NOW_Feel"] = result[13]
 
 	# Insert all values besides the rain into the archive table.
-	query = "INSERT INTO `archive` (`IN_Temp`, `IN_Humid`, `OUT_Temp`, `OUT_Humid`, `OUT_Wind_Avg`, `OUT_Wind_Max`, `OUT_Rain_Minute`, `ATTIC_Temp`, `ATTIC_Humid`, `NOW_Feel`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+	query = fixDBQuery("INSERT INTO `archive` (`IN_Temp`, `IN_Humid`, `OUT_Temp`, `OUT_Humid`, `OUT_Wind_Avg`, `OUT_Wind_Max`, `OUT_Rain_Minute`, `ATTIC_Temp`, `ATTIC_Humid`, `NOW_Feel`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
 	cursor.execute(query, [data["IN_Temp"], data["IN_Humid"], data["OUT_Temp"], data["OUT_Humid"], data["OUT_Wind_Avg"], data["OUT_Wind_Max"], 0, data["ATTIC_Temp"], data["ATTIC_Humid"], data["NOW_Feel"]] )
 	db.commit()
 
 	# Now update the latest archive entry to the total rainfall over the last minute.
 	# Bit of a hack, but meh, it works.  :)
-	query = "UPDATE `archive` SET `OUT_Rain_Minute` = ( SELECT sum(`quantity`) as RainResult FROM `rain` WHERE (`time` >= now() - interval %s seconds) ) ORDER BY `count` DESC LIMIT 1"
+	query = fixDBQuery("UPDATE `archive` SET `OUT_Rain_Minute` = ( SELECT sum(`quantity`) as RainResult FROM `rain` WHERE (`time` >= now() - interval %s seconds) ) ORDER BY `count` DESC LIMIT 1")
 	cursor.execute(query, [how_often_to_archive_data])
 	db.commit()
 	logging.getLogger("thread_archive").info(" Sensor Data Archived.")
@@ -53,7 +53,7 @@ def update_archive(db):
 # as it has already been logged to the archive table, and is too old to be used for display.
 def update_clean_old(db):
 	cursor = db.cursor()
-	query = "DELETE FROM `rain` WHERE (`time` <= now() - interval %s day)"
+	query = fixDBQuery("DELETE FROM `rain` WHERE (`time` <= now() - interval %s day)")
 	cursor.execute(query, [how_many_days_of_rain_data_to_keep])
 	db.commit()
 	logging.getLogger("thread_clean").info(" Rain Table Cleaned.")
