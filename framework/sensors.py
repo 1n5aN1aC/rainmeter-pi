@@ -1,7 +1,7 @@
 #!python
 from __future__ import division
 import random, psutil
-#import Adafruit_DHT
+#import Adafruit_DHT, spidev
 
 #
 # This file handles actually reading and returning any sensor data to the other modules
@@ -25,6 +25,11 @@ def read_attic_sensor():
 # Read the current wind speed.
 def read_wind_outside():
 	return fakeWind()
+	#spi = spidev.SpiDev()
+	#spi.open(0,0)
+	#adc = spi.xfer2( [1,( 8+channel ) << 4,0] )
+	#data = ( (adc[1] & 3) << 8) + adc[2]
+	#return data * math
 
 # Check CPU Usage
 def read_cpu_usage():
