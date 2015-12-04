@@ -8,9 +8,6 @@ from database import *
 # That means this is called very often, and should be reletively effecient
 #
 
-# Makes sure the tables exist in the db
-populate_database_if_needed()
-
 # Connect to the Database
 db = getDB()
 cursor = db.cursor()

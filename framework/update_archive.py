@@ -13,7 +13,7 @@ from settings import *
 # A mediocre-sized SD Card.
 #
 
-# 
+# This archives the current 'now' data to an archive table for long-term storage.
 def update_archive(db):
 	cursor = db.cursor()
 
@@ -44,7 +44,7 @@ def update_archive(db):
 
 	# Now update the latest archive entry to the total rainfall over the last minute.
 	# Bit of a hack, but meh, it works.  :)
-	query = fixDBQuery("UPDATE `archive` SET `OUT_Rain_Minute` = ( SELECT sum(`quantity`) as RainResult FROM `rain` WHERE (`time` >= now() - interval %s seconds) ) ORDER BY `count` DESC LIMIT 1")
+	query = fixDBQuery("UPDATE `archive` SET `OUT_Rain_Minute` = ( SELECT sum(`quantity`) as RainResult FROM `rain` WHERE (`time` >= now() - interval %s second) ) ORDER BY `count` DESC LIMIT 1")
 	cursor.execute(query, [how_often_to_archive_data])
 	db.commit()
 	logging.getLogger("thread_archive").info(" Sensor Data Archived.")

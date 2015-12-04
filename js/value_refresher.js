@@ -15,38 +15,33 @@ function getTheJSON() {
 function update(data) {
 	$.each(data, function(k, v) {
 		var theSpan = $('#' + k);
-		//Images we update the src= instead
-		if (theSpan.is("img")) {
-			theSpan.attr("src", v);
-		}
 		//Rain-related ones need to be rounded to two decimal points.
-		else if (theSpan.attr('id') && theSpan.attr('id').includes("Rain")) {
+		if (theSpan.attr('id') && theSpan.attr('id').includes("Rain")) {
 			newVal = Math.round(v * 100) / 100
 			theSpan.html(newVal)
 		}
-		//Wind-related ones need to be rounded to one decimal point.
-		//else if (theSpan.attr('id') && theSpan.attr('id').includes("Wind")) {
-		//	newVal = Math.round(v * 10) / 10
-		//	theSpan.html(newVal)
-		//}
+		//Humidity Sensors really only need the whole number.
+		else if (theSpan.attr('id') && theSpan.attr('id').includes("Humid")) {
+			theSpan.html( Math.round(v) )
+		}
 		//SYSTEM ones are jquery UI Progress bars.
 		else if (theSpan.attr('id') && theSpan.attr('id').includes("SYSTEM")) {
 			$( "#" + k ).progressbar({
 				value: v
 			});
 		}
-		else if (theSpan.attr('id') && theSpan.attr('id').includes("SYSTEM")) {
-			$( "#" + k ).progressbar({
-				value: v
-			});
+		//Images we update the src= instead
+		else if (theSpan.is("img")) {
+			theSpan.attr("src", v);
 		}
-		//Everything else gets rounded to the nearest whole number
+		//Everything else gets rounded to one decimal point.
 		else {
 			theSpan.html(Math.round(v * 10) / 10)
 		}
 	});
 }
 
+// Handles when the user clicks the button to reset the rainfall.
 function reset_rain() {
 	$.ajax({
 		url: "/framework/reset_rain.py",

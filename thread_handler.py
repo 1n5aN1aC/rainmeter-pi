@@ -26,14 +26,14 @@ if settings.enable_deamon_logging:
 # We change this to False to kill all the threads 'gracefully'.
 run = True
 # Makes sure the tables exist in the db
-populate_database_if_needed()
+database.populate_database_if_needed()
 
 # Thread to handle updating sensor readings
 def thread_sensors():
 	db = database.getDB()
 	while run:
 		update_sensors.update_sensors(db)
-		time.sleep(how_often_to_check_sensors)
+		time.sleep(settings.how_often_to_check_sensors)
 	db.close()
 
 # Thread to handle simulating rain events
@@ -49,7 +49,7 @@ def thread_rain_compile():
 	db = database.getDB()
 	while run:
 		update_rain_compile.update_rain_compile(db)
-		time.sleep(how_often_to_compile_rain)
+		time.sleep(settings.how_often_to_compile_rain)
 	db.close()
 
 # Thread to update current conditions
@@ -57,7 +57,7 @@ def thread_feels_like():
 	db = database.getDB()
 	while run:
 		update_feels_like.update_feels_like(db)
-		time.sleep(how_often_to_update_feels_like)
+		time.sleep(settings.how_often_to_update_feels_like)
 	db.close()
 
 # Thread to handle archiving
@@ -65,7 +65,7 @@ def thread_archive():
 	db = database.getDB()
 	while run:
 		update_archive.update_archive(db)
-		time.sleep(how_often_to_archive_data)
+		time.sleep(settings.how_often_to_archive_data)
 	db.close()
 
 # Thread that cleans out old rain entries
@@ -73,7 +73,7 @@ def thread_clean():
 	db = database.getDB()
 	while run:
 		update_archive.update_clean_old(db)
-		time.sleep(how_often_to_clean_rain_db)
+		time.sleep(settings.how_often_to_clean_rain_db)
 	db.close()
 
 # Signal handler to properly close all DB handles

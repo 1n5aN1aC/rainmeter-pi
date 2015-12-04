@@ -27,8 +27,8 @@ Database_Type = "mySQL"
 Database_Host = "127.0.0.1"
 Database_User = "rainmeter"
 Database_Password = "password"
-#Database_Name = "rainmeter"
-Database_Name = "./rainmeter.db"
+Database_Name = "rainmeter"
+#Database_Name = "./rainmeter.db"
 
 
 ###################################
