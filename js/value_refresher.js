@@ -39,6 +39,14 @@ function update(data) {
 			theSpan.html(Math.round(v * 10) / 10)
 		}
 	});
+	
+	var date = new Date()
+	var theSpan = $('#DATE');
+	theSpan.html(date.getMonth()+1 + "/" + date.getDate())
+	
+	var theSpan = $('#TIME');
+	minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
+	theSpan.html(date.getHours() + ":" + minutes)
 }
 
 // Handles when the user clicks the button to reset the rainfall.

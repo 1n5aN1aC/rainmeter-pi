@@ -19,7 +19,7 @@ key = "e8b292334779aa96"
 # The ZIP code you want to get weather forcasts and such for
 zip = "97338"
 
-# Each time your rain guage tips, how many inches does that signify?
+# How many inches per rain meter tip
 rainTipAmount = 0.02
 
 # Your timezone code can be found from the link below:
