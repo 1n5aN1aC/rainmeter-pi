@@ -35,26 +35,23 @@ def read_all_sensors():
 	add_reading_to_dequeue(Wind_Q, sensors.read_wind_outside() )
 
 # Updates all non-special sensors
-def update_sensors(db):
-	cursor = db.cursor()
-
+def update_sensors():
 	#Read the sensors; store in dequeue
 	read_all_sensors()
 	
 	#commit the averages of the dequeues to the db
-	query = fixDBQuery("UPDATE `now` SET `IN_Temp`=%s, `IN_Humid`=%s, `OUT_Temp`=%s, `OUT_Humid`=%s, `ATTIC_Temp`=%s, `ATTIC_Humid`=%s, `OUT_Wind_Avg`=%s, `OUT_Wind_Max`=%s, `SYSTEM_CPU`=%s, `SYSTEM_RAM`=%s")
-	cursor.execute(query, [
-			sum(IN_Temp_Q['Q']) / float(len(IN_Temp_Q['Q'])),
-			sum(IN_Humid_Q['Q']) / float(len(IN_Humid_Q['Q'])),
-			sum(OUT_Temp_Q['Q']) / float(len(OUT_Temp_Q['Q'])),
-			sum(OUT_Humid_Q['Q']) / float(len(OUT_Humid_Q['Q'])),
-			sum(ATT_Temp_Q['Q']) / float(len(ATT_Temp_Q['Q'])),
-			sum(ATT_Humid_Q['Q']) / float(len(ATT_Humid_Q['Q'])),
-			sum(Wind_Q['Q']) / float(len(Wind_Q['Q'])),
-			max(Wind_Q['Q']),
-			sensors.read_cpu_usage(),
-			sensors.read_ram_usage() ])
-	db.commit()
+	now = Table_Now.get(1)
+	now.In_Temp = sum(IN_Temp_Q['Q']) / float(len(IN_Temp_Q['Q']))
+	now.Out_Temp = sum(OUT_Temp_Q['Q']) / float(len(OUT_Temp_Q['Q']))
+	now.Attic_Temp = sum(ATT_Temp_Q['Q']) / float(len(ATT_Temp_Q['Q']))
+	now.In_Humid = sum(IN_Humid_Q['Q']) / float(len(IN_Humid_Q['Q']))
+	now.Out_Humid = sum(OUT_Humid_Q['Q']) / float(len(OUT_Humid_Q['Q']))
+	now.Attic_Humid = sum(ATT_Humid_Q['Q']) / float(len(ATT_Humid_Q['Q']))
+	now.Out_Wind_Avg = sum(Wind_Q['Q']) / float(len(Wind_Q['Q']))
+	now.Out_Wind_Max = max(Wind_Q['Q'])
+	now.System_CPU = sensors.read_cpu_usage()
+	now.System_RAM = sensors.read_ram_usage()
+	
 	logging.getLogger("thread_sensors").info(" Updated Sensor Data.")
 
 def add_reading_to_dequeue(dequeue, new_reading):

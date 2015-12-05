@@ -1,5 +1,6 @@
 #!python
 import logging
+import pytz
 from database import *
 
 #
@@ -8,23 +9,22 @@ from database import *
 # If you want to know how the rain sub-system works, have a look at README-ADVANCED.txt
 #
 
-def update_rain_compile(db):
-	# Connect to the Database
-	cursor = db.cursor()
+def update_rain_compile():
+	rain_24h = 0.0
+	rain_today = 0.0
 	
-	# Get Last 24 Hours
-	query = fixDBQuery("SELECT sum(`quantity`) FROM `rain` WHERE (`time` >= now() - interval 1 day)")
-	cursor.execute(query)
-	last24 = cursor.fetchone()
-
-	#Get Since midnight
-	query = fixDBQuery("SELECT sum(`quantity`)FROM `rain` WHERE (`time` >= current_date)")
-	cursor.execute(query)
-	sinceMidnight = cursor.fetchone()
-	if not sinceMidnight:
-		sinceMidnight = 0
-
-	query = fixDBQuery("UPDATE `now` SET `OUT_Rain_Today`=%s, `OUT_Rain_Last_24h`=%s")
-	cursor.execute(query, [sinceMidnight[0], last24[0]] )
-	db.commit()
+	now = datetime.datetime.now()
+	midnight = now.replace(tzinfo=pytz.UTC).astimezone(pytz.timezone(my_timezone)).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(pytz.UTC).replace(tzinfo=None)
+	
+	rains = Table_Rain.select()
+	for rain in rains:
+		if (now - rain.time) < datetime.timedelta(hours = 24):
+			rain_24h = rain_24h + rain.quantity
+		if (rain.time > midnight):
+			rain_today = rain_today + rain.quantity
+			
+	now = Table_Now.get(1)
+	now.Out_Rain_Last_24h = rain_24h
+	now.Out_Rain_Today = rain_today
+	
 	logging.getLogger("thread_rainCompile").info(" Compiled Rain Data.")

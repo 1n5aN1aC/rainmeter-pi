@@ -4,56 +4,44 @@ from database import *
 from settings import *
 
 #
-# This File Handles archiving tasks to move weather data
-# to a long-term table to keep FOREVER!
-# We run this once a minute so we can save minute-by-minute data.
+# This File Handles archiving tasks to copy current weather data to a long-term table to keep FOREVER!
 #
-# This works out to a little over 500,000 records a year,
-# Which makes it little enough to not be an issue assuming
-# A mediocre-sized SD Card.
+# 1/Minute works out to a little over 500,000 records a year,
+# Which makes it little enough to not be an issue assuming a mediocre-sized SD Card.
 #
 
 # This archives the current 'now' data to an archive table for long-term storage.
-def update_archive(db):
-	cursor = db.cursor()
+def update_archive():
+	#Now get all the Current Data
+	now = Table_Now.get(1)
+	
+	#Get the amount of rain in the last period
+	rain_amount = 0.0
+	rains = Table_Rain.select()
+	for rain in rains:
+		if (datetime.datetime.now() - rain.time) > datetime.timedelta(seconds = how_often_to_archive_data):
+			rain_amount = rain_amount + rain.quantity
+	
+	#Insert all values into the archive table.
+	new_archive = Table_Archive(date=datetime.datetime.now(),
+								In_Temp=now.In_Temp,
+								Out_Temp=now.Out_Temp,
+								Attic_Temp=now.Attic_Temp,
+								In_Humid=now.In_Humid,
+								Out_Humid=now.Out_Humid,
+								Attic_Humid=now.Attic_Humid,
+								Out_Wind_Avg=now.Out_Wind_Avg,
+								Out_Wind_Max=now.Out_Wind_Max,
+								Out_Rain_Minute=rain_amount,
+								Now_Feel=now.Now_Feel)
 
-	# Now get all the Current Data
-	query = fixDBQuery("SELECT `ref`, `IN_Temp`, `IN_Humid`, `OUT_Temp`, `OUT_Humid`, `OUT_Wind_Avg`, `OUT_Wind_Max`, `OUT_Rain_Today`, `OUT_Rain_Last_24h`, `OUT_Rain_Since_Reset`, `ATTIC_Temp`, `ATTIC_Humid`, `NOW_URL`, `NOW_Feel` FROM `now` WHERE 1")
-	cursor.execute(query)
-	result = cursor.fetchone()
-
-	# Parse the data out of the results...
-	data = {}
-	data["IN_Temp"] = result[1]
-	data["IN_Humid"] = result[2]
-	data["OUT_Temp"] = result[3]
-	data["OUT_Humid"] = result[4]
-	data["OUT_Wind_Avg"] = result[5]
-	data["OUT_Wind_Max"] = result[6]
-	data["OUT_Rain_Today"] = result[7]
-	data["OUT_Rain_Last_24h"] = result[8]
-	data["OUT_Rain_Since_Reset"] = result[9]
-	data["ATTIC_Temp"] = result[10]
-	data["ATTIC_Humid"] = result[11]
-	data["NOW_Feel"] = result[13]
-
-	# Insert all values besides the rain into the archive table.
-	query = fixDBQuery("INSERT INTO `archive` (`IN_Temp`, `IN_Humid`, `OUT_Temp`, `OUT_Humid`, `OUT_Wind_Avg`, `OUT_Wind_Max`, `OUT_Rain_Minute`, `ATTIC_Temp`, `ATTIC_Humid`, `NOW_Feel`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
-	cursor.execute(query, [data["IN_Temp"], data["IN_Humid"], data["OUT_Temp"], data["OUT_Humid"], data["OUT_Wind_Avg"], data["OUT_Wind_Max"], 0, data["ATTIC_Temp"], data["ATTIC_Humid"], data["NOW_Feel"]] )
-	db.commit()
-
-	# Now update the latest archive entry to the total rainfall over the last minute.
-	# Bit of a hack, but meh, it works.  :)
-	query = fixDBQuery("UPDATE `archive` SET `OUT_Rain_Minute` = ( SELECT sum(`quantity`) as RainResult FROM `rain` WHERE (`time` >= now() - interval %s second) ) ORDER BY `count` DESC LIMIT 1")
-	cursor.execute(query, [how_often_to_archive_data])
-	db.commit()
 	logging.getLogger("thread_archive").info(" Sensor Data Archived.")
 
 # This deletes old rain data from the 'rain' table. This data is no longer needed,
 # as it has already been logged to the archive table, and is too old to be used for display.
-def update_clean_old(db):
-	cursor = db.cursor()
-	query = fixDBQuery("DELETE FROM `rain` WHERE (`time` <= now() - interval %s day)")
-	cursor.execute(query, [how_many_days_of_rain_data_to_keep])
-	db.commit()
+def update_clean_old():
+	rains = Table_Rain.select()
+	for rain in rains:
+		if (datetime.datetime.now() - rain.time) > datetime.timedelta(days = how_many_days_of_rain_data_to_keep):
+			rain.delete()
 	logging.getLogger("thread_clean").info(" Rain Table Cleaned.")

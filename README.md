@@ -1,3 +1,5 @@
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+
 # rainmeter-pi
 Raspberry-pi powered Weather Station
 TODO
@@ -32,6 +34,8 @@ Next, enable SPI support on your pi:
 Make sure you have all the python dependencies:
 
 ```sudo apt-get install build-essential python-dev```
+
+```pip install sqlobject pytz```
 
 Install the DHTXX Sensor library:
 

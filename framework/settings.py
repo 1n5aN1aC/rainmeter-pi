@@ -12,24 +12,27 @@
 ###################################
 
 # This should be your API Key from weather underground.
-# You can get one fro free from here:
+# You can get one for free from here:
 # http://www.wunderground.com/weather/api
 key = "e8b292334779aa96"
 
-# The ZIP code you want to get weather forcasts and such from
+# The ZIP code you want to get weather forcasts and such for
 zip = "97338"
 
-# Database Settings
-# Only 'mySQL' and 'SQLite' are supported currently.
-# When using mySQL, fill out all options.
-# When using SQLite, only Database_Name is considered, and interpreted as a path to the db.
-Database_Type = "mySQL"
-Database_Host = "127.0.0.1"
-Database_User = "rainmeter"
-Database_Password = "password"
-Database_Name = "rainmeter"
-#Database_Name = "./rainmeter.db"
+# Each time your rain guage tips, how many inches does that signify?
+rainTipAmount = 0.02
 
+# Your timezone code can be found from the link below:
+# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+my_timezone = "US/Pacific"
+
+# Database Settings:
+# Scheme is one of: mysql, sqlite, postgres, firebird, interbase, maxdb, sapdb, mssql, sybase
+# Only 'mysql' and 'sqlite' are tested.
+#Connection_String = "scheme://[user[:password]@]host[:port]/database[?parameters]"
+Connection_String = "mysql://rainmeter:password@localhost/rainmeter"
+#Connection_String = "sqlite:///full/path/to/database"
+#Connection_String = "sqlite:/D:/XAMPP/htdocs/database.db"
 
 ###################################
 ##### Sensor Update Frequency #####

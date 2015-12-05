@@ -8,18 +8,11 @@ from database import *
 # How the rain sub-system works, have a look at README-ADVANCED.txt
 #
 
-#####################################
-rainTipAmount = "0.02"
-#####################################
-
-def update_sensor_rain(db):
-	cursor = db.cursor()
+def update_sensor_rain():
+	#Add this to the rain table
+	now = Table_Rain(quantity=rainTipAmount, time=datetime.datetime.now())
 	
-	query = fixDBQuery("INSERT INTO `rain`(`quantity`) VALUES (%s)")
-	cursor.execute(query, [rainTipAmount] )
-	db.commit()
-	
-	query = fixDBQuery("UPDATE `now` SET `OUT_Rain_Since_Reset` = `OUT_Rain_Since_Reset` + %s")
-	cursor.execute(query, [rainTipAmount] )
-	db.commit()
+	#Now update the now table
+	now = Table_Now.get(1)
+	now.Out_Rain_Since_Reset = now.Out_Rain_Since_Reset + rainTipAmount
 	logging.getLogger("thread_rainSimulator").info(" Caused A Fake Rain Pulse.")

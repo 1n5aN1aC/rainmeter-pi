@@ -28,51 +28,39 @@ run = True
 
 # Thread to handle updating sensor readings
 def thread_sensors():
-	db = database.getDB()
 	while run:
-		update_sensors.update_sensors(db)
+		update_sensors.update_sensors()
 		time.sleep(settings.how_often_to_check_sensors)
-	db.close()
 
 # Thread to handle simulating rain events
 def thread_sensor_rain():
-	db = database.getDB()
 	while run:
-		update_sensor_rain.update_sensor_rain(db)
+		update_sensor_rain.update_sensor_rain()
 		time.sleep( random.randint(1, 240) )
-	db.close()
 
 # Thread to compile rain into time averages
 def thread_rain_compile():
-	db = database.getDB()
 	while run:
-		update_rain_compile.update_rain_compile(db)
+		update_rain_compile.update_rain_compile()
 		time.sleep(settings.how_often_to_compile_rain)
-	db.close()
 
 # Thread to update current conditions
 def thread_feels_like():
-	db = database.getDB()
 	while run:
-		update_feels_like.update_feels_like(db)
+		update_feels_like.update_feels_like()
 		time.sleep(settings.how_often_to_update_feels_like)
-	db.close()
 
 # Thread to handle archiving
 def thread_archive():
-	db = database.getDB()
 	while run:
-		update_archive.update_archive(db)
+		update_archive.update_archive()
 		time.sleep(settings.how_often_to_archive_data)
-	db.close()
 
 # Thread that cleans out old rain entries
 def thread_clean():
-	db = database.getDB()
 	while run:
-		update_archive.update_clean_old(db)
+		update_archive.update_clean_old()
 		time.sleep(settings.how_often_to_clean_rain_db)
-	db.close()
 
 # Signal handler to properly close all DB handles
 def signal_handler(signal, frame):
