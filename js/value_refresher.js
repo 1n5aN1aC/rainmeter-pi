@@ -41,12 +41,15 @@ function update(data) {
 	});
 	
 	var date = new Date()
+	minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
+	hours = (date.getHours() > 12) ? date.getHours() - 12 : date.getHours();
+	hours = ( hours == 0 ) ? 12 : hours;
+	
 	var theSpan = $('#DATE');
 	theSpan.html(date.getMonth()+1 + "/" + date.getDate())
 	
 	var theSpan = $('#TIME');
-	minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-	theSpan.html(date.getHours() + ":" + minutes)
+	theSpan.html(hours + ":" + minutes)
 }
 
 // Handles when the user clicks the button to reset the rainfall.
