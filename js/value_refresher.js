@@ -26,7 +26,7 @@ function update(data) {
 		}
 		//SYSTEM ones are jquery UI Progress bars.
 		else if (theSpan.attr('id') && theSpan.attr('id').includes("SYSTEM")) {
-			$( "#" + k ).progressbar({
+			theSpan.progressbar({
 				value: v
 			});
 		}
@@ -35,8 +35,11 @@ function update(data) {
 			theSpan.attr("src", v);
 		}
 		//Everything else gets rounded to one decimal point.
+		//We also make sure there are a decimal point, even when something is causing there to not be.
 		else {
-			theSpan.html(Math.round(v * 10) / 10)
+			number = Math.round(v * 10) / 10
+			newlook = number + (number % 1 == 0 ? ".0" : "")
+			theSpan.html(newlook)
 		}
 	});
 	
@@ -59,8 +62,9 @@ function reset_rain() {
 	});
 }
 
-
-//Update it now!
-getTheJSON()
-// Set up a permanent call to getTheJSON() every X seconds.
-window.setInterval(function(){  getTheJSON() }, 5000);
+document.addEventListener("DOMContentLoaded", function(event) {
+	//Update it now!
+	getTheJSON()
+	// Set up a permanent call to getTheJSON() every X seconds.
+	window.setInterval(function(){  getTheJSON() }, 5000);
+});

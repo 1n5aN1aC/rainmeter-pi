@@ -16,9 +16,21 @@
 	</head>
 	<body>
 		<div class='main'>
-			<div class="measure">Inside:</br><span class="value" id="IN_Temp">--</span>°F </br> <span class="value" id="IN_Humid">--</span>%</div>
-			<div class="measure">Outside:</br><span class="value" id="OUT_Temp">--</span>°F </br> <span class="value" id="OUT_Humid">--</span>% </div>
-			<div class="measure">Attic:</br><span class="value" id="ATTIC_Temp">--</span>°F </br> <span class="value" id="ATTIC_Humid">--</span>% </div>
+			<div class="measure-container">
+				Inside:</br>
+				<span class="measure"><span class="value" id="IN_Temp">--</span><span class="symbol">°F</span></span> </br>
+				<span class="measure"><span class="value" id="IN_Humid">--</span><span class="symbol">%</span></span>
+			</div>
+			<div class="measure-container">
+				Outside:</br>
+				<span class="measure"><span class="value" id="OUT_Temp">--</span><span class="symbol">°F</span></span> </br>
+				<span class="measure"><span class="value" id="OUT_Humid">--</span><span class="symbol">%</span></span>
+			</div>
+			<div class="measure-container">
+				Attic:</br>
+				<span class="measure"><span class="value" id="ATTIC_Temp">--</span><span class="symbol">°F</span></span> </br>
+				<span class="measure"><span class="value" id="ATTIC_Humid">--</span><span class="symbol">%</span></span>
+			</div>
 			</br>
 			Wind: <span class="value" id="OUT_Wind_Avg">--</span><sub>mph</sub> / <span class="value" id="OUT_Wind_Max">--</span><sub>mph</sub></br>
 			Rain: <span class="value" id="OUT_Rain_Today">--</span>in / 
