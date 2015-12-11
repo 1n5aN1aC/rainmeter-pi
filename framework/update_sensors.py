@@ -18,13 +18,15 @@ OUT_Temp_Q = {"Q":collections.deque(maxlen=Temp_Average_Length), "Fails":0, "Nam
 OUT_Humid_Q = {"Q":collections.deque(maxlen=Humid_Average_Length), "Fails":0, "Name":'OUT_Humid'}
 ATT_Temp_Q = {"Q":collections.deque(maxlen=Temp_Average_Length), "Fails":0, "Name":'ATT_Temp'}
 ATT_Humid_Q = {"Q":collections.deque(maxlen=Humid_Average_Length), "Fails":0, "Name":'ATT_Humid'}
-Wind_Q = {"Q":collections.deque(maxlen=Wind_Average_Length), "Fails":0, "Name":'Wind'}
+Wind_Avg_Q = {"Q":collections.deque(maxlen=Wind_Average_Length), "Fails":0, "Name":'Wind_Avg'}
+Wind_Max_Q = {"Q":collections.deque(maxlen=Wind_Max_Length), "Fails":0, "Name":'Wind_Max'}
 
-# This reads and updates each sensor
+# This reads each sensor, then updates the dequeues with that data
 def read_all_sensors():
 	temp_inside, humid_inside = sensors.read_inside_sensor()
 	temp_outside, humid_outside = sensors.read_outside_sensor()
 	temp_attic, humid_attic = sensors.read_attic_sensor()
+	wind_speed = sensors.read_wind_outside()
 
 	add_reading_to_dequeue(IN_Temp_Q, temp_inside)
 	add_reading_to_dequeue(OUT_Temp_Q, temp_outside)
@@ -32,14 +34,15 @@ def read_all_sensors():
 	add_reading_to_dequeue(IN_Humid_Q, humid_inside)
 	add_reading_to_dequeue(OUT_Humid_Q, humid_outside)
 	add_reading_to_dequeue(ATT_Humid_Q, humid_attic)
-	add_reading_to_dequeue(Wind_Q, sensors.read_wind_outside() )
+	add_reading_to_dequeue(Wind_Avg_Q, wind_speed)
+	add_reading_to_dequeue(Wind_Max_Q, wind_speed)
 
 # Updates all non-special sensors
 def update_sensors():
 	#Read the sensors; store in dequeue
 	read_all_sensors()
 	
-	#commit the averages of the dequeues to the db
+	#Commit the averages of the dequeues to the db
 	now = Table_Now.get(1)
 	now.In_Temp = sum(IN_Temp_Q['Q']) / float(len(IN_Temp_Q['Q']))
 	now.Out_Temp = sum(OUT_Temp_Q['Q']) / float(len(OUT_Temp_Q['Q']))
@@ -47,13 +50,15 @@ def update_sensors():
 	now.In_Humid = sum(IN_Humid_Q['Q']) / float(len(IN_Humid_Q['Q']))
 	now.Out_Humid = sum(OUT_Humid_Q['Q']) / float(len(OUT_Humid_Q['Q']))
 	now.Attic_Humid = sum(ATT_Humid_Q['Q']) / float(len(ATT_Humid_Q['Q']))
-	now.Out_Wind_Avg = sum(Wind_Q['Q']) / float(len(Wind_Q['Q']))
-	now.Out_Wind_Max = max(Wind_Q['Q'])
+	now.Out_Wind_Avg = sum(Wind_Avg_Q['Q']) / float(len(Wind_Avg_Q['Q']))
+	now.Out_Wind_Max = max(Wind_Max_Q['Q'])
 	now.System_CPU = sensors.read_cpu_usage()
 	now.System_RAM = sensors.read_ram_usage()
 	
 	logging.getLogger("thread_sensors").info(" Updated Sensor Data.")
 
+# This takes a dequeue, and a reading, and adds that reading to the dequeue.
+# It also handles checking for update failures, and not including them when applicable.
 def add_reading_to_dequeue(dequeue, new_reading):
 	if new_reading is not None:
 		dequeue['Q'].append(new_reading)

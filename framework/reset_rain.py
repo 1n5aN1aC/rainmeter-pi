@@ -1,4 +1,5 @@
 #!python
+# -*- coding: UTF-8 -*-
 from database import *
 import time
 
@@ -12,7 +13,8 @@ import time
 print "Content-Type: text/html;charset=utf-8"
 print
 
-# Execute UPDATE query
+# Reset rain_since_reset in the table
+# (╯°□°）╯︵ ┻━┻
 for x in range(0, 3):
 	now = Table_Now.get(1)
 	now.Out_Rain_Since_Reset = 0

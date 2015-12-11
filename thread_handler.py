@@ -10,7 +10,7 @@ from framework import update_archive
 from framework import settings
 
 #
-# This File handles launching and running all the deamon threads 
+# This File handles launching and running all the daemon threads 
 # This includes:
 #
 # Thread to handle updating sensor readings
