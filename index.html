@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<meta http-equiv="refresh" content="43200">
-		<!-- <meta http-equiv="refresh" content="12"> -->
+		<!-- <meta http-equiv="refresh" content="43200"> -->
+		<meta http-equiv="refresh" content="12">
 		<link href='https://fonts.googleapis.com/css?family=Play:700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css">
 		<link rel="stylesheet" href="/js/jquery-ui-1.11.4/themes/eggplant/theme.css">
@@ -31,21 +31,36 @@
 				<span class="measure"><span class="value" id="ATTIC_Temp">--</span><span class="symbol">°F</span></span> </br>
 				<span class="measure"><span class="value" id="ATTIC_Humid">--</span><span class="symbol">%</span></span>
 			</div>
-			</br>
-			Wind: <span class="value" id="OUT_Wind_Avg">--</span><sub>mph</sub> / <span class="value" id="OUT_Wind_Max">--</span><sub>mph</sub></br>
-			Rain: <span class="value" id="OUT_Rain_Today">--</span>in / 
-				<span class="value" id="OUT_Rain_Last_24h">--</span>in / 
-				<a class="inline-block" href="#" onclick="reset_rain()"><span class="value" id="OUT_Rain_Since_Reset">--</span>in</br></a>
+			<div class="measure-container">
+				<img src="/img/wind.png" class="topleft larger" style="height:45px;"/>
+				<span class="measure"><span class="value" id="OUT_Wind_Avg">--</span><span class="symbol">mph</span></span>
+				<span class="measure"><span class="value" id="OUT_Wind_Max">--</span><span class="symbol">mph</span></span></br>
+			</div>
+			<div class="measure-container">
+				<img src="/img/rain.png" class="topleft larger" />
+				today: <span class="measure"><span class="value" id="OUT_Rain_Today">--</span><span class="symbol">in</span></span></br>
+				24h: <span class="measure"><span class="value" id="OUT_Rain_Last_24h">--</span><span class="symbol">in</span></span></br>
+				since reset: <a class="inline-block" href="#" onclick="reset_rain()">
+					<span class="measure"><span class="value" id="OUT_Rain_Since_Reset">--</span><span class="symbol">in</span></span>
+				</a>
+				</span>
+			</div>
 		</div>
 		<div class='rightbar'>
 			<div class="now">
 				Feels Like:</br>
 				<img class="larger" id="NOW_URL" src="" /></br>
-				<span class="value"><span id="NOW_Feel">--</span>°</span>
+				<span class="measure">
+					<span class="value"><span id="NOW_Feel">--</span><span class="symbol">°F</span></span>
+				</span>
 			</div>
 			<div class="rightmiddle">
-				<span class="value"><span id="DATE">--</span></span></br>
-				<span class="value"><span id="TIME">--</span></span></br></br>
+				<span class="measure">
+					<span class="value"><span id="DATE">--</span></span></br>
+				</span>
+				<span class="measure">
+					<span class="value"><span id="TIME">--</span></span></br></br>
+				</span>
 				System:</br>
 				<div class="progressbar" class="progress" id="SYSTEM_CPU"><span class="ui-progressbar-text">%cpu</span></div>
 				<div class="progressbar"" id="SYSTEM_RAM"><span class="ui-progressbar-text">%ram</span></div>

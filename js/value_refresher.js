@@ -30,6 +30,10 @@ function update(data) {
 				value: v
 			});
 		}
+		//For the 'feels like' we only round to whole number
+		else if (theSpan.attr('id') && theSpan.attr('id').includes("Feel")) {
+			theSpan.html( Math.round(v) )
+		}
 		//Images we update the src= instead
 		else if (theSpan.is("img")) {
 			theSpan.attr("src", v);

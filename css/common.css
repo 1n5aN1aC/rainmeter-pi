@@ -21,6 +21,12 @@ img.larger {
 	width: 60px;
 }
 
+img.topleft {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
 a, a:hover, a:visited{
 	display: block;
 	color: #000000;
