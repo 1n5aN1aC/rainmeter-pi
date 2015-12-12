@@ -43,5 +43,5 @@ def update_clean_old():
 	rains = Table_Rain.select()
 	for rain in rains:
 		if (datetime.datetime.now() - rain.time) > datetime.timedelta(days = how_many_days_of_rain_data_to_keep):
-			rain.delete()
+			rain.destroySelf()
 	logging.getLogger("thread_clean").info(" Rain Table Cleaned.")
