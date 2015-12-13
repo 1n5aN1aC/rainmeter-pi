@@ -1,5 +1,5 @@
 #!python
-import json, logging
+import json, logging, time
 from database import *
 from settings import *
 
@@ -34,14 +34,16 @@ def update_archive():
 								Out_Wind_Max=now.Out_Wind_Max,
 								Out_Rain_Minute=rain_amount,
 								Now_Feel=now.Now_Feel)
-
 	logging.getLogger("thread_archive").info(" Sensor Data Archived.")
 
 # This deletes old rain data from the 'rain' table. This data is no longer needed,
 # as it has already been logged to the archive table, and is too old to be used for display.
 def update_clean_old():
 	rains = Table_Rain.select()
+	number_cleaned = 0
+	start = time.time()
 	for rain in rains:
 		if (datetime.datetime.now() - rain.time) > datetime.timedelta(days = how_many_days_of_rain_data_to_keep):
 			rain.destroySelf()
-	logging.getLogger("thread_clean").info(" Rain Table Cleaned.")
+			number_cleaned = number_cleaned + 1
+	logging.getLogger("thread_clean").info(" Rain Table Cleaned.  (" + str(number_cleaned) + " entries purged in " + str((time.time() - start)*1000) + "ms)")

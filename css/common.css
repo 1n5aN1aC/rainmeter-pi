@@ -23,8 +23,8 @@ img.larger {
 
 img.topleft {
 	position: absolute;
-	left: 0;
-	top: 0;
+	left: 2px;
+	top: 1px;
 }
 
 a, a:hover, a:visited{
