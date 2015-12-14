@@ -72,7 +72,7 @@ how_many_days_of_rain_data_to_keep = 7
 Temp_Average_Length = 10
 Humid_Average_Length = 15
 Wind_Average_Length = 2
-Wind_Max_Length = 30
+Wind_Max_Length = 31
 
 # This defines how many consecutive readings of a sensor must fail
 # before the sensor actually displays an error.

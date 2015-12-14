@@ -58,7 +58,7 @@ class update_outside(stoppable_thread):
 			now.Out_Temp = sum(OUT_Temp_Q['Q']) / float(len(OUT_Temp_Q['Q']))
 			now.Out_Humid = sum(OUT_Humid_Q['Q']) / float(len(OUT_Humid_Q['Q']))
 			
-			logging.getLogger("sensor").debug(" Updated Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated Outside Sensor Data.")
 			time.sleep(how_often_to_check_temp)
 
 # Thread for updating the attic T/H sensor
@@ -73,7 +73,7 @@ class update_attic(stoppable_thread):
 			now.Attic_Temp = sum(ATT_Temp_Q['Q']) / float(len(ATT_Temp_Q['Q']))
 			now.Attic_Humid = sum(ATT_Humid_Q['Q']) / float(len(ATT_Humid_Q['Q']))
 			
-			logging.getLogger("sensor").debug(" Updated Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated Attic Sensor Data.")
 			time.sleep(how_often_to_check_temp)
 
 # Thread for updating the inside T/H sensor
@@ -88,7 +88,7 @@ class update_inside(stoppable_thread):
 			now.In_Temp = sum(IN_Temp_Q['Q']) / float(len(IN_Temp_Q['Q']))
 			now.In_Humid = sum(IN_Humid_Q['Q']) / float(len(IN_Humid_Q['Q']))
 			
-			logging.getLogger("sensor").debug(" Updated Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated Inside Sensor Data.")
 			time.sleep(how_often_to_check_temp)
 
 # Thread for updating the wind sensor
@@ -104,7 +104,7 @@ class update_wind(stoppable_thread):
 			now.Out_Wind_Avg = sum(Wind_Avg_Q['Q']) / float(len(Wind_Avg_Q['Q']))
 			now.Out_Wind_Max = max(Wind_Max_Q['Q'])
 			
-			logging.getLogger("sensor").debug(" Updated Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated Wind Data.")
 			time.sleep(how_often_to_check_wind)
 
 # Thread for updating the system stats
@@ -115,7 +115,7 @@ class update_system(stoppable_thread):
 			now.System_CPU = sensors.read_cpu_usage()
 			now.System_RAM = sensors.read_ram_usage()
 			
-			logging.getLogger("sensor").debug(" Updated Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated SYSTEM Data.")
 			time.sleep(how_often_to_check_system)
 
 # This takes a dequeue, and a reading, and adds that reading to the dequeue.
