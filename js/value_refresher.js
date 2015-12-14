@@ -5,7 +5,7 @@
 // This requests the current data via local json request.
 // It then makes a callback to update() to handle the data.
 function getTheJSON() {
-	jQuery.getJSON("/framework/get_update.py", function(data) { update(data); } )
+	jQuery.getJSON("/status", function(data) { update(data); } )
 }
 
 // update() handles actually updating the vales on the page from the json results
@@ -70,5 +70,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//Update it now!
 	getTheJSON()
 	// Set up a permanent call to getTheJSON() every X seconds.
-	window.setInterval(function(){  getTheJSON() }, 5000);
+	window.setInterval(function(){  getTheJSON() }, 1000);
 });
