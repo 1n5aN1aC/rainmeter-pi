@@ -54,6 +54,14 @@ TODO https://github.com/adafruit/Adafruit_Python_DHT
 
 TODO
 
+### Webserver set up
+
+I used apache, so if you want to use a different webserver, such as nginx, sorry, but your on your own.
+
+There are two options available:  the 'simple' way, which is much slower, or wsgi, which runs very fast.
+
+TODO
+
 ### Configure
 
 Open ```./framework/settings.py``` and fill out the required settings, such as your API key & ZIP code.

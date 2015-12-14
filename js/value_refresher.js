@@ -62,7 +62,7 @@ function update(data) {
 // Handles when the user clicks the button to reset the rainfall.
 function reset_rain() {
 	$.ajax({
-		url: "/framework/reset_rain.py",
+		url: "/framework/http_reset_rain.py",
 	});
 }
 

@@ -31,7 +31,8 @@ def get_json():
 	#Now return the json as a string
 	return json.dumps(data)
 
-# If file ran directly, print the json directly as well
+# If file ran directly, print the json directly as well.
+# We use this to be able to support wsgi OR straight python.
 if __name__ == '__main__':
 	# Print the Header
 	print "Content-Type: application/json;charset=utf-8"

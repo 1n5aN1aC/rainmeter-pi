@@ -1,5 +1,5 @@
 #!python
-from status import *
+from http_status import *
 
 #
 # This is requested by the index page every time it needs to update the data.
