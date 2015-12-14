@@ -1,5 +1,6 @@
 #!python
-import collections, logging
+import collections, logging, time, threading
+from stoppable_thread import *
 from database import *
 from settings import *
 import sensors
@@ -12,6 +13,7 @@ import sensors
 #
 
 # Create the dequeues
+# These are dictionaries which contain the Q, consecutive fail count, and a debug name.
 IN_Temp_Q = {"Q":collections.deque(maxlen=Temp_Average_Length), "Fails":0, "Name":'IN_Temp'}
 IN_Humid_Q = {"Q":collections.deque(maxlen=Humid_Average_Length), "Fails":0, "Name":'IN_Humid'}
 OUT_Temp_Q = {"Q":collections.deque(maxlen=Temp_Average_Length), "Fails":0, "Name":'OUT_Temp'}
@@ -21,41 +23,98 @@ ATT_Humid_Q = {"Q":collections.deque(maxlen=Humid_Average_Length), "Fails":0, "N
 Wind_Avg_Q = {"Q":collections.deque(maxlen=Wind_Average_Length), "Fails":0, "Name":'Wind_Avg'}
 Wind_Max_Q = {"Q":collections.deque(maxlen=Wind_Max_Length), "Fails":0, "Name":'Wind_Max'}
 
-# This reads each sensor, then updates the dequeues with that data
-def read_all_sensors():
-	temp_inside, humid_inside = sensors.read_inside_sensor()
-	temp_outside, humid_outside = sensors.read_outside_sensor()
-	temp_attic, humid_attic = sensors.read_attic_sensor()
-	wind_speed = sensors.read_wind_outside()
+# 
+class thread_sensors(stoppable_thread):
+	def run(self):
+		#Create the threads
+		sensor_threads = []
+		sensor_threads.append( update_outside() )
+		sensor_threads.append( update_attic() )
+		sensor_threads.append( update_inside() )
+		sensor_threads.append( update_wind() )
+		sensor_threads.append( update_system() )
+		
+		#Wait until this thread is told to stop...
+		while self.RUN:
+			time.sleep(1)
+		
+		#Then tell deamon threads to die, and reap their souls
+		for thread in sensor_threads:
+			thread.stop()
+		for thread in sensor_threads:
+			thread.join(how_long_to_wait_before_killing_deamons)
 
-	add_reading_to_dequeue(IN_Temp_Q, temp_inside)
-	add_reading_to_dequeue(OUT_Temp_Q, temp_outside)
-	add_reading_to_dequeue(ATT_Temp_Q, temp_attic)
-	add_reading_to_dequeue(IN_Humid_Q, humid_inside)
-	add_reading_to_dequeue(OUT_Humid_Q, humid_outside)
-	add_reading_to_dequeue(ATT_Humid_Q, humid_attic)
-	add_reading_to_dequeue(Wind_Avg_Q, wind_speed)
-	add_reading_to_dequeue(Wind_Max_Q, wind_speed)
+# 
+class update_outside(stoppable_thread):
+	def run(self):
+		while self.RUN:
+			temp_outside, humid_outside = sensors.read_outside_sensor()
+			add_reading_to_dequeue(OUT_Temp_Q, temp_outside)
+			add_reading_to_dequeue(OUT_Humid_Q, humid_outside)
+			
+			now = Table_Now.get(1)
+			now.Out_Temp = sum(OUT_Temp_Q['Q']) / float(len(OUT_Temp_Q['Q']))
+			now.Out_Humid = sum(OUT_Humid_Q['Q']) / float(len(OUT_Humid_Q['Q']))
+			
+			logging.getLogger("sensor").info(" Updated Sensor Data.")
+			time.sleep(how_often_to_check_temp)
 
-# Updates all non-special sensors
-def update_sensors():
-	#Read the sensors; store in dequeue
-	read_all_sensors()
-	
-	#Commit the averages of the dequeues to the db
-	now = Table_Now.get(1)
-	now.In_Temp = sum(IN_Temp_Q['Q']) / float(len(IN_Temp_Q['Q']))
-	now.Out_Temp = sum(OUT_Temp_Q['Q']) / float(len(OUT_Temp_Q['Q']))
-	now.Attic_Temp = sum(ATT_Temp_Q['Q']) / float(len(ATT_Temp_Q['Q']))
-	now.In_Humid = sum(IN_Humid_Q['Q']) / float(len(IN_Humid_Q['Q']))
-	now.Out_Humid = sum(OUT_Humid_Q['Q']) / float(len(OUT_Humid_Q['Q']))
-	now.Attic_Humid = sum(ATT_Humid_Q['Q']) / float(len(ATT_Humid_Q['Q']))
-	now.Out_Wind_Avg = sum(Wind_Avg_Q['Q']) / float(len(Wind_Avg_Q['Q']))
-	now.Out_Wind_Max = max(Wind_Max_Q['Q'])
-	now.System_CPU = sensors.read_cpu_usage()
-	now.System_RAM = sensors.read_ram_usage()
-	
-	logging.getLogger("thread_sensors").info(" Updated Sensor Data.")
+# 
+class update_attic(stoppable_thread):
+	def run(self):
+		while self.RUN:
+			temp_attic, humid_attic = sensors.read_attic_sensor()
+			add_reading_to_dequeue(ATT_Temp_Q, temp_attic)
+			add_reading_to_dequeue(ATT_Humid_Q, humid_attic)
+			
+			now = Table_Now.get(1)
+			now.Attic_Temp = sum(ATT_Temp_Q['Q']) / float(len(ATT_Temp_Q['Q']))
+			now.Attic_Humid = sum(ATT_Humid_Q['Q']) / float(len(ATT_Humid_Q['Q']))
+			
+			logging.getLogger("sensor").info(" Updated Sensor Data.")
+			time.sleep(how_often_to_check_temp)
+
+# 
+class update_inside(stoppable_thread):
+	def run(self):
+		while self.RUN:
+			temp_inside, humid_inside = sensors.read_inside_sensor()
+			add_reading_to_dequeue(IN_Temp_Q, temp_inside)
+			add_reading_to_dequeue(IN_Humid_Q, humid_inside)
+			
+			now = Table_Now.get(1)
+			now.In_Temp = sum(IN_Temp_Q['Q']) / float(len(IN_Temp_Q['Q']))
+			now.In_Humid = sum(IN_Humid_Q['Q']) / float(len(IN_Humid_Q['Q']))
+			
+			logging.getLogger("sensor").info(" Updated Sensor Data.")
+			time.sleep(how_often_to_check_temp)
+
+# 
+class update_wind(stoppable_thread):
+	def run(self):
+		while self.RUN:
+			wind_speed = sensors.read_wind_outside()
+			
+			add_reading_to_dequeue(Wind_Avg_Q, wind_speed)
+			add_reading_to_dequeue(Wind_Max_Q, wind_speed)
+			
+			now = Table_Now.get(1)
+			now.Out_Wind_Avg = sum(Wind_Avg_Q['Q']) / float(len(Wind_Avg_Q['Q']))
+			now.Out_Wind_Max = max(Wind_Max_Q['Q'])
+			
+			logging.getLogger("sensor").info(" Updated Sensor Data.")
+			time.sleep(how_often_to_check_wind)
+
+# 
+class update_system(stoppable_thread):
+	def run(self):
+		while self.RUN:
+			now = Table_Now.get(1)
+			now.System_CPU = sensors.read_cpu_usage()
+			now.System_RAM = sensors.read_ram_usage()
+			
+			logging.getLogger("sensor").info(" Updated Sensor Data.")
+			time.sleep(how_often_to_check_system)
 
 # This takes a dequeue, and a reading, and adds that reading to the dequeue.
 # It also handles checking for update failures, and not including them when applicable.

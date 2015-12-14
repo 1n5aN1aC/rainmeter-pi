@@ -39,8 +39,10 @@ Connection_String = "mysql://rainmeter:password@localhost/rainmeter"
 ###################################
 # All Values in seconds
 
-# How often the Temp, Humidity, & Wind sensors are updated 
-how_often_to_check_sensors = 5
+# How often the various sensors are updated
+how_often_to_check_temp = 5
+how_often_to_check_wind = 2
+how_often_to_check_system = 5
 
 # How often the current 'feel like' & picture are updated
 # Feels_like update should not be < 180 (API Limits)
@@ -84,5 +86,7 @@ failed_readings_before_error = 10
 # Should we enable console logging for the deamon threads?
 enable_deamon_logging = True
 
-# How long we should wait for threads to finish before killing them
-how_long_to_wait_before_killing_deamons = 5
+# How long we should wait for the main threads to finish before killing them
+# How long we should wait for each deamon trhead to finish before killing it
+how_long_to_wait_before_killing_threads = 5
+how_long_to_wait_before_killing_deamons = 2
