@@ -32,4 +32,4 @@ class thread_rain_compile(stoppable_thread):
 		now.Out_Rain_Last_24h = rain_24h
 		now.Out_Rain_Today = rain_today
 		
-		logging.getLogger("thread_rainCompile").info(" Compiled Rain Data.")
+		logging.getLogger("thread").info(" Compiled Rain Data.")

@@ -24,4 +24,4 @@ class thread_feels_like(stoppable_thread):
 		now = Table_Now.get(1)
 		now.Now_URL = NOW_URL
 		now.Now_Feel = NOW_Feel
-		logging.getLogger("thread_feelsLike").info(" Updated Feels Like Data.")
+		logging.getLogger("thread").info(" Updated Feels Like Data.")

@@ -1,5 +1,5 @@
 #!python
-import collections, logging, time, threading
+import collections, logging, time
 from stoppable_thread import *
 from database import *
 from settings import *
@@ -39,10 +39,12 @@ class thread_sensors(stoppable_thread):
 			time.sleep(1)
 		
 		#Then tell deamon threads to die, and reap their souls
+		logging.getLogger("thread").info(" Telling sensor threads to die...")
 		for thread in sensor_threads:
 			thread.stop()
 		for thread in sensor_threads:
 			thread.join(how_long_to_wait_before_killing_deamons)
+		logging.getLogger("thread").debug(" Sensor threads have been killed!")
 
 # 
 class update_outside(stoppable_thread):
@@ -56,7 +58,7 @@ class update_outside(stoppable_thread):
 			now.Out_Temp = sum(OUT_Temp_Q['Q']) / float(len(OUT_Temp_Q['Q']))
 			now.Out_Humid = sum(OUT_Humid_Q['Q']) / float(len(OUT_Humid_Q['Q']))
 			
-			logging.getLogger("sensor").info(" Updated Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated Sensor Data.")
 			time.sleep(how_often_to_check_temp)
 
 # 
@@ -71,7 +73,7 @@ class update_attic(stoppable_thread):
 			now.Attic_Temp = sum(ATT_Temp_Q['Q']) / float(len(ATT_Temp_Q['Q']))
 			now.Attic_Humid = sum(ATT_Humid_Q['Q']) / float(len(ATT_Humid_Q['Q']))
 			
-			logging.getLogger("sensor").info(" Updated Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated Sensor Data.")
 			time.sleep(how_often_to_check_temp)
 
 # 
@@ -86,7 +88,7 @@ class update_inside(stoppable_thread):
 			now.In_Temp = sum(IN_Temp_Q['Q']) / float(len(IN_Temp_Q['Q']))
 			now.In_Humid = sum(IN_Humid_Q['Q']) / float(len(IN_Humid_Q['Q']))
 			
-			logging.getLogger("sensor").info(" Updated Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated Sensor Data.")
 			time.sleep(how_often_to_check_temp)
 
 # 
@@ -102,7 +104,7 @@ class update_wind(stoppable_thread):
 			now.Out_Wind_Avg = sum(Wind_Avg_Q['Q']) / float(len(Wind_Avg_Q['Q']))
 			now.Out_Wind_Max = max(Wind_Max_Q['Q'])
 			
-			logging.getLogger("sensor").info(" Updated Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated Sensor Data.")
 			time.sleep(how_often_to_check_wind)
 
 # 
@@ -113,7 +115,7 @@ class update_system(stoppable_thread):
 			now.System_CPU = sensors.read_cpu_usage()
 			now.System_RAM = sensors.read_ram_usage()
 			
-			logging.getLogger("sensor").info(" Updated Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated Sensor Data.")
 			time.sleep(how_often_to_check_system)
 
 # This takes a dequeue, and a reading, and adds that reading to the dequeue.

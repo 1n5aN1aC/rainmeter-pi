@@ -34,6 +34,7 @@ Connection_String = "mysql://rainmeter:password@localhost/rainmeter"
 #Connection_String = "sqlite:///full/path/to/database"
 #Connection_String = "sqlite:/D:/XAMPP/htdocs/database.db"
 
+
 ###################################
 ##### Sensor Update Frequency #####
 ###################################
