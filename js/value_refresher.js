@@ -5,7 +5,11 @@
 // This requests the current data via local json request.
 // It then makes a callback to update() to handle the data.
 function getTheJSON() {
-	jQuery.getJSON("/status", function(data) { update(data); } )
+	url = "/framework/http_status.py"
+	if (window.wsgi == true) {
+		url = "/status"
+	}
+	jQuery.getJSON(url, function(data) { update(data); } )
 }
 
 // update() handles actually updating the vales on the page from the json results
@@ -61,12 +65,32 @@ function update(data) {
 
 // Handles when the user clicks the button to reset the rainfall.
 function reset_rain() {
+	url = "/framework/http_reset_rain.py"
+	if (window.wsgi == true) {
+		url = "/reset_rain"
+	}
 	$.ajax({
-		url: "/framework/http_reset_rain.py",
+		url: url,
+	});
+}
+
+// If the server responds to /status, we know wgsi is supported.
+function check_wsgi() {
+	$.ajax({
+		type: "HEAD",
+		url: "/status",
+		success: function() {
+			window.wsgi = true;
+		},
+		error: function() {
+			window.wsgi = false;
+		}
 	});
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
+	//Check if the webserver is set up to support wsgi (much faster)
+	check_wsgi()
 	//Update it now!
 	getTheJSON()
 	// Set up a permanent call to getTheJSON() every X seconds.

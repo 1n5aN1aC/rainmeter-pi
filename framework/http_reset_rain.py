@@ -10,6 +10,8 @@ def reset_rain():
 	now = Table_Now.get(1)
 	now.sync()
 	now.Out_Rain_Since_Reset = 0
+	
+	return "reset!"
 
 # If file ran directly, reset the rain as well.
 # We use this to be able to support wsgi OR straight python.
@@ -18,7 +20,5 @@ if __name__ == '__main__':
 	print "Content-Type: text/html;charset=utf-8"
 	print
 	
-	reset_rain()
-	
 	# Print the Data
-	print "reset!"
+	print reset_rain()

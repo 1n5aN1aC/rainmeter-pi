@@ -1,4 +1,4 @@
-[![Supports](https://img.shields.io/badge/platform-raspberry%20pi-lightgrey.svg?style=plastic)](https://www.raspberrypi.org/) [![Supports](https://img.shields.io/badge/supports-mysql%20or%20sqlite-lightgrey.svg?style=plastic)](https://github.com/1n5aN1aC/rainmeter-pi/blob/master/framework/settings.py) [![License](https://img.shields.io/badge/license-cc--by--sa-green.svg?style=plastic)](http://creativecommons.org/licenses/by-sa/4.0/)
+[![Supports](https://img.shields.io/badge/platform-raspberry%20pi-lightgrey.svg?style=plastic)](https://www.raspberrypi.org/) [![Supports](https://img.shields.io/badge/supports-mysql%20or%20sqlite-lightgrey.svg?style=plastic)](https://github.com/1n5aN1aC/rainmeter-pi/blob/master/framework/settings.py#L29) [![License](https://img.shields.io/badge/license-cc--by--sa-green.svg?style=plastic)](http://creativecommons.org/licenses/by-sa/4.0/)
 
 # Rainmeter-pi
 Raspberry-pi powered Weather Station
