@@ -1,6 +1,5 @@
 #!python
-import time, sys, signal
-import threading, logging
+import time, sys, signal, logging
 from framework import update_sensors
 from framework import update_sensor_rain
 from framework import update_rain_compile
@@ -27,7 +26,7 @@ if settings.enable_deamon_logging:
 
 # Signal handler to properly close all DB handles
 def signal_handler(signal, frame):
-	print('Closing...')
+	logging.getLogger("core").warning(" Shutting down...")
 	for thread in threads:
 		thread.stop()
 	time.sleep(settings.how_long_to_wait_before_killing_threads)
@@ -35,6 +34,7 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 # Create the threads
+logging.getLogger("core").info(" Launching the threads...")
 threads.append( update_sensors.thread_sensors() )
 threads.append( update_sensor_rain.thread_sensor_rain() )
 threads.append( update_rain_compile.thread_rain_compile() )

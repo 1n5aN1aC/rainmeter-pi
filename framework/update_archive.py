@@ -38,7 +38,7 @@ class thread_archive(stoppable_thread):
 									Out_Wind_Max=now.Out_Wind_Max,
 									Out_Rain_Minute=rain_amount,
 									Now_Feel=now.Now_Feel)
-		logging.getLogger("thread").info(" Sensor Data Archived.")
+		logging.getLogger("thread-archive").info(" Sensor data archived.")
 
 #
 # This deletes old rain data from the 'rain' table. This data is no longer needed,
@@ -57,4 +57,4 @@ class thread_clean(stoppable_thread):
 			if (datetime.datetime.now() - rain.time) > datetime.timedelta(days = how_many_days_of_rain_data_to_keep):
 				rain.destroySelf()
 				number_cleaned = number_cleaned + 1
-		logging.getLogger("thread").info(" Rain Table Cleaned.  (" + str(number_cleaned) + " entries purged in " + str((time.time() - start)*1000) + "ms)")
+		logging.getLogger("thread-clean").info(" Rain table cleaned.  (" + str(number_cleaned) + " entries purged in " + str((time.time() - start)*1000) + "ms)")

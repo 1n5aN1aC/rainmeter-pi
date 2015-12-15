@@ -21,4 +21,4 @@ class thread_sensor_rain(stoppable_thread):
 		now = Table_Now.get(1)
 		now.sync()
 		now.Out_Rain_Since_Reset = now.Out_Rain_Since_Reset + rainTipAmount
-		logging.getLogger("thread").info(" Caused A Fake Rain Pulse.")
+		logging.getLogger("thread-rain_fake").info(" Caused a fake rain pulse.")

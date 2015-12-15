@@ -39,12 +39,12 @@ class thread_sensors(stoppable_thread):
 			time.sleep(1)
 		
 		#Then tell deamon threads to die, and reap their souls
-		logging.getLogger("thread").info(" Telling sensor threads to die...")
+		logging.getLogger("thread-sensors").info(" Telling sensor threads to die...")
 		for thread in sensor_threads:
 			thread.stop()
 		for thread in sensor_threads:
 			thread.join(how_long_to_wait_before_killing_deamons)
-		logging.getLogger("thread").debug(" Sensor threads have been killed!")
+		logging.getLogger("thread-sensors").debug(" Sensor threads have been killed!")
 
 # Thread for updating the outside T/H sensor
 class update_outside(stoppable_thread):
@@ -58,7 +58,7 @@ class update_outside(stoppable_thread):
 			now.Out_Temp = sum(OUT_Temp_Q['Q']) / float(len(OUT_Temp_Q['Q']))
 			now.Out_Humid = sum(OUT_Humid_Q['Q']) / float(len(OUT_Humid_Q['Q']))
 			
-			logging.getLogger("sensor").debug(" Updated Outside Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated outside sensor data.")
 			time.sleep(how_often_to_check_temp)
 
 # Thread for updating the attic T/H sensor
@@ -73,7 +73,7 @@ class update_attic(stoppable_thread):
 			now.Attic_Temp = sum(ATT_Temp_Q['Q']) / float(len(ATT_Temp_Q['Q']))
 			now.Attic_Humid = sum(ATT_Humid_Q['Q']) / float(len(ATT_Humid_Q['Q']))
 			
-			logging.getLogger("sensor").debug(" Updated Attic Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated attic sensor data.")
 			time.sleep(how_often_to_check_temp)
 
 # Thread for updating the inside T/H sensor
@@ -88,7 +88,7 @@ class update_inside(stoppable_thread):
 			now.In_Temp = sum(IN_Temp_Q['Q']) / float(len(IN_Temp_Q['Q']))
 			now.In_Humid = sum(IN_Humid_Q['Q']) / float(len(IN_Humid_Q['Q']))
 			
-			logging.getLogger("sensor").debug(" Updated Inside Sensor Data.")
+			logging.getLogger("sensor").debug(" Updated inside sensor data.")
 			time.sleep(how_often_to_check_temp)
 
 # Thread for updating the wind sensor
@@ -104,7 +104,7 @@ class update_wind(stoppable_thread):
 			now.Out_Wind_Avg = sum(Wind_Avg_Q['Q']) / float(len(Wind_Avg_Q['Q']))
 			now.Out_Wind_Max = max(Wind_Max_Q['Q'])
 			
-			logging.getLogger("sensor").debug(" Updated Wind Data.")
+			logging.getLogger("sensor").debug(" Updated wind data.")
 			time.sleep(how_often_to_check_wind)
 
 # Thread for updating the system stats
@@ -115,7 +115,7 @@ class update_system(stoppable_thread):
 			now.System_CPU = sensors.read_cpu_usage()
 			now.System_RAM = sensors.read_ram_usage()
 			
-			logging.getLogger("sensor").debug(" Updated SYSTEM Data.")
+			logging.getLogger("sensor").debug(" Updated SYSTEM data.")
 			time.sleep(how_often_to_check_system)
 
 # This takes a dequeue, and a reading, and adds that reading to the dequeue.
@@ -126,7 +126,7 @@ def add_reading_to_dequeue(dequeue, new_reading):
 		(dequeue)['Fails'] = 0
 	elif dequeue['Fails'] < failed_readings_before_error:
 		dequeue['Fails'] = dequeue['Fails'] + 1
-		logging.getLogger("thread_sensors").warning(" Failed to update Sensor " + dequeue['Name'] + ".")
+		logging.getLogger("thread_sensors").warning(" Failed to update sensor " + dequeue['Name'] + ".")
 	else:
 		dequeue['Q'].append(0)
-		logging.getLogger("thread_sensors").error(" Sensor has Failed: " + dequeue['Name'] + "!!")
+		logging.getLogger("thread_sensors").error(" Sensor has failed: " + dequeue['Name'] + "!!")
