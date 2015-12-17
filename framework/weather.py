@@ -5,6 +5,8 @@ from settings import *
 #This becomes the global url handle
 f = "error"
 
+#
+# This File Handles allt he actual weather-related functions.
 def fetchWeather(type):
 	global f
 	url = 'http://api.wunderground.com/api/' + key + '/geolookup/' + type +  '/q/' + zip + '.json'
