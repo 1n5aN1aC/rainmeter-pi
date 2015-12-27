@@ -1,5 +1,5 @@
 #!python
-from http_status import *
+from framework import http_status
 
 #
 # This is requested by the index page every time it needs to update the data.
@@ -7,7 +7,7 @@ from http_status import *
 # That means this is called very often, and should be reletively effecient
 def application(environ, start_response):
     status = '200 OK'
-    output = get_json()
+    output = http_status.get_json()
 	
     response_headers = [('Content-type', 'application/json;charset=utf-8'),
                         ('Content-Length', str(len(output)))]
