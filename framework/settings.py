@@ -41,9 +41,9 @@ Connection_String = "mysql://rainmeter:password@localhost/rainmeter"
 # All Values in seconds
 
 # How often the various sensors are updated
-how_often_to_check_temp = 5
+how_often_to_check_temp = 6
 how_often_to_check_wind = 2
-how_often_to_check_system = 5
+how_often_to_check_system = 6
 
 # How often the current 'feel like' & picture are updated
 # Feels_like update should not be < 180 (API Limits)
@@ -72,7 +72,6 @@ how_many_days_of_rain_data_to_keep = 7
 Temp_Average_Length = 10
 Humid_Average_Length = 15
 Wind_Average_Length = 2
-Wind_Max_Length = 31
 
 # This defines how many consecutive readings of a sensor must fail
 # before the sensor actually displays an error.

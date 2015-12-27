@@ -21,7 +21,7 @@ OUT_Humid_Q = {"Q":collections.deque(maxlen=Humid_Average_Length), "Fails":0, "N
 ATT_Temp_Q = {"Q":collections.deque(maxlen=Temp_Average_Length), "Fails":0, "Name":'ATT_Temp'}
 ATT_Humid_Q = {"Q":collections.deque(maxlen=Humid_Average_Length), "Fails":0, "Name":'ATT_Humid'}
 Wind_Avg_Q = {"Q":collections.deque(maxlen=Wind_Average_Length), "Fails":0, "Name":'Wind_Avg'}
-Wind_Max_Q = {"Q":collections.deque(maxlen=Wind_Max_Length), "Fails":0, "Name":'Wind_Max'}
+Wind_Max_Q = {"Q":collections.deque(maxlen=int(60 / how_often_to_check_wind)), "Fails":0, "Name":'Wind_Max'}
 
 # Manages the various sensor threads
 class thread_sensors(stoppable_thread):
