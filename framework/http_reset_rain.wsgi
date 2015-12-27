@@ -1,5 +1,5 @@
 #!python
-from http_reset_rain import *
+from framework import http_reset_rain
 
 #
 # This is requested by the index page every time it needs to update the data.
@@ -7,7 +7,7 @@ from http_reset_rain import *
 # That means this is called very often, and should be reletively effecient
 def application(environ, start_response):
     status = '200 OK'
-    output = reset_rain()
+    output = http_reset_rain.reset_rain()
 	
     response_headers = [('Content-type', 'application/json;charset=utf-8'),
                         ('Content-Length', str(len(output)))]
