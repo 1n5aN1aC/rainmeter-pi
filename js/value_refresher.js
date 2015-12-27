@@ -20,22 +20,22 @@ function update(data) {
 	$.each(data, function(k, v) {
 		var theSpan = $('#' + k);
 		//Rain-related ones need to be rounded to two decimal points.
-		if (theSpan.attr('id') && theSpan.attr('id').includes("Rain")) {
+		if (theSpan.attr('id') && theSpan.attr('id').indexOf("Rain") >= 0) {
 			newVal = Math.round(v * 100) / 100
 			theSpan.html(newVal)
 		}
 		//Humidity Sensors really only need the whole number.
-		else if (theSpan.attr('id') && theSpan.attr('id').includes("Humid")) {
+		else if (theSpan.attr('id') && theSpan.attr('id').indexOf("Humid") >= 0) {
 			theSpan.html( Math.round(v) )
 		}
 		//SYSTEM ones are jquery UI Progress bars.
-		else if (theSpan.attr('id') && theSpan.attr('id').includes("SYSTEM")) {
+		else if (theSpan.attr('id') && theSpan.attr('id').indexOf("SYSTEM") >= 0) {
 			theSpan.progressbar({
 				value: v
 			});
 		}
 		//For the 'feels like' we only round to whole number
-		else if (theSpan.attr('id') && theSpan.attr('id').includes("Feel")) {
+		else if (theSpan.attr('id') && theSpan.attr('id').indexOf("Feel") >= 0) {
 			theSpan.html( Math.round(v) )
 		}
 		//Images we update the src= instead
@@ -94,5 +94,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//Update it now!
 	getTheJSON()
 	// Set up a permanent call to getTheJSON() every X seconds.
-	window.setInterval(function(){  getTheJSON() }, 1000);
+	window.setInterval(function(){  getTheJSON() }, 2000);
 });
