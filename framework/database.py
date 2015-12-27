@@ -60,6 +60,8 @@ class Table_Archive(sqlobject.SQLObject):
 	Out_Wind_Avg = sqlobject.FloatCol()
 	Out_Wind_Max = sqlobject.FloatCol()
 	Out_Rain_Minute = sqlobject.FloatCol()
+	System_CPU = sqlobject.FloatCol()
+	System_RAM = sqlobject.FloatCol()
 	Now_Feel = sqlobject.FloatCol()
 Table_Archive.createTable(ifNotExists = True)
 

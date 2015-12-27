@@ -37,6 +37,8 @@ class thread_archive(stoppable_thread):
 									Out_Wind_Avg=now.Out_Wind_Avg,
 									Out_Wind_Max=now.Out_Wind_Max,
 									Out_Rain_Minute=rain_amount,
+									System_CPU=now.System_CPU,
+									System_RAM=now.System_RAM,
 									Now_Feel=now.Now_Feel)
 		logging.getLogger("thread-archive").info(" Sensor data archived.")
 
