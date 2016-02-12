@@ -1,26 +1,35 @@
 #!python
 from __future__ import division
 import random, psutil
-#import Adafruit_DHT, spidev
+import Adafruit_DHT
+#import spidev
 
 #
 # This file handles actually reading and returning any sensor data to the other modules
 # If you have any specific sensors that are different than my setup, this is where they
-# Should be added or changed.  If you use DHTxx sensors, this should be very easy.
+# Should be added or changed.  If you use DHTxx or AM2302 sensors, this should be very easy.
 #
 
 # Read the DHTxx sensor located inside the house
 def read_inside_sensor():
-	return fakeSensor(), fakeSensor()
-	#humidity, temperature = Adafruit_DHT.read_retry(DHT_22, pin, retries=3, delay_seconds=1, platform=None)
+	#return fakeSensor(), fakeSensor()
+    humidity, temperature = Adafruit_DHT.read(Adafruit_DHT.DHT11, 19, platform=Adafruit_DHT.Raspberry_Pi2)
+    temperature = temperature * 9/5.0 + 32
+    return temperature, humidity
 
 # Read the DHTxx sensor located Outside the house
 def read_outside_sensor():
-	return fakeSensor(), fakeSensor()
+	#return fakeSensor(), fakeSensor()
+    humidity, temperature = Adafruit_DHT.read(Adafruit_DHT.AM2302, 21, platform=Adafruit_DHT.Raspberry_Pi2)
+    temperature = temperature * 9/5.0 + 32
+    return temperature, humidity
 
 # Read the DHTxx sensor located in the attic, or other auxiliary location.
 def read_attic_sensor():
-	return fakeSensor(), fakeSensor()
+	#return fakeSensor(), fakeSensor()
+    humidity, temperature = Adafruit_DHT.read(Adafruit_DHT.DHT22, 20, platform=Adafruit_DHT.Raspberry_Pi2)
+    temperature = temperature * 9/5.0 + 32
+    return temperature, humidity
 
 # Read the current wind speed.
 def read_wind_outside():
