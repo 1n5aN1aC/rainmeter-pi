@@ -13,23 +13,26 @@ import Adafruit_DHT
 # Read the DHTxx sensor located inside the house
 def read_inside_sensor():
 	#return fakeSensor(), fakeSensor()
-    humidity, temperature = Adafruit_DHT.read(Adafruit_DHT.DHT11, 19, platform=Adafruit_DHT.Raspberry_Pi2)
-    temperature = temperature * 9/5.0 + 32
-    return temperature, humidity
+	humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, 19, retries=3, delay_seconds=1)
+	if temperature:
+		temperature = temperature * 9/5.0 + 32
+	return temperature, humidity
 
 # Read the DHTxx sensor located Outside the house
 def read_outside_sensor():
 	#return fakeSensor(), fakeSensor()
-    humidity, temperature = Adafruit_DHT.read(Adafruit_DHT.AM2302, 21, platform=Adafruit_DHT.Raspberry_Pi2)
-    temperature = temperature * 9/5.0 + 32
-    return temperature, humidity
+	humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.AM2302, 21, retries=3, delay_seconds=1)
+	if temperature:
+		temperature = temperature * 9/5.0 + 32
+	return temperature, humidity
 
 # Read the DHTxx sensor located in the attic, or other auxiliary location.
 def read_attic_sensor():
 	#return fakeSensor(), fakeSensor()
-    humidity, temperature = Adafruit_DHT.read(Adafruit_DHT.DHT22, 20, platform=Adafruit_DHT.Raspberry_Pi2)
-    temperature = temperature * 9/5.0 + 32
-    return temperature, humidity
+	humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, 20, retries=3, delay_seconds=1)
+	if temperature:
+		temperature = temperature * 9/5.0 + 32
+	return temperature, humidity
 
 # Read the current wind speed.
 def read_wind_outside():

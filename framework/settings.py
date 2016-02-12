@@ -26,6 +26,9 @@ rainTipAmount = 0.02
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 my_timezone = "US/Pacific"
 
+# Should we convert the celsius sensor readings to fahrenheit?
+fahrenheit = True
+
 # Database Settings:
 # Scheme is one of: mysql, sqlite, postgres, firebird, interbase, maxdb, sapdb, mssql, sybase
 # Only 'mysql' and 'sqlite' are tested.
@@ -53,7 +56,7 @@ how_often_to_update_feels_like = 600
 how_often_to_compile_rain = 60
 
 # How often the current data is archived to a backup table
-# Archive time should be >= compile_rain time.
+# Archive time should be >= compile_rain time, preferably equal.
 how_often_to_archive_data = 60
 
 # How often the rain database should be cleaned of old values

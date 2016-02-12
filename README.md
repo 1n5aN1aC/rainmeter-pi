@@ -60,6 +60,10 @@ I used apache, so if you want to use a different webserver, such as nginx, sorry
 
 There are two options available:  the 'simple' way, which is much slower, or wsgi, which runs very fast.
 
+WSGIPythonPath "/var/www/html/"
+WSGIScriptAlias /status "/var/www/html/framework/http_status.wsgi"
+WSGIScriptAlias /reset_rain "/var/www/html/framework/http_reset_rain.wsgi"
+
 TODO
 
 ### Configure
