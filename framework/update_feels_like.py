@@ -1,8 +1,10 @@
 #!python
 import logging, time
-from weather import *
+
 from Stoppable_Thread import *
 import Now
+
+from weather import *
 
 #
 # This File Handles updating the 'feels-like' display.

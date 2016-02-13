@@ -1,9 +1,11 @@
 #!python
 import json, logging, time
-from database import *
-from settings import *
+
 from Stoppable_Thread import *
 import Now
+
+from database import *
+from settings import *
 
 #
 # This File Handles archiving tasks to copy current weather data to a long-term table to keep FOREVER!

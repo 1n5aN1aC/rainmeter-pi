@@ -1,8 +1,10 @@
 #!python
 import collections, logging, time
+
 from Stoppable_Thread import *
-from settings import *
 import Now
+
+from settings import *
 import sensors
 
 #

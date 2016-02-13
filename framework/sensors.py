@@ -2,6 +2,7 @@
 from __future__ import division
 import random, psutil
 
+# Little hack for easy testing on multiple platforms
 if False:
     import Adafruit_DHT
     #import spidev

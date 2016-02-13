@@ -1,9 +1,11 @@
 #!python
 import logging, pytz, time
-from database import *
-from settings import *
+
 from Stoppable_Thread import *
 import Now
+
+from settings import *
+from database import *
 
 #
 # This Handles compiling the raw rain data, (which is time-of-tip based)

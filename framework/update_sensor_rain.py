@@ -1,8 +1,10 @@
 #!python
 import logging, random, time
-from database import *
+
 from Stoppable_Thread import *
 import Now
+
+from database import *
 
 #
 # This Handles saving the data when the rain guage tips.
