@@ -2,14 +2,15 @@
 import json, logging, time
 from database import *
 from settings import *
-from stoppable_thread import *
+from Stoppable_Thread import *
+import Now
 
 #
 # This File Handles archiving tasks to copy current weather data to a long-term table to keep FOREVER!
 #
 # 1/Minute works out to a little over 500,000 records a year,
 # Which makes it little enough to not be an issue assuming a mediocre-sized SD Card.
-class thread_archive(stoppable_thread):
+class thread_archive(Stoppable_Thread):
 	def run(self):
 		while self.RUN:
 			self.update_archive()
@@ -17,7 +18,7 @@ class thread_archive(stoppable_thread):
 
 	def update_archive(self):
 		#Now get all the Current Data
-		now = Table_Now.get(1)
+		now = Now.get(1)
 		
 		#Get the amount of rain in the last period
 		rain_amount = 0.0
@@ -45,7 +46,7 @@ class thread_archive(stoppable_thread):
 #
 # This deletes old rain data from the 'rain' table. This data is no longer needed,
 # as it has already been logged to the archive table, and is too old to be used for display.
-class thread_clean(stoppable_thread):
+class thread_clean(Stoppable_Thread):
 	def run(self):
 		while self.RUN:
 			self.update_clean_old()
