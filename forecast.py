@@ -11,7 +11,7 @@ from framework import weather
 # in case someone left it on this screen by accident.
 #
 # If you are looking for how to change it to your own location,
-# You can find that option in weather.py
+# You can find that option in settings.py
 #
 
 # Print the Header

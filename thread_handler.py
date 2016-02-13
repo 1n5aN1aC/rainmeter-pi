@@ -6,6 +6,7 @@ from framework import update_sensor_rain
 from framework import update_rain_compile
 from framework import update_feels_like
 from framework import update_archive
+from framework import server
 from framework import settings
 
 #
@@ -42,6 +43,7 @@ threads.append( update_rain_compile.thread_rain_compile() )
 threads.append( update_feels_like.thread_feels_like() )
 threads.append( update_archive.thread_archive() )
 threads.append( update_archive.thread_clean() )
+threads.append( server.Server_Listener() )
 
 # Loop to keep this thread alive
 while 1:
