@@ -1,4 +1,4 @@
-#!python
+#!/usr/bin/env python
 from multiprocessing.connection import Client
 import json
 

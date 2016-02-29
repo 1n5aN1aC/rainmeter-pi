@@ -13,7 +13,6 @@ from framework import settings
 # This includes:
 #
 # Thread to handle updating sensor readings
-# Thread to handle simulating rain events
 # Thread to compile rain into time averages
 # Thread to update current conditions
 # Thread to handle archiving

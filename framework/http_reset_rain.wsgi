@@ -1,4 +1,4 @@
-#!python
+#!/usr/bin/env python
 from framework import http_reset_rain
 
 #

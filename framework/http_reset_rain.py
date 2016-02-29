@@ -1,8 +1,6 @@
-#!python
+#!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 from multiprocessing.connection import Client
-
-import server
 
 #
 # This file will reset the current rainfall to 0.
