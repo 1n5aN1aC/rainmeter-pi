@@ -48,7 +48,7 @@ class thread_archive(Stoppable_Thread.Stoppable_Thread):
 #
 # This deletes old rain data from the 'rain' table. This data is no longer needed,
 # as it has already been logged to the archive table, and is too old to be used for display.
-class thread_clean(Stoppable_Thread.Stoppable_Thread):
+class thread_archive_clean(Stoppable_Thread.Stoppable_Thread):
 	def run(self):
 		while self.RUN:
 			self.update_clean_old()

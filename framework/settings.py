@@ -75,6 +75,8 @@ Temp_Average_Length = 10
 Humid_Average_Length = 15
 Wind_Average_Length = 2
 
+Wind_Max_Length = 60
+
 # This defines how many consecutive readings of a sensor must fail
 # before the sensor actually displays an error.
 # Until that point, the sensor will continue to operate on old data.
