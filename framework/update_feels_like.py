@@ -1,24 +1,25 @@
 #!python
 import logging, time
 
-from Stoppable_Thread import *
+import Stoppable_Thread
 import Now
 
-from weather import *
+import weather
+import settings
 
 #
 # This File Handles updating the 'feels-like' display.
 # This is the small window in the top-right of the index page
 # that show what the weather currently 'feels like.'
-class thread_feels_like(Stoppable_Thread):
+class thread_feels_like(Stoppable_Thread.Stoppable_Thread):
 	def run(self):
 		while self.RUN:
 			self.update_feels_like()
-			time.sleep(how_often_to_update_feels_like)
+			time.sleep(settings.how_often_to_update_feels_like)
 	
 	def update_feels_like(self):
-		parsed_json = fetchWeather('conditions')
-		closeURL()
+		parsed_json = weather.fetchWeather('conditions')
+		weather.closeURL()
 		
 		NOW_URL = parsed_json['current_observation']['icon_url']
 		NOW_Feel = float(parsed_json['current_observation']['feelslike_f'])

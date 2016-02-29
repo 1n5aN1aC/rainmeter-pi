@@ -1,30 +1,30 @@
 #!python
-import logging, pytz, time
+import logging, pytz, time, datetime
 
-from Stoppable_Thread import *
+import Stoppable_Thread
 import Now
 
-from settings import *
-from database import *
+import settings
+import database
 
 #
 # This Handles compiling the raw rain data, (which is time-of-tip based)
 # to the format seen on the main screen (last day, last 24h, since reset.)
 # If you want to know how the rain sub-system works, have a look at README-ADVANCED.txt
-class thread_rain_compile(Stoppable_Thread):
+class thread_rain_compile(Stoppable_Thread.Stoppable_Thread):
 	def run(self):
 		while self.RUN:
 			self.update_rain_compile()
-			time.sleep(how_often_to_compile_rain)
+			time.sleep(settings.how_often_to_compile_rain)
 
 	def update_rain_compile(self):
 		rain_24h = 0.0
 		rain_today = 0.0
 		
 		now = datetime.datetime.now()
-		midnight = now.replace(tzinfo=pytz.UTC).astimezone(pytz.timezone(my_timezone)).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(pytz.UTC).replace(tzinfo=None)
+		midnight = now.replace(tzinfo=pytz.UTC).astimezone(pytz.timezone(settings.my_timezone)).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(pytz.UTC).replace(tzinfo=None)
 		
-		rains = Table_Rain.select()
+		rains = database.Table_Rain.select()
 		for rain in rains:
 			if (now - rain.time) < datetime.timedelta(hours = 24):
 				rain_24h = rain_24h + rain.quantity

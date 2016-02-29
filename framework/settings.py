@@ -2,7 +2,7 @@
 
 #
 # This File contains all the easily-modifiable settings for the project
-# You must fill out the 2 settings in the required section
+# You must check the few settings in the required section
 # but everything after that is completely optional.
 #
 
@@ -16,8 +16,8 @@
 # http://www.wunderground.com/weather/api
 key = "e8b292334779aa96"
 
-# The ZIP code you want to get weather forcasts and such for
-zip = "97338"
+# The ZIP code you want to get weather forecasts and such for
+zipcode = "97338"
 
 # How many inches per rain meter tip
 rainTipAmount = 0.02
@@ -89,6 +89,6 @@ failed_readings_before_error = 10
 enable_deamon_logging = True
 
 # How long we should wait for the main threads to finish before killing them
-# How long we should wait for each deamon trhead to finish before killing it
+# How long we should wait for each deamon thread to finish before killing it
 how_long_to_wait_before_killing_threads = 5
 how_long_to_wait_before_killing_deamons = 2

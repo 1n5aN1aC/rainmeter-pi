@@ -6,6 +6,7 @@ import Now
 
 import settings
 import sensors
+import sensor_rain
 
 #
 # This File Handles reading the actual Temperature and Humidity Sensors.
@@ -26,14 +27,14 @@ Wind_Avg_Q = {"Q":collections.deque(maxlen=settings.Wind_Average_Length), "Fails
 Wind_Max_Q = {"Q":collections.deque(maxlen=int(60) ), "Fails":0, "Name":'Wind_Max'}
 
 # Manages the various sensor threads
-class thread_sensors(Stoppable_Thread):
+class thread_sensors(Stoppable_Thread.Stoppable_Thread):
 	def run(self):
 		#Create the threads
 		sensor_threads = []
 		sensor_threads.append( update_outside() )
 		sensor_threads.append( update_attic() )
 		sensor_threads.append( update_inside() )
-		sensor_threads.append( update_wind() )
+		sensor_threads.append( update_wind_rain() )
 		sensor_threads.append( update_system() )
 		
 		#Wait until this thread is told to stop...
@@ -49,10 +50,15 @@ class thread_sensors(Stoppable_Thread):
 		logging.getLogger("thread-sensors").debug(" Sensor threads have been killed!")
 
 # Thread for updating the wind sensor
-class update_wind(Stoppable_Thread):
+class update_wind_rain(Stoppable_Thread.Stoppable_Thread):
 	def run(self):
+		serial = sensors.get_serial();
+		
 		while self.RUN:
-			wind_speed = sensors.read_wind_outside()
+			wind_speed, rain = sensors.read_wind_rain(serial)
+			
+			if rain:
+				sensor_rain.update_sensor_rain()
 			
 			add_reading_to_dequeue(Wind_Avg_Q, wind_speed)
 			add_reading_to_dequeue(Wind_Max_Q, wind_speed)
@@ -62,10 +68,10 @@ class update_wind(Stoppable_Thread):
 			now.Out_Wind_Max = max(Wind_Max_Q['Q'])
 			
 			logging.getLogger("sensor").debug(" Updated wind data.")
-			time.sleep(settings.how_often_to_check_wind)
+			#No sleep, as this is handled by waiting on the serial connection
 
 # Thread for updating the outside T/H sensor
-class update_outside(Stoppable_Thread):
+class update_outside(Stoppable_Thread.Stoppable_Thread):
 	def run(self):
 		while self.RUN:
 			temp_outside, humid_outside = sensors.read_outside_sensor()
@@ -80,7 +86,7 @@ class update_outside(Stoppable_Thread):
 			time.sleep(settings.how_often_to_check_temp)
 
 # Thread for updating the attic T/H sensor
-class update_attic(Stoppable_Thread):
+class update_attic(Stoppable_Thread.Stoppable_Thread):
 	def run(self):
 		while self.RUN:
 			temp_attic, humid_attic = sensors.read_attic_sensor()
@@ -95,7 +101,7 @@ class update_attic(Stoppable_Thread):
 			time.sleep(settings.how_often_to_check_temp)
 
 # Thread for updating the inside T/H sensor
-class update_inside(Stoppable_Thread):
+class update_inside(Stoppable_Thread.Stoppable_Thread):
 	def run(self):
 		while self.RUN:
 			temp_inside, humid_inside = sensors.read_inside_sensor()
@@ -110,7 +116,7 @@ class update_inside(Stoppable_Thread):
 			time.sleep(settings.how_often_to_check_temp)
 
 # Thread for updating the system stats
-class update_system(Stoppable_Thread):
+class update_system(Stoppable_Thread.Stoppable_Thread):
 	def run(self):
 		while self.RUN:
 			now = Now.get(1)

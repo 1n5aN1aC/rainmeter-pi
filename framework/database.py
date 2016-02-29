@@ -1,9 +1,7 @@
 #!python
-import time, sys, os, datetime
-
 import sqlobject
 
-from settings import *
+import settings
 
 # The database connection for all threads
 connection = None
@@ -14,7 +12,7 @@ def getDB():
     if connection is not None:
         return connection
 
-    connection = sqlobject.connectionForURI(Connection_String)
+    connection = sqlobject.connectionForURI(settings.Connection_String)
     return connection
 
 # Connect!
@@ -23,7 +21,7 @@ getDB()
 sqlobject.sqlhub.processConnection = connection
 
 # This table stores every instance of a rain_tip_event
-# Fromt he last week, and the precise time.
+# From the last week, and the precise time.
 class Table_Rain(sqlobject.SQLObject):
     time = sqlobject.DateTimeCol()
     quantity = sqlobject.FloatCol()
