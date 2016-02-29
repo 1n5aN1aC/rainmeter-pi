@@ -15,14 +15,14 @@ import settings
 
 # Create the dequeues
 # These are dictionaries which contain the Q, consecutive fail count, and a debug name.
-IN_Temp_Q = {"Q":collections.deque(maxlen=settings.Temp_Average_Length), "Fails":0, "Name":'IN_Temp'}
-IN_Humid_Q = {"Q":collections.deque(maxlen=settings.Humid_Average_Length), "Fails":0, "Name":'IN_Humid'}
-OUT_Temp_Q = {"Q":collections.deque(maxlen=settings.Temp_Average_Length), "Fails":0, "Name":'OUT_Temp'}
+IN_Temp_Q =   {"Q":collections.deque(maxlen=settings.Temp_Average_Length),  "Fails":0, "Name":'IN_Temp'}
+IN_Humid_Q =  {"Q":collections.deque(maxlen=settings.Humid_Average_Length), "Fails":0, "Name":'IN_Humid'}
+OUT_Temp_Q =  {"Q":collections.deque(maxlen=settings.Temp_Average_Length),  "Fails":0, "Name":'OUT_Temp'}
 OUT_Humid_Q = {"Q":collections.deque(maxlen=settings.Humid_Average_Length), "Fails":0, "Name":'OUT_Humid'}
-ATT_Temp_Q = {"Q":collections.deque(maxlen=settings.Temp_Average_Length), "Fails":0, "Name":'ATT_Temp'}
+ATT_Temp_Q =  {"Q":collections.deque(maxlen=settings.Temp_Average_Length),  "Fails":0, "Name":'ATT_Temp'}
 ATT_Humid_Q = {"Q":collections.deque(maxlen=settings.Humid_Average_Length), "Fails":0, "Name":'ATT_Humid'}
-Wind_Avg_Q = {"Q":collections.deque(maxlen=settings.Wind_Average_Length), "Fails":0, "Name":'Wind_Avg'}
-Wind_Max_Q = {"Q":collections.deque(maxlen=settings.Wind_Max_Length), "Fails":0, "Name":'Wind_Max'}
+Wind_Avg_Q =  {"Q":collections.deque(maxlen=settings.Wind_Average_Length),  "Fails":0, "Name":'Wind_Avg'}
+Wind_Max_Q =  {"Q":collections.deque(maxlen=settings.Wind_Max_Length),      "Fails":0, "Name":'Wind_Max'}
 
 #
 # This Handles saving the data when the rain gauge tips.
@@ -72,7 +72,8 @@ def save_outside_reading(temp, humid):
     add_reading_to_dequeue(OUT_Temp_Q, temp)
     add_reading_to_dequeue(OUT_Humid_Q, humid)
     
-    now = Now.get(1)
+    now = Now.get()
+    
     now.Out_Temp = sum(OUT_Temp_Q['Q']) / float(len(OUT_Temp_Q['Q']))
     now.Out_Humid = sum(OUT_Humid_Q['Q']) / float(len(OUT_Humid_Q['Q']))
     
@@ -93,8 +94,7 @@ def add_reading_to_dequeue(dequeue, new_reading):
         dequeue['Q'].append(new_reading)
         (dequeue)['Fails'] = 0
     elif dequeue['Fails'] < settings.failed_readings_before_error:
-        print "lol"
-        if len(dequeue) is 0:
+        if len(dequeue['Q']) is 0:
             dequeue['Q'].append(1)
         dequeue['Fails'] = dequeue['Fails'] + 1
         logging.getLogger("thread_sensors").warning(" Failed to update sensor " + dequeue['Name'] + ".")
