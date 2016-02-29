@@ -26,7 +26,7 @@ rainTipAmount = 0.02
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 my_timezone = "US/Pacific"
 
-# Should we convert the celsius sensor readings to fahrenheit?
+# Should we convert the Celsius sensor readings to Fahrenheit?
 fahrenheit = True
 
 # Database Settings:
@@ -45,7 +45,6 @@ Connection_String = "mysql://rainmeter:password@localhost/rainmeter"
 
 # How often the various sensors are updated
 how_often_to_check_temp = 6
-how_often_to_check_wind = 2
 how_often_to_check_system = 6
 
 # How often the current 'feel like' & picture are updated
