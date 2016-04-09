@@ -51,13 +51,29 @@ class update_serial(Stoppable_Thread.Stoppable_Thread):
             line = ser.readline(),
             if "RAIN" in line[0]:
                 update_sensors.trigger_sensor_rain()
+            if "OUT" in line[0]:
+                try:
+                    list = line[0].split(":")
+                    temp  = float(list[1])
+                    humid = float(list[2])
+                    update_sensors.save_outside_reading(temp, humid)
+                    logging.getLogger("sensor").debug(" Updated outside sensor data.")
+                except Exception:
+                    logging.getLogger("serial").warning(" got malformed serial temperature info!")
+            if "bat" in line[0]:
+                try:
+                    list = line[0].split(":")
+                    number = float(list[1]) / 1000
+                    #print "handle battery here:", number, "V"
+                except Exception:
+                    pass
             else:
                 try:
                     number = int(line[0])
                     update_sensors.save_wind_reading(number)
                     logging.getLogger("sensor").debug(" Updated wind data.")
-                except ValueError:
-                    logging.getLogger("sensor").warning(" got malformed serial info!")
+                except Exception:
+                    logging.getLogger("serial").warning(" got malformed serial info!")
             #No sleep, as this is handled by waiting on the serial connection
 
 # Thread for updating the inside T/H sensor
@@ -77,7 +93,7 @@ class update_attic(Stoppable_Thread.Stoppable_Thread):
         while self.RUN:
             humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, 20, retries=3, delay_seconds=1)
             if temperature and settings.fahrenheit:
-                temperature = temperature * 9/5.0 + 32
+                temperature = temperature * 9/5.0 + 32 + 1
             
             update_sensors.save_attic_reading(temperature, humidity)
             time.sleep(settings.how_often_to_check_temp)
