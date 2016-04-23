@@ -2,7 +2,7 @@
 from __future__ import division
 import psutil, time, logging
 
-import Stoppable_Thread
+from framework import Stoppable_Thread
 
 import Adafruit_DHT
 import serial
