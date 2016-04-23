@@ -1,72 +1,165 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="refresh" content="43200">
-		<link href='https://fonts.googleapis.com/css?family=Play:700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css">
-		<link rel="stylesheet" href="/js/jquery-ui-1.11.4/themes/eggplant/theme.css">
-		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-		
-		<link rel="stylesheet" type="text/css" href="/css/common.css">
-		<link rel="stylesheet" type="text/css" href="/css/index.css">
-		<script src="/js/value_refresher.js"></script>
-	</head>
-	<body>
-		<div class='main'>
-			<div class="measure-container">
-				Inside:</br>
-				<span class="measure"><span class="value" id="IN_Temp">--</span><span class="symbol">°F</span></span> </br>
-				<span class="measure"><span class="value" id="IN_Humid">--</span><span class="symbol">%</span></span>
+<head>
+    <meta charset="UTF-8">
+	<meta http-equiv="refresh" content="43200">
+    <title>THUNDERBIRD - Weather Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Joshua Villwock">
+
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <link type="text/css" rel="stylesheet" href="css/main.css">
+    <link type="text/css" rel="stylesheet" href="css/font-style.css">
+
+    <script type="text/javascript" src="js/jquery.js"></script>    
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="js/general.js"></script>
+	
+	<!-- HIGHCHARTS JAVASCRIPT -->
+	<script type="text/javascript" src="js/highcharts/highcharts.js"></script>
+	<script type="text/javascript" src="js/highcharts/highcharts-more.js"></script>
+	<script type="text/javascript" src="js/highcharts/solid-gauge.js"></script>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  	<!-- Google Fonts call. Font Used Open Sans & Raleway -->
+	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
+  	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+</head>
+
+<body id="bodyzone" style="padding-top:8px;">
+    <div id="container" class="container">
+
+	  <!-- FIRST ROW OF BLOCKS -->
+      <div class="row">
+
+		<div class="col-sm-3 col-lg-3">
+			<!-- OUTSIDE TEMPERATURE BLOCK -->
+			<div class="half-unit">
+				<dtitle>Outside Temperature</dtitle>
+				<hr>
+	      		<div class="cont">
+					<p><bold>93.1 °F</bold></p>
+					<p><img src="img/humidity.png" width="13px" height="15px" alt=""> 14%</p>
+	      		</div>
 			</div>
-			<div class="measure-container">
-				Outside:</br>
-				<span class="measure"><span class="value" id="OUT_Temp">--</span><span class="symbol">°F</span></span> </br>
-				<span class="measure"><span class="value" id="OUT_Humid">--</span><span class="symbol">%</span></span>
-			</div>
-			<div class="measure-container">
-				Attic:</br>
-				<span class="measure"><span class="value" id="ATTIC_Temp">--</span><span class="symbol">°F</span></span> </br>
-				<span class="measure"><span class="value" id="ATTIC_Humid">--</span><span class="symbol">%</span></span>
-			</div>
-			<div class="measure-container">
-				<img src="/img/wind.png" class="topleft larger" style="height:45px;"/>
-				<span class="measure"><span class="value" id="OUT_Wind_Avg">--</span><span class="symbol">mph</span></span>
-				<span class="measure"><span class="value" id="OUT_Wind_Max">--</span><span class="symbol">mph</span></span></br>
-			</div>
-			<div class="measure-container">
-				<img src="/img/rain.png" class="topleft larger" />
-				today: <span class="measure"><span class="value" id="OUT_Rain_Today">--</span><span class="symbol">in</span></span></br>
-				24h: <span class="measure"><span class="value" id="OUT_Rain_Last_24h">--</span><span class="symbol">in</span></span></br>
-				since reset: <a class="inline-block" href="#" onclick="reset_rain()">
-					<span class="measure"><span class="value" id="OUT_Rain_Since_Reset">--</span><span class="symbol">in</span></span>
-				</a>
-				</span>
+
+			<!-- INSIDE TEMPERATURE BLOCK -->
+			<div class="half-unit">
+				<dtitle>Inside Temperature</dtitle>
+				<hr>
+	      		<div class="cont">
+					<p><bold>75.2 °F</bold></p>
+					<p><img src="img/humidity.png" width="13px" height="15px" alt=""> 30%</p>
+	      		</div>
 			</div>
 		</div>
-		<div class='rightbar'>
-			<div class="now">
-				Feels Like:</br>
-				<img class="larger" id="NOW_URL" src="" /></br>
-				<span class="measure">
-					<span class="value"><span id="NOW_Feel">--</span><span class="symbol">°F</span></span>
-				</span>
+
+		<!-- RADAR AREA -->
+        <div class="col-sm-3 col-lg-3" id="radar-area">
+      		<div class="dash-unit">
+				<div class="section-image">
+					<img src='http://api.wunderground.com/api/e8b292334779aa96/animatedradar/image.gif?centerlat=44.9&centerlon=-123.3&radius=45&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=50&width=376&height=220'/>
+				</div>
 			</div>
-			<div class="rightmiddle">
-				<span class="measure">
-					<span class="value"><span id="DATE">--</span></span></br>
-				</span>
-				<span class="measure">
-					<span class="value"><span id="TIME">--</span></span></br></br>
-				</span>
-				System:</br>
-				<div class="progressbar" class="progress" id="SYSTEM_CPU"><span class="ui-progressbar-text">%cpu</span></div>
-				<div class="progressbar"" id="SYSTEM_RAM"><span class="ui-progressbar-text">%ram</span></div>
+        </div>
+
+        <div class="col-sm-3 col-lg-3">
+            <!-- TIME AND DATE BLOCK -->
+      		<div class="half-unit">
+	      		<dtitle>Time And Date</dtitle>
+	      		<hr>
+		      		<div class="clockcenter">
+						<date>Jan 1</date></br>
+			      		<time>12:00</time>
+		      		</div>
 			</div>
-			<a href="/forecast.py"><div class="forcastbutton">
-				<img id="logo" src="/img/wulogo.png" />
-			</div></a>
+
+            <!-- TODAY BLOCK -->
+			<div class="half-unit">
+	      		<dtitle>Today</dtitle>
+	      		<hr>
+	      		<div class="cont">
+					<p><img src="https://icons.wxug.com/i/c/v4/mostlycloudy.svg" height="40" width="40"> <bold>43 °F</bold></p>
+					<p><img src="img/up-small.png" alt=""> 89° | <img src="img/down-small.png" alt=""> 54°</p>
+				</div>
+			</div>
+
+        </div>
+      </div><!-- /row -->
+
+	  <!-- SECOND ROW OF BLOCKS -->
+      <div class="row">
+
+		<div class="col-sm-3 col-lg-3">
+	        <!-- ATTIC TEMPERATURE BLOCK -->
+      		<div class="half-unit">
+	      		<dtitle>Attic Temperature</dtitle>
+	      		<hr>
+	      		<div class="cont">
+					<p><bold>145.0 °F</bold></p>
+					<p><img src="img/humidity.png" width="13px" height="15px" alt=""> 28%</p>
+	      		</div>
+      		</div>
+
+			<!-- FUTURE TEMPERATURE BLOCK -->
+			<div class="half-unit">
+				<dtitle>Future stuff goes here</dtitle>
+				<hr>
+	      		<div class="cont">
+					<p><bold>0 °F</bold></p>
+					<p><img src="img/humidity.png" width="13px" height="15px" alt=""> 0%</p>
+	      		</div>
+			</div>
+      	</div>
+
+		<!-- WIND SPEED BLOCK -->
+        <div class="col-sm-3 col-lg-3">
+      		<div class="dash-unit">
+		  		<dtitle>Wind Speed</dtitle>
+		  		<hr>
+	        	<div id="speed"></div>
+				<p id="wind-more">Avg: 54</br>
+				Max: 116</p>
+			</div>
+        </div>
+
+	    <!-- RAINFALL BLOCK -->
+        <div class="col-sm-3 col-lg-3">
+      		<div class="dash-unit">
+	      		<dtitle>Rainfall</dtitle>
+	      		<hr>
+	      		<div id="raingroup" class="cont">
+					<p><ok>Reset</ok> | <bold>27.36</bold></p>
+					<br>
+					<p>24 hours | <bold>3.82</bold></p>
+					<br>
+					<p><bad>midnight</bad> | <bold>1.64</bold></p>
+				</div>
+			</div>
+        </div>
+
+		<!-- SWITCHES & BUTTONS BLOCK -->
+		<div class="col-sm-3 col-lg-3">
+			<div class="dash-unit">
+	      		<dtitle>Buttons</dtitle>
+	      		<hr></br>
+				<div class="text-center">
+					<button id="btn-10day" type="button" class="btn btn-lg btn-success">Forecast</button>
+				</div>
+				</br>
+				<div class="text-center">
+					<button id="btn-hourly" type="button" class="btn btn-lg btn-info" onMouseDown="return attemptFullscreen()">Forecast</button>
+				</div>
+			</div>
 		</div>
-	</body>
+
+      </div><!-- /row -->
+	</div> <!-- /container -->
+</body>
 </html>
