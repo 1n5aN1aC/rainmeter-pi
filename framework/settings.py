@@ -2,7 +2,7 @@
 
 #
 # This File contains all the easily-modifiable settings for the project
-# You must fill out the 2 settings in the required section
+# You must check the few settings in the required section
 # but everything after that is completely optional.
 #
 
@@ -16,8 +16,8 @@
 # http://www.wunderground.com/weather/api
 key = "e8b292334779aa96"
 
-# The ZIP code you want to get weather forcasts and such for
-zip = "97338"
+# The ZIP code you want to get weather forecasts and such for
+zipcode = "97338"
 
 # How many inches per rain meter tip
 rainTipAmount = 0.02
@@ -26,7 +26,7 @@ rainTipAmount = 0.02
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 my_timezone = "US/Pacific"
 
-# Should we convert the celsius sensor readings to fahrenheit?
+# Should we convert the Celsius sensor readings to Fahrenheit?
 fahrenheit = True
 
 # Database Settings:
@@ -45,7 +45,6 @@ Connection_String = "mysql://rainmeter:password@localhost/rainmeter"
 
 # How often the various sensors are updated
 how_often_to_check_temp = 6
-how_often_to_check_wind = 2
 how_often_to_check_system = 6
 
 # How often the current 'feel like' & picture are updated
@@ -76,6 +75,8 @@ Temp_Average_Length = 10
 Humid_Average_Length = 15
 Wind_Average_Length = 2
 
+Wind_Max_Length = 60
+
 # This defines how many consecutive readings of a sensor must fail
 # before the sensor actually displays an error.
 # Until that point, the sensor will continue to operate on old data.
@@ -90,6 +91,6 @@ failed_readings_before_error = 10
 enable_deamon_logging = True
 
 # How long we should wait for the main threads to finish before killing them
-# How long we should wait for each deamon trhead to finish before killing it
+# How long we should wait for each deamon thread to finish before killing it
 how_long_to_wait_before_killing_threads = 5
 how_long_to_wait_before_killing_deamons = 2
