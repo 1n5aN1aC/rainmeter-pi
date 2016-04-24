@@ -28,7 +28,7 @@ body {
 }
 
 #container {
-	width:790px;
+	width:1000px;
 }
 
 #raingroup {
@@ -48,6 +48,18 @@ body {
 	text-align:center;
 	font-size:20px;
 	line-height:30px;
+}
+
+.measure {
+	font-size:45px;
+	top:-10px;
+	position:relative;
+}
+
+.measure-secondary {
+	font-size:25px;
+	top:-15px;
+	position:relative;
 }
 
 /**********BASE CONFIGURATIONS**********/   
@@ -88,7 +100,7 @@ h5 {
 	background-image:url('../images/sep-half.png');
 	background-color: #3d3d3d;
 	color:white;
-	height:224px;
+	height:246px;
 	overflow:hidden;
 	padding:1px;
 }
@@ -179,7 +191,6 @@ h5 {
 
 .dash-unit bold{
 	font-family: 'Open Sans', sans-serif;
-	font-size:26px;
 	font-weight:bold;
 	color:#fff;
 	vertical-align:middle;
@@ -193,7 +204,7 @@ h5 {
 	background-image:url('../images/sep-half.png');
 	background-color: #3d3d3d;
 	color:white;
-	height:107px;
+	height:118px;
 	overflow:hidden;
 }
 
@@ -247,7 +258,6 @@ h5 {
 
 .half-unit bold{
 	font-family: 'Open Sans', sans-serif;
-	font-size:35px;
 	font-weight:bold;
 	color:#fff;
 	vertical-align:middle;
@@ -384,16 +394,19 @@ textarea {
 
 /**********Clock Configuration**********/   
 date {
+	font-size:25px;
 	color: #fff;
 	text-align: center;
 	margin-left: auto;
 }
 
 time {
-	font-size: 45px;
+	font-size: 50px;
 	color: #fff;
 	text-align: center;
 	margin-left: auto;
+	top:-10px;
+	position:relative;
 }
 
 .clockcenter {

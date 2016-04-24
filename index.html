@@ -44,8 +44,8 @@
 				<dtitle>Outside Temperature</dtitle>
 				<hr>
 	      		<div class="cont">
-					<p><bold>93.1 °F</bold></p>
-					<p><img src="img/humidity.png" width="13px" height="15px" alt=""> 14%</p>
+					<p class="measure"><bold>93.1 °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> 14%</p>
 	      		</div>
 			</div>
 
@@ -54,8 +54,8 @@
 				<dtitle>Inside Temperature</dtitle>
 				<hr>
 	      		<div class="cont">
-					<p><bold>75.2 °F</bold></p>
-					<p><img src="img/humidity.png" width="13px" height="15px" alt=""> 30%</p>
+					<p class="measure"><bold>75.2 °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> 30%</p>
 	      		</div>
 			</div>
 		</div>
@@ -64,7 +64,7 @@
         <div class="col-sm-3 col-lg-3" id="radar-area">
       		<div class="dash-unit">
 				<div class="section-image">
-					<img src='http://api.wunderground.com/api/e8b292334779aa96/animatedradar/image.gif?centerlat=44.9&centerlon=-123.3&radius=45&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=50&width=376&height=220'/>
+					<img src="http://api.wunderground.com/api/e8b292334779aa96/animatedradar/image.gif?centerlat=44.9&centerlon=-123.3&radius=45&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=50&width=481&height=242"/>
 				</div>
 			</div>
         </div>
@@ -75,7 +75,7 @@
 	      		<dtitle>Time And Date</dtitle>
 	      		<hr>
 		      		<div class="clockcenter">
-						<date>Jan 1</date></br>
+						<date class="measure-secondary">Jan 1</date></br>
 			      		<time>12:00</time>
 		      		</div>
 			</div>
@@ -102,8 +102,8 @@
 	      		<dtitle>Attic Temperature</dtitle>
 	      		<hr>
 	      		<div class="cont">
-					<p><bold>145.0 °F</bold></p>
-					<p><img src="img/humidity.png" width="13px" height="15px" alt=""> 28%</p>
+					<p class="measure"><bold>145.0 °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> 28%</p>
 	      		</div>
       		</div>
 
@@ -112,8 +112,8 @@
 				<dtitle>Future stuff goes here</dtitle>
 				<hr>
 	      		<div class="cont">
-					<p><bold>0 °F</bold></p>
-					<p><img src="img/humidity.png" width="13px" height="15px" alt=""> 0%</p>
+					<p class="measure"><bold>0 °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> 0%</p>
 	      		</div>
 			</div>
       	</div>
@@ -150,11 +150,11 @@
 	      		<dtitle>Buttons</dtitle>
 	      		<hr></br>
 				<div class="text-center">
-					<button id="btn-10day" type="button" class="btn btn-lg btn-success">Forecast</button>
+					<button id="btn-10day" type="button" class="btn btn-lg btn-success" onMouseDown="return attemptFullscreen()">Fullscreen</button>
 				</div>
 				</br>
 				<div class="text-center">
-					<button id="btn-hourly" type="button" class="btn btn-lg btn-info" onMouseDown="return attemptFullscreen()">Forecast</button>
+					<button id="btn-hourly" type="button" class="btn btn-lg btn-info">Forecast</button>
 				</div>
 			</div>
 		</div>
