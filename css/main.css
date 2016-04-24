@@ -1,13 +1,10 @@
 ﻿/*!
- * BLOCKS - Responsive Dashboard Theme
+ * THUNDERBIRD - Weather Station Theme
  *
- * Hey! Thanks for download this theme!
  * This bootstrap theme is totally free. You can edit, share, distribute, use and whatever you want.
- * Credits are always appreciated.
  * Please, feel free to contact me if you have any questions regarding this theme.
  *
- *
- * Copyright 2013 
+ * Copyright 2013
  * Created by: Carlos Alvarez
  * Edited by:  Joshua Villwock (1n5aN1aC)
  * URL: http://Alvarez.is
@@ -22,6 +19,7 @@
 - #bdbdbd & #fff (Font colors)
 */
 
+/********** MISC **********/
 body {
 	height:100%;
 	overflow:hidden;
@@ -44,12 +42,7 @@ body {
 	padding-right:7.5px;
 }
 
-#wind-more {
-	text-align:center;
-	font-size:20px;
-	line-height:30px;
-}
-
+/********** MEASURES **********/
 .measure {
 	font-size:45px;
 	top:-10px;
@@ -59,8 +52,26 @@ body {
 .measure-secondary {
 	font-size:25px;
 	top:-15px;
-	position:relative;
 }
+
+.measure-wind-more {
+	text-align:center;
+	font-size:20px;
+	line-height:30px;
+}
+
+.measure-now {
+	font-size:35px;
+}
+
+.measure-now-limits {
+	font-size:20px;
+}
+
+p.measure-rain {
+	font-size:25px;
+}
+
 
 /**********BASE CONFIGURATIONS**********/   
 body {
@@ -103,14 +114,9 @@ h5 {
 	height:246px;
 	overflow:hidden;
 	padding:1px;
-}
-
-.dash-unit:hover {
-	background-color:   #4f4f4f;
 	-moz-box-shadow:    3px 3px 2px 0px #151515;
     -webkit-box-shadow: 3px 3px 2px 0px #151515;
     box-shadow:         3px 3px 2px 0px #151515;
-
 }
 
 .dash-unit dtitle {
@@ -171,7 +177,6 @@ h5 {
 
 
 .dash-unit p {
-	font-size: 14px;
 	font-weight: 200;
 	line-height: 16px;
 	color: inherit;
@@ -206,10 +211,6 @@ h5 {
 	color:white;
 	height:118px;
 	overflow:hidden;
-}
-
-.half-unit:hover {
-	background-color: #4f4f4f;
 	-moz-box-shadow:    3px 3px 2px 0px #151515;
     -webkit-box-shadow: 3px 3px 2px 0px #151515;
     box-shadow:         3px 3px 2px 0px #151515;
@@ -288,7 +289,6 @@ h5 {
 }
 
 .cont2 bold{
-	font-size:10px;
 	font-weight:bold;
 	color:#b2c831
 }
@@ -612,17 +612,23 @@ time {
 
 /********** CUSTOMIZED BUTTON **********/
 #btn-10day {
-	height:70px;
+	height:90px;
 	margin-left:auto;
-	width:150px;
-	background-color:#55bf3b;
+	width:180px;
+	background-color:#44b5df;
 }
 
 #btn-hourly {
 	height:70px;
 	margin-left:auto;
 	width:150px;
-	background-color:#44b5df;
+	background-color:#55bf3b;
+}
+
+#btn-reset {
+	background-color:#3d3d3d;
+	border-color:#5cb85c;
+	color:#b2c831;
 }
 
 /********** SWITCH BUTTON **********/

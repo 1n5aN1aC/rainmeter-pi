@@ -75,7 +75,7 @@
 	      		<dtitle>Time And Date</dtitle>
 	      		<hr>
 		      		<div class="clockcenter">
-						<date class="measure-secondary">Jan 1</date></br>
+						<date>Jan 1</date></br>
 			      		<time>12:00</time>
 		      		</div>
 			</div>
@@ -85,8 +85,8 @@
 	      		<dtitle>Today</dtitle>
 	      		<hr>
 	      		<div class="cont">
-					<p><img src="https://icons.wxug.com/i/c/v4/mostlycloudy.svg" height="40" width="40"> <bold>43 °F</bold></p>
-					<p><img src="img/up-small.png" alt=""> 89° | <img src="img/down-small.png" alt=""> 54°</p>
+					<p class="measure-now"><img src="https://icons.wxug.com/i/c/v4/mostlycloudy.svg" height="50" width="50"> <bold>43 °F</bold></p>
+					<p class="measure-now-limits"><img src="img/up-small.png" alt=""> 89° | <img src="img/down-small.png" alt=""> 54°</p>
 				</div>
 			</div>
 
@@ -124,8 +124,9 @@
 		  		<dtitle>Wind Speed</dtitle>
 		  		<hr>
 	        	<div id="speed"></div>
-				<p id="wind-more">Avg: 54</br>
-				Max: 116</p>
+				</br></br>
+				<p class="measure measure-secondary measure-wind-more">Avg: 31</p>
+				<p class="measure measure-secondary measure-wind-more">Max: 51</p>
 			</div>
         </div>
 
@@ -135,11 +136,11 @@
 	      		<dtitle>Rainfall</dtitle>
 	      		<hr>
 	      		<div id="raingroup" class="cont">
-					<p><ok>Reset</ok> | <bold>27.36</bold></p>
-					<br>
-					<p>24 hours | <bold>3.82</bold></p>
-					<br>
-					<p><bad>midnight</bad> | <bold>1.64</bold></p>
+					<p class="measure-rain">24 hours | <bold>3.82</bold></p>
+					</br>
+					<p class="measure-rain"><bad>midnight</bad> | <bold>1.64</bold></p>
+					</br>
+					<p class="measure-rain"><button id="btn-reset" type="button" class="btn btn-lg btn-success-outline">Reset</button> | <measure>27.36</bold></p>
 				</div>
 			</div>
         </div>
@@ -150,11 +151,11 @@
 	      		<dtitle>Buttons</dtitle>
 	      		<hr></br>
 				<div class="text-center">
-					<button id="btn-10day" type="button" class="btn btn-lg btn-success" onMouseDown="return attemptFullscreen()">Fullscreen</button>
+					<button id="btn-hourly" type="button" class="btn btn-lg btn-success" onMouseDown="return attemptFullscreen()">Fullscreen</button>
 				</div>
 				</br>
 				<div class="text-center">
-					<button id="btn-hourly" type="button" class="btn btn-lg btn-info">Forecast</button>
+					<button id="btn-10day" type="button" class="btn btn-lg btn-info">Forecast</button>
 				</div>
 			</div>
 		</div>
