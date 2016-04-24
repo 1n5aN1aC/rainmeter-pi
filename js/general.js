@@ -73,13 +73,11 @@ function defineBandwidth() {
 		
 		// the value axis
         yAxis: {
-            stops: [
-                [5, '#55BF3B'], // green
-                [20, '#DDDF0D'], // yellow
-                [50, '#DF5353'] // red
-            ],
 			min: 0,
-            max: 200,
+            max: 60,
+			minColor: "#B2C831",
+			maxColor: "#FA1D2D",
+			tickInterval: 60,
             lineWidth: 0,
             minorTickInterval: null,
             tickPixelInterval: 400,
@@ -102,7 +100,7 @@ function defineBandwidth() {
 		
 		series: [{
 			name: 'Speed',
-            data: [83],
+            data: [21],
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:38px;color:' +
                     ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white') + '">{y}</span><br/>' +
