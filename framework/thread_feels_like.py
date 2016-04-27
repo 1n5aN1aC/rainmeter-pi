@@ -21,7 +21,7 @@ class thread_feels_like(Stoppable_Thread.Stoppable_Thread):
 		parsed_json = weather.fetchWeather('conditions')
 		weather.closeURL()
 		
-		NOW_URL = parsed_json['current_observation']['icon_url']
+		NOW_URL = "https://icons.wxug.com/i/c/v4/" + parsed_json['current_observation']['icon'] + ".svg"
 		NOW_Feel = float(parsed_json['current_observation']['feelslike_f'])
 		
 		now = Now.get(1)
