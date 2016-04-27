@@ -44,8 +44,8 @@
 				<dtitle>Outside Temperature</dtitle>
 				<hr>
 	      		<div class="cont">
-					<p class="measure"><bold>93.1 °F</bold></p>
-					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> 14%</p>
+					<p class="measure"><bold><value id="OUT_Temp">99.9</value> °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> <value id="OUT_Humid">99</value>%</p>
 	      		</div>
 			</div>
 
@@ -54,8 +54,8 @@
 				<dtitle>Inside Temperature</dtitle>
 				<hr>
 	      		<div class="cont">
-					<p class="measure"><bold>75.2 °F</bold></p>
-					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> 30%</p>
+					<p class="measure"><bold><value id="IN_Temp">99.9</value> °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> <value id="IN_Humid">99</value>%</p>
 	      		</div>
 			</div>
 		</div>
@@ -75,8 +75,8 @@
 	      		<dtitle>Time And Date</dtitle>
 	      		<hr>
 		      		<div class="clockcenter">
-						<date>Jan 1</date></br>
-			      		<time>12:00</time>
+						<date id="date">Jan 99</date></br>
+			      		<time id="time">99:99</time>
 		      		</div>
 			</div>
 
@@ -85,8 +85,8 @@
 	      		<dtitle>Today</dtitle>
 	      		<hr>
 	      		<div class="cont">
-					<p class="measure-now"><img src="https://icons.wxug.com/i/c/v4/mostlycloudy.svg" height="50" width="50"> <bold>43 °F</bold></p>
-					<p class="measure-now-limits"><img src="img/up-small.png" alt=""> 89° | <img src="img/down-small.png" alt=""> 54°</p>
+					<p class="measure-now"><img id="NOW_URL" src="https://icons.wxug.com/i/c/v4/mostlycloudy.svg" height="50" width="50"> <bold><value id="NOW_Feel">99</value> °F</bold></p>
+					<p class="measure-now-limits"><img src="img/up-small.png" alt=""> <value id="TODAY_High">99</value>° | <img src="img/down-small.png" alt=""> <value id="TODAY_Low">99</value>°</p>
 				</div>
 			</div>
 
@@ -102,8 +102,8 @@
 	      		<dtitle>Attic Temperature</dtitle>
 	      		<hr>
 	      		<div class="cont">
-					<p class="measure"><bold>145.0 °F</bold></p>
-					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> 28%</p>
+					<p class="measure"><bold><value id="ATTIC_Temp">145.0</value> °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> <value id="ATTIC_Humid">28</value>%</p>
 	      		</div>
       		</div>
 
@@ -112,8 +112,8 @@
 				<dtitle>Future stuff goes here</dtitle>
 				<hr>
 	      		<div class="cont">
-					<p class="measure"><bold>0 °F</bold></p>
-					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> 0%</p>
+					<p class="measure"><bold>99.9 °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> 99%</p>
 	      		</div>
 			</div>
       	</div>
@@ -125,8 +125,8 @@
 		  		<hr>
 	        	<div id="speed"></div>
 				</br></br>
-				<p class="measure measure-secondary measure-wind-more">Avg: 31</p>
-				<p class="measure measure-secondary measure-wind-more">Max: 51</p>
+				<p class="measure measure-secondary measure-wind-more">Avg: 99</p>
+				<p class="measure measure-secondary measure-wind-more">Max: 99</p>
 			</div>
         </div>
 
@@ -136,11 +136,11 @@
 	      		<dtitle>Rainfall</dtitle>
 	      		<hr>
 	      		<div id="raingroup" class="cont">
-					<p class="measure-rain">24 hours | <bold>3.82</bold></p>
+					<p class="measure-rain">24 hours | <bold><value id="OUT_Rain_Last_24h">9.99</value></bold></p>
 					</br>
-					<p class="measure-rain"><bad>midnight</bad> | <bold>1.64</bold></p>
+					<p class="measure-rain"><bad>midnight</bad> | <bold><value id="OUT_Rain_Today">9.99</value></bold></p>
 					</br>
-					<p class="measure-rain"><button id="btn-reset" type="button" class="btn btn-lg btn-success-outline">Reset</button> | <measure>27.36</bold></p>
+					<p class="measure-rain"><button id="btn-reset" type="button" class="btn btn-lg btn-success-outline">Reset</button> | <measure><value id="OUT_Rain_Since_Reset">99.99</value></bold></p>
 				</div>
 			</div>
         </div>
