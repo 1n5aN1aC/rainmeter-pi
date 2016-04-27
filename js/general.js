@@ -14,9 +14,11 @@ $(document).ready(function() {
 	
 	
 	// Update the clock every 10 seconds
-	setInterval(function(){updateTime()}, 10000);
-	// Set up a permanent call to getTheJSON() every X seconds.
-	window.setInterval(function(){  getTheJSON() }, 2000);
+	setInterval(function(){ updateTime() }, 10000);
+	// Call to getTheJSON() every 2 seconds.
+	setInterval(function(){ getTheJSON() }, 2000);
+	//Update the radar every 15 minutes.
+	setInterval(function(){ update_radar() }, 900000);
 });
 
 // Updates the Time & Date
@@ -73,35 +75,35 @@ function getTheJSON() {
 // the result of the json, after checking for several special cases.
 function update(data) {
 	$.each(data, function(k, v) {
-		var theSpan = $('#' + k);
+		var valueElement = $('#' + k);
 		//Rain-related ones need to be rounded to two decimal points.
-		if (theSpan.attr('id') && theSpan.attr('id').indexOf("Rain") >= 0) {
+		if (valueElement.attr('id') && valueElement.attr('id').indexOf("Rain") >= 0) {
 			newVal = v.toFixed(2)
-			theSpan.html(newVal)
+			valueElement.html(newVal)
 		}
 		//Humidity Sensors really only need the whole number.
-		else if (theSpan.attr('id') && theSpan.attr('id').indexOf("Humid") >= 0) {
-			theSpan.html( Math.round(v) )
+		else if (valueElement.attr('id') && valueElement.attr('id').indexOf("Humid") >= 0) {
+			valueElement.html( Math.round(v) )
 		}
 		//SYSTEM ones are jquery UI Progress bars.
-		else if (theSpan.attr('id') && theSpan.attr('id').indexOf("SYSTEM") >= 0) {
-			theSpan.progressbar({
+		else if (valueElement.attr('id') && valueElement.attr('id').indexOf("SYSTEM") >= 0) {
+			valueElement.progressbar({
 				value: v
 			});
 		}
 		//For the 'feels like' we only round to whole number
-		else if (theSpan.attr('id') && theSpan.attr('id').indexOf("Feel") >= 0) {
-			theSpan.html( Math.round(v) )
+		else if (valueElement.attr('id') && valueElement.attr('id').indexOf("Feel") >= 0) {
+			valueElement.html( Math.round(v) )
 		}
 		//Images we update the src= instead
-		else if (theSpan.is("img")) {
-			theSpan.attr("src", v);
+		else if (valueElement.is("img")) {
+			valueElement.attr("src", v);
 		}
 		//Everything else gets rounded to one decimal point.
 		//We also make sure there are a decimal point, even when something is causing there to not be.
 		else {
 			number = v.toFixed(1)
-			theSpan.html(number)
+			valueElement.html(number)
 		}
 	});
 	
@@ -109,6 +111,11 @@ function update(data) {
 	minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
 	hours = (date.getHours() > 12) ? date.getHours() - 12 : date.getHours();
 	hours = ( hours == 0 ) ? 12 : hours;
+}
+
+function update_radar() {
+	var newImage = $('#Radar_Img');
+	newImage.src = "http://api.wunderground.com/api/e8b292334779aa96/animatedradar/image.gif?centerlat=44.9&centerlon=-123.3&radius=45&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=50&width=481&height=242#" + new Date().getTime();
 }
 
 // Handles when the user clicks the button to reset the rainfall.

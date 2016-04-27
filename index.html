@@ -64,7 +64,7 @@
         <div class="col-sm-3 col-lg-3" id="radar-area">
       		<div class="dash-unit">
 				<div class="section-image">
-					<img src="http://api.wunderground.com/api/e8b292334779aa96/animatedradar/image.gif?centerlat=44.9&centerlon=-123.3&radius=45&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=50&width=481&height=242"/>
+					<img id="Radar_Img" src="http://api.wunderground.com/api/e8b292334779aa96/animatedradar/image.gif?centerlat=44.9&centerlon=-123.3&radius=45&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=50&width=481&height=242"/>
 				</div>
 			</div>
         </div>
@@ -125,8 +125,8 @@
 		  		<hr>
 	        	<div id="speed"></div>
 				</br></br>
-				<p class="measure measure-secondary measure-wind-more">Avg: 99</p>
-				<p class="measure measure-secondary measure-wind-more">Max: 99</p>
+				<p class="measure measure-secondary measure-wind-more">Avg: <value id="OUT_Wind_Avg">99</value></p>
+				<p class="measure measure-secondary measure-wind-more">Max: <value id="OUT_Wind_Max">99</value></p>
 			</div>
         </div>
 
