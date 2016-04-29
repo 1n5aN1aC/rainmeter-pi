@@ -23,7 +23,6 @@ class thread_sensors(Stoppable_Thread.Stoppable_Thread):
         sensor_threads = []
         sensor_threads.append( update_inside() )
         sensor_threads.append( update_attic() )
-        sensor_threads.append( update_outside() )
         sensor_threads.append( update_serial() )
         sensor_threads.append( update_system() )
         
@@ -96,17 +95,6 @@ class update_attic(Stoppable_Thread.Stoppable_Thread):
                 temperature = temperature * 9/5.0 + 32 + 1
             
             update_sensors.save_attic_reading(temperature, humidity)
-            time.sleep(settings.how_often_to_check_temp)
-
-# Thread for updating the outside T/H sensor
-class update_outside(Stoppable_Thread.Stoppable_Thread):
-    def run(self):
-        while self.RUN:
-            humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.AM2302, 21, retries=3, delay_seconds=1)
-            if temperature and settings.fahrenheit:
-                temperature = temperature * 9/5.0 + 32
-            
-            update_sensors.save_outside_reading(temperature, humidity)
             time.sleep(settings.how_often_to_check_temp)
 
 # Thread for updating the system statistics
