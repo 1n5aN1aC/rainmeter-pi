@@ -114,8 +114,12 @@ function update(data) {
 }
 
 function update_radar() {
-	var newImage = $('#Radar_Img');
-	newImage.src = "http://api.wunderground.com/api/e8b292334779aa96/animatedradar/image.gif?centerlat=44.9&centerlon=-123.3&radius=45&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=50&width=481&height=242#" + new Date().getTime();
+	$("#Radar_Holder").html("Reloading...");
+	setTimeout(function(){ really_update_radar() }, 1000);
+}
+
+function really_update_radar() {
+	$("#Radar_Holder").html("<img id='Radar_Img' src='http://api.wunderground.com/api/e8b292334779aa96/animatedradar/image.gif?centerlat=44.9&centerlon=-123.3&radius=45&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=50&width=481&height=242#" + new Date().getTime() + "'/>");
 }
 
 // Handles when the user clicks the button to reset the rainfall.
