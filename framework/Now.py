@@ -20,6 +20,7 @@ class Table_Now():
     In_Humid = 0
     Out_Humid = 0
     Attic_Humid = 0
+    Out_Wind_Now = 0
     Out_Wind_Avg = 0
     Out_Wind_Max = 0
     Out_Rain_Today = 0
@@ -29,3 +30,5 @@ class Table_Now():
     System_RAM = 0
     Now_URL = "error"
     Now_Feel = 0
+    NOW_Feel_Low = 0
+    Now_Feel_High = 0

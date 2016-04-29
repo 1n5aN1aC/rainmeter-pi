@@ -15,6 +15,7 @@ def get_json():
     data["IN_Humid"] = now.In_Humid
     data["OUT_Temp"] = now.Out_Temp
     data["OUT_Humid"] = now.Out_Humid
+    data["Out_Wind_Now"] = now.Out_Wind_Now
     data["OUT_Wind_Avg"] = now.Out_Wind_Avg
     data["OUT_Wind_Max"] = now.Out_Wind_Max
     data["OUT_Rain_Today"] = now.Out_Rain_Today
@@ -24,6 +25,8 @@ def get_json():
     data["ATTIC_Humid"] = now.Attic_Humid
     data["NOW_URL"] = now.Now_URL
     data["NOW_Feel"] = now.Now_Feel
+    data["NOW_Feel_High"] = now.Now_Feel_High
+    data["NOW_Feel_Low"] = now.NOW_Feel_Low
     data["SYSTEM_CPU"] = now.System_CPU
     data["SYSTEM_RAM"] = now.System_RAM
     

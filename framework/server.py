@@ -23,7 +23,7 @@ class Server_Listener(Stoppable_Thread.Stoppable_Thread):
             while True:
                 msg = conn.recv()
                 now = Now.get()
-                #Do we need to reset the current rainfall?
+                #Do we just need to reset the current rainfall?
                 if msg == "reset_rain":
                     now.Out_Rain_Since_Reset = 0
                 conn.send(now)
