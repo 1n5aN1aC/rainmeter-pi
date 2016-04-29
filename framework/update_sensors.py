@@ -1,7 +1,7 @@
 #!python
 import collections, logging, datetime
 
-import Now
+from framework import Now
 
 import database
 import settings
@@ -21,8 +21,7 @@ OUT_Temp_Q =  {"Q":collections.deque(maxlen=settings.Temp_Average_Length),  "Fai
 OUT_Humid_Q = {"Q":collections.deque(maxlen=settings.Humid_Average_Length), "Fails":0, "Name":'OUT_Humid'}
 ATT_Temp_Q =  {"Q":collections.deque(maxlen=settings.Temp_Average_Length),  "Fails":0, "Name":'ATT_Temp'}
 ATT_Humid_Q = {"Q":collections.deque(maxlen=settings.Humid_Average_Length), "Fails":0, "Name":'ATT_Humid'}
-Wind_Avg_Q =  {"Q":collections.deque(maxlen=settings.Wind_Average_Length),  "Fails":0, "Name":'Wind_Avg'}
-Wind_Max_Q =  {"Q":collections.deque(maxlen=settings.Wind_Max_Length),      "Fails":0, "Name":'Wind_Max'}
+Wind_Q =      {"Q":collections.deque(maxlen=settings.Wind_Average_Length),  "Fails":0, "Name":'Wind'}
 
 #
 # This Handles saving the data when the rain gauge tips.
@@ -32,25 +31,25 @@ def trigger_sensor_rain():
     now = database.Table_Rain(quantity=settings.rainTipAmount, time=datetime.datetime.now())
     
     #Now update the now table
-    now = Now.get(1)
+    now = Now.get()
     now.Out_Rain_Since_Reset = now.Out_Rain_Since_Reset + settings.rainTipAmount
     logging.getLogger("thread-rain").info(" rain bucket tipped.")
 
-#
+# 
 def save_wind_reading(wind_speed):
-    add_reading_to_dequeue(Wind_Avg_Q, wind_speed)
-    add_reading_to_dequeue(Wind_Max_Q, wind_speed)
+    add_reading_to_dequeue(Wind_Q, wind_speed)
     
-    now = Now.get(1)
-    now.Out_Wind_Avg = sum(Wind_Avg_Q['Q']) / float(len(Wind_Avg_Q['Q']))
-    now.Out_Wind_Max = max(Wind_Max_Q['Q'])
+    now = Now.get()
+    now.Out_Wind_Now = wind_speed
+    now.Out_Wind_Avg = sum(Wind_Q['Q']) / float(len(Wind_Q['Q']))
+    now.Out_Wind_Max = max(Wind_Q['Q'])
 
 # 
 def save_inside_reading(temp, humid):
     add_reading_to_dequeue(IN_Temp_Q, temp)
     add_reading_to_dequeue(IN_Humid_Q, humid)
     
-    now = Now.get(1)
+    now = Now.get()
     now.In_Temp = sum(IN_Temp_Q['Q']) / float(len(IN_Temp_Q['Q']))
     now.In_Humid = sum(IN_Humid_Q['Q']) / float(len(IN_Humid_Q['Q']))
     
@@ -61,7 +60,7 @@ def save_attic_reading(temp, humid):
     add_reading_to_dequeue(ATT_Temp_Q, temp)
     add_reading_to_dequeue(ATT_Humid_Q, humid)
     
-    now = Now.get(1)
+    now = Now.get()
     now.Attic_Temp = sum(ATT_Temp_Q['Q']) / float(len(ATT_Temp_Q['Q']))
     now.Attic_Humid = sum(ATT_Humid_Q['Q']) / float(len(ATT_Humid_Q['Q']))
     
@@ -81,7 +80,7 @@ def save_outside_reading(temp, humid):
 
 # 
 def save_system_reading(cpu, ram):
-    now = Now.get(1)
+    now = Now.get()
     now.System_CPU = cpu
     now.System_RAM = ram
     

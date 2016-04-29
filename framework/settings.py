@@ -73,9 +73,10 @@ how_many_days_of_rain_data_to_keep = 7
 # to get the 'current' value.  This prevents stutter and bad readings.
 Temp_Average_Length = 10
 Humid_Average_Length = 15
-Wind_Average_Length = 2
 
-Wind_Max_Length = 60
+# The wind sensor is a bit different.
+# How many reading do we consider for avg / max?
+Wind_Average_Length = 60
 
 # This defines how many consecutive readings of a sensor must fail
 # before the sensor actually displays an error.
