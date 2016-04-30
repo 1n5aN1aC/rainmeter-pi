@@ -95,6 +95,10 @@ function update(data) {
 		else if (valueElement.attr('id') && valueElement.attr('id').indexOf("Feel") >= 0) {
 			valueElement.html( Math.round(v) )
 		}
+		//For wind speed, we need to update the highcharts data point
+		else if (k.indexOf("Wind_Now") >= 0) {
+			$("#speed").highcharts().series[0].addPoint(v, true, true);
+		}
 		//Images we update the src= instead
 		else if (valueElement.is("img")) {
 			valueElement.attr("src", v);
