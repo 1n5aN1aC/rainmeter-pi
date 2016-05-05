@@ -15,6 +15,8 @@ TODO
 
 ## Materials
 
+EDIT:  Out of date, new list coming soon...
+
 Raspbery Pi Zero [(<$10)](http://swag.raspberrypi.org/products/pi-zero-kit)
 
 DHT11 Temp & Humidity Sensor [($5)](https://www.adafruit.com/products/386)
@@ -31,20 +33,24 @@ MCP3008 Analog Digital Converter Chip [($3.75)](https://www.adafruit.com/product
 
 TODO
 
+### Raspbian
+
+If you have Linux experience, I reccomend using the ['Lite' Version](https://www.raspberrypi.org/downloads/raspbian/) of Rasbian.  It has none of the default bloat installed, and does not even have a GUI unless you install one.
+
+If you wish to go this route, there is [a tool](https://andrewvaughan.io/raspbian-i-love-you-but-youre-fat/) which can help you easily customize what to install.
+
+After burning, make sure you do ```sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade``` if needed.  [(Detailed Instructions)](https://www.raspberrypi.org/documentation/raspbian/updating.md)
+
 ### Installing Dependencies
 Make sure you have the latest version of raspbery pi firmware:
 
-```sudo apt-get update && sudo apt-get upgrade``` [(Detailed Instructions)](https://www.raspberrypi.org/documentation/raspbian/updating.md)
+```sudo apt-get install rpi-update && sudo rpi-update``` [(Detailed Instructions)](https://github.com/Hexxeh/rpi-update)
 
-Next, enable SPI support on your pi:
+Make sure you have all the python and webserver dependencies:
 
-```sudo raspi-config -> Advanced Options -> SPI``` [(Detailed Instructions)](http://www.raspberrypi-spy.co.uk/2014/08/enabling-the-spi-interface-on-the-raspberry-pi/)
+```sudo apt-get install build-essential python-dev python-mysqldb apache2 mysql-server htop```
 
-Make sure you have all the python dependencies:
-
-```sudo apt-get install build-essential python-dev```
-
-```pip install sqlobject pytz```
+```pip install sqlobject pytz psutil```
 
 Install the DHTXX Sensor library:
 
@@ -58,7 +64,7 @@ TODO
 
 I used apache, so if you want to use a different webserver, such as nginx, sorry, but your on your own.
 
-There are two options available:  the 'simple' way, which is much slower, or wsgi, which runs very fast.
+There used to be two options available, but it was a mess, so I only support wsgi now, which runs very fast.
 
 WSGIPythonPath "/var/www/html/"
 WSGIScriptAlias /status "/var/www/html/framework/http_status.wsgi"
