@@ -50,7 +50,7 @@ class update_serial(Stoppable_Thread.Stoppable_Thread):
             line = ser.readline(),
             if "RAIN" in line[0]:
                 update_sensors.trigger_sensor_rain()
-            if "OUT" in line[0]:
+            elif "OUT" in line[0]:
                 try:
                     list = line[0].split(":")
                     temp  = float(list[1])
@@ -59,7 +59,7 @@ class update_serial(Stoppable_Thread.Stoppable_Thread):
                     logging.getLogger("sensor").debug(" Updated outside sensor data.")
                 except Exception:
                     logging.getLogger("serial").warning(" got malformed serial temperature info!")
-            if "bat" in line[0]:
+            elif "bat" in line[0]:
                 try:
                     list = line[0].split(":")
                     number = float(list[1]) / 1000
@@ -79,7 +79,7 @@ class update_serial(Stoppable_Thread.Stoppable_Thread):
 class update_inside(Stoppable_Thread.Stoppable_Thread):
     def run(self):
         while self.RUN:
-            humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, 19, retries=3, delay_seconds=1)
+            humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.AM2302, 19, retries=3, delay_seconds=1)
             if temperature and settings.fahrenheit:
                 temperature = temperature * 9/5.0 + 32
             
@@ -90,7 +90,7 @@ class update_inside(Stoppable_Thread.Stoppable_Thread):
 class update_attic(Stoppable_Thread.Stoppable_Thread):
     def run(self):
         while self.RUN:
-            humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, 20, retries=3, delay_seconds=1)
+            humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.AM2302, 20, retries=3, delay_seconds=1)
             if temperature and settings.fahrenheit:
                 temperature = temperature * 9/5.0 + 32 + 1
             
