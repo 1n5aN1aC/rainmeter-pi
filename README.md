@@ -48,7 +48,7 @@ Make sure you have the latest version of raspbery pi firmware:
 
 Make sure you have all the python and webserver dependencies:
 
-```sudo apt-get install build-essential python-dev python-mysqldb apache2 mysql-server htop```
+```sudo apt-get install build-essential python-dev python-mysqldb libapache2-mod-wsgi apache2 mysql-server htop```
 
 ```pip install sqlobject pytz psutil```
 

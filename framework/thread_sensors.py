@@ -42,7 +42,7 @@ class thread_sensors(Stoppable_Thread.Stoppable_Thread):
 # This is the wind sensor and the rain sensor
 class update_serial(Stoppable_Thread.Stoppable_Thread):
     def run(self):
-        ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=2)
+        ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=10)
         if (ser.isOpen() == False):
             ser.open()
         
