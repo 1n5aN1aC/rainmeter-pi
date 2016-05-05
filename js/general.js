@@ -143,6 +143,10 @@ function defineWindSpeed() {
 			margin: [0, 0, 0, 0],
 			backgroundColor: null,
 			plotBackgroundColor: 'none',
+			animation: {
+                duration: 900,
+				easing: "linear"
+            },
 		},
 		
 		title: null,
@@ -199,7 +203,8 @@ function defineWindSpeed() {
 			name: 'Speed',
             data: [99],
 			animation: {
-                duration: 900
+                duration: 900,
+				easing: "linear"
             },
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:38px;color:' +
