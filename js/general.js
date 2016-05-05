@@ -143,6 +143,9 @@ function defineWindSpeed() {
 			margin: [0, 0, 0, 0],
 			backgroundColor: null,
 			plotBackgroundColor: 'none',
+			animation: {
+                duration: 900
+            },
 		},
 		
 		title: null,
