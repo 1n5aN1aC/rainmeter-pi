@@ -143,9 +143,6 @@ function defineWindSpeed() {
 			margin: [0, 0, 0, 0],
 			backgroundColor: null,
 			plotBackgroundColor: 'none',
-			animation: {
-                duration: 900
-            },
 		},
 		
 		title: null,
@@ -201,6 +198,9 @@ function defineWindSpeed() {
 		series: [{
 			name: 'Speed',
             data: [99],
+			animation: {
+                duration: 900
+            },
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:38px;color:' +
                     ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white') + '">{y}</span><br/>' +
