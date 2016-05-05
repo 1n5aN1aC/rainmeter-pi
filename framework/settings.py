@@ -71,8 +71,8 @@ how_many_days_of_rain_data_to_keep = 7
 
 # These values control how many recent values are averaged together
 # to get the 'current' value.  This prevents stutter and bad readings.
-Temp_Average_Length = 10
-Humid_Average_Length = 15
+Temp_Average_Length = 5
+Humid_Average_Length = 10
 
 # The wind sensor is a bit different.
 # How many reading do we consider for avg / max?
