@@ -16,16 +16,13 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 	<script type="text/javascript" src="js/general.js"></script>
+	<script src="js/mqtt-api.js" type="text/javascript"></script>
+	<script src="js/mqtt.js" type="text/javascript"></script>
 	
 	<!-- HIGHCHARTS JAVASCRIPT -->
 	<script type="text/javascript" src="js/highcharts/highcharts.js"></script>
 	<script type="text/javascript" src="js/highcharts/highcharts-more.js"></script>
 	<script type="text/javascript" src="js/highcharts/solid-gauge.js"></script>
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
   	<!-- Google Fonts call. Font Used Open Sans & Raleway -->
 	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
@@ -44,8 +41,8 @@
 				<dtitle>Outside Temperature</dtitle>
 				<hr>
 	      		<div class="cont">
-					<p class="measure"><bold><value id="OUT_Temp">99.9</value> °F</bold></p>
-					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> <value id="OUT_Humid">99</value>%</p>
+					<p class="measure"><bold><value id="OUT_Temp">--.-</value> °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> <value id="OUT_Humid">--</value>%</p>
 	      		</div>
 			</div>
 
@@ -54,8 +51,8 @@
 				<dtitle>Inside Temperature</dtitle>
 				<hr>
 	      		<div class="cont">
-					<p class="measure"><bold><value id="IN_Temp">99.9</value> °F</bold></p>
-					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> <value id="IN_Humid">99</value>%</p>
+					<p class="measure"><bold><value id="IN_Temp">--.-</value> °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> <value id="IN_Humid">--</value>%</p>
 	      		</div>
 			</div>
 		</div>
@@ -64,7 +61,7 @@
         <div class="col-sm-3 col-lg-3" id="radar-area">
       		<div class="dash-unit">
 				<div id="Radar_Holder" class="section-image">
-					<img id="Radar_Img" src="http://api.wunderground.com/api/e8b292334779aa96/animatedradar/image.gif?centerlat=44.9&centerlon=-123.3&radius=45&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=50&width=481&height=242"/>
+					<img id="Radar_Img" src="http://api.wunderground.com/api/e8b292334779aa96/animatedradar/image.gif?centerlat=44.9&centerlon=-123.3&radius=40&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=50&width=481&height=242"/>
 				</div>
 			</div>
         </div>
@@ -75,8 +72,8 @@
 	      		<dtitle>Time And Date</dtitle>
 	      		<hr>
 		      		<div class="clockcenter">
-						<date id="date">Jan 99</date></br>
-			      		<time id="time">99:99</time>
+						<date id="date">Jan --</date></br>
+			      		<time id="time">--:--</time>
 		      		</div>
 			</div>
 
@@ -85,8 +82,8 @@
 	      		<dtitle>Today</dtitle>
 	      		<hr>
 	      		<div class="cont">
-					<p class="measure-now"><img id="NOW_URL" src="https://icons.wxug.com/i/c/v4/mostlycloudy.svg" height="50" width="50"> <bold><value id="NOW_Feel">99</value> °F</bold></p>
-					<p class="measure-now-limits"><img src="img/up-small.png" alt=""> <value id="NOW_Feel_High">99</value>° | <img src="img/down-small.png" alt=""> <value id="NOW_Feel_Low">99</value>°</p>
+					<p class="measure-now"><img id="NOW_URL" src="https://icons.wxug.com/i/c/v4/mostlycloudy.svg" height="50" width="50"> <bold><value id="NOW_Feel">--</value> °F</bold></p>
+					<p class="measure-now-limits"><img src="img/up-small.png" alt=""> <value id="NOW_Feel_High">--</value>° | <img src="img/down-small.png" alt=""> <value id="NOW_Feel_Low">--</value>°</p>
 				</div>
 			</div>
 
@@ -102,8 +99,8 @@
 	      		<dtitle>Attic Temperature</dtitle>
 	      		<hr>
 	      		<div class="cont">
-					<p class="measure"><bold><value id="ATTIC_Temp">145.0</value> °F</bold></p>
-					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> <value id="ATTIC_Humid">28</value>%</p>
+					<p class="measure"><bold><value id="ATTIC_Temp">---.-</value> °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> <value id="ATTIC_Humid">--</value>%</p>
 	      		</div>
       		</div>
 
@@ -112,8 +109,8 @@
 				<dtitle>Future stuff goes here</dtitle>
 				<hr>
 	      		<div class="cont">
-					<p class="measure"><bold>99.9 °F</bold></p>
-					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> 99%</p>
+					<p class="measure"><bold>--.- °F</bold></p>
+					<p class="measure measure-secondary"><img src="img/humidity.png" width="13px" height="15px" alt=""> --%</p>
 	      		</div>
 			</div>
       	</div>
@@ -123,10 +120,14 @@
       		<div class="dash-unit">
 		  		<dtitle>Wind Speed</dtitle>
 		  		<hr>
-	        	<div id="speed"></div>
 				</br></br>
-				<p class="measure measure-secondary measure-wind-more">Avg: <value id="OUT_Wind_Avg">99</value></p>
-				<p class="measure measure-secondary measure-wind-more">Max: <value id="OUT_Wind_Max">99</value></p>
+				<div class="cont">
+					<p class="measure"><bold><value id="OUT_Wind">--.-</value></bold></p>mph
+					</br></br></br>
+					<p class="measure measure-secondary measure-wind-more">1m Avg:  <value id="OUT_Wind_Avg">--</value></p>
+					<p class="measure measure-secondary measure-wind-more">1m Gust: <value id="OUT_Wind_Gust">--</value></p>
+					<p class="measure measure-secondary measure-wind-more">24h Max: <value id="OUT_Wind_Max">--</value></p>
+				</div>
 			</div>
         </div>
 
@@ -136,11 +137,11 @@
 	      		<dtitle>Rainfall</dtitle>
 	      		<hr>
 	      		<div id="raingroup" class="cont">
-					<p class="measure-rain">24 hours | <bold><value id="OUT_Rain_Last_24h">9.99</value></bold></p>
+					<p class="measure-rain">24 hours | <bold><value id="OUT_Rain_Last_24h">-.--</value></bold></p>
 					</br>
-					<p class="measure-rain"><bad>midnight</bad> | <bold><value id="OUT_Rain_Today">9.99</value></bold></p>
+					<p class="measure-rain"><bad>midnight</bad> | <bold><value id="OUT_Rain_Today">-.--</value></bold></p>
 					</br>
-					<p class="measure-rain"><button id="btn-reset" type="button" class="btn btn-lg btn-success-outline">Reset</button> | <measure><value id="OUT_Rain_Since_Reset">99.99</value></bold></p>
+					<p class="measure-rain"><button onclick="reset_rain()" id="btn-reset" type="button" class="btn btn-lg btn-success-outline">Reset</button> | <measure><value id="OUT_Rain_Since_Reset">--.--</value></bold></p>
 				</div>
 			</div>
         </div>
