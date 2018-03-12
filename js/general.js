@@ -102,11 +102,11 @@ function update(key, v) {
 	else if (key === "home/roof/weather/humid") {
 		$("#OUT_Humid").text(v)
 	}
-	//dining room
-	else if (key === "home/dining/weather/temp") {
+	//living room
+	else if (key === "home/living/micro/temp") {
 		$("#IN_Temp").text(v)
 	}
-	else if (key === "home/dining/weather/humid") {
+	else if (key === "home/living/micro/humid") {
 		$("#IN_Humid").text(v)
 	}
 	//attic
